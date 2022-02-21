@@ -1,11 +1,25 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  </nav> -->
+  <!-- <router-view/> -->
+  <div class="bg-green-400 h-screen">
+    <SimpleNavbar />
+  </div>
 </template>
 
+<script>
+/* eslint-disable */
+
+import SimpleNavbar from './components/SimpleNavbar.vue';
+
+export default {
+  components: {
+    SimpleNavbar,
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
