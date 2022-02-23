@@ -40,7 +40,7 @@
         px-10
         md:pb-0
         pb-10
-        lg:static
+        md:static
         bg-white
         md:w-auto
         w-full
