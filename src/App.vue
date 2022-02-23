@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen">
-    <SimpleNavbar />
-    <SimpleHome />
+    <SimpleNavbar class="z-20" />
+    <SimpleHome class="z-10" />
   </div>
 </template>
 

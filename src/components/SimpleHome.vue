@@ -8,7 +8,7 @@
     </section>
 
     <section id="introduce" class="min-h-screen bg-gray-100">
-
+        <ProfileCard class=""/>
     </section>
 
     <section id="school" class="min-h-screen">
@@ -28,8 +28,12 @@
 /* eslint-disable */
 
 import { reactive, toRefs } from 'vue'
+import ProfileCard from "@/components/ProfileCard.vue";
 
 export default {
+    components: {
+        ProfileCard
+    },
     setup () {
         const state = reactive({
             count: 0,
