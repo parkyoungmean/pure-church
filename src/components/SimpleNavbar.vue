@@ -47,7 +47,6 @@
         top-14
         duration-700
         ease-in
-        -z-100
       "
       :class="[open ? 'top-19' : 'top-[-100%]']"
     >
