@@ -93,7 +93,7 @@ export default {
       { id: 0, name: "홈", link: "#home" },
       { id: 1, name: "사역 소개", link: "#introduce" },
       { id: 2, name: "순전한 학교", link: "#school" },
-      { id: 3, name: "공지 및 후원", link: "#notice" },
+      { id: 3, name: "공지 및 후원", link: "#notices" },
       { id: 4, name: "기타", link: "#etc" },
     ];
 
