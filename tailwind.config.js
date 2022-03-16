@@ -148,6 +148,7 @@ module.exports = {
       lg: '0.5rem',
       xl: '0.75rem',
       '2xl': '1rem',
+      '2.5xl': '1.25rem',
       '3xl': '1.5rem',
       full: '9999px'
     },
@@ -157,6 +158,9 @@ module.exports = {
       2: '2px',
       4: '4px',
       8: '8px'
+    },
+    maxWidth: {
+      xxs : '15rem'
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',

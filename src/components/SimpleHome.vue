@@ -7,26 +7,59 @@
     <ProfileCard />
     <ServiceTeam />
   </section>
-  <!-- pure school introduction -->
+  <!-- pure school section -->
   <section id="school" class="grid place-items-center min-h-screen">
     <!-- Responsive Grid Layout -->
-    <div class="p-4 py-20 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4">
-      <h1 class="text-4xl font-extrabold xs:col-span-2 xs:grid xs:gap-4 xs:grid-cols-2 md:col-span-3 md:text-5xl md:grid-cols-3">
+    <div
+      class="
+        p-4
+        py-20
+        max-w-5xl
+        grid
+        gap-4
+        xs:grid-cols-2 xs:p-8
+        md:grid-cols-4
+      "
+    >
+      <h1
+        class="
+          text-4xl
+          font-extrabold
+          xs:pt-16 xs:col-span-2 xs:grid xs:gap-4 xs:grid-cols-2
+          md:col-span-3 md:text-5xl md:grid-cols-3
+        "
+      >
         <span class="md-span-2">순전한 학교</span>
       </h1>
-      <p class="xs:row-start-2 xs:col-start-2 xs:self-center md:col-start-1 md:col-span-2 md:pr-12 md:text-lg">
+      <p
+        class="
+          xs:row-start-2 xs:col-start-2 xs:self-center
+          md:col-start-1 md:col-span-2 md:pr-12 md:text-lg
+        "
+      >
         순전한 학교는 능력있는 중보기도, 치유학교, 복음학교, 사역자 학교, 친밀한
         학교의 커리큘럼으로 구성됩니다.
       </p>
-      <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
+      <PrimaryCard
+        v-for="(card, index) in schools"
+        :key="index"
+        :content="card"
+        :index="index"
+      />
+      <!-- <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
       <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
       <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div>
       <div class="h-16 bg-blue-500 xs:h-auto xs:square col-start-2"></div>
       <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div>
       <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
       <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div>
-      <p class="self-center md:text-lg md:col-span-2 md:text-center md:px-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tenetur temporibus nihil perspiciatis iure ducimus repellendus maiores. Beatae quia corrupti consequatur modi est, nam, voluptatum natus voluptatibus inventore minima sed.</p>
+      <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div> -->
+      <p class="self-center md:text-lg md:col-span-2 md:text-center md:px-4">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tenetur
+        temporibus nihil perspiciatis iure ducimus repellendus maiores. Beatae
+        quia corrupti consequatur modi est, nam, voluptatum natus voluptatibus
+        inventore minima sed.
+      </p>
     </div>
   </section>
   <!-- notices & donation -->
@@ -118,12 +151,23 @@ import { reactive, toRefs } from "vue";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
+import PrimaryCard from "@/components/PrimaryCard.vue";
+
+const schools = [
+  { title: "능력의 기도(BAP)학교" },
+  { title: "복음학교" },
+  { title: "사랑학교" },
+  { title: "사역자학교" },
+  { title: "치유(The Day)학교" },
+  { title: "친밀감(Kar)학교" },
+];
 
 export default {
   components: {
     ProfileCard,
     ServiceTeam,
     SimpleGallery,
+    PrimaryCard,
   },
   setup() {
     const state = reactive({
@@ -132,6 +176,7 @@ export default {
 
     return {
       ...toRefs(state),
+      schools,
     };
   },
 };
