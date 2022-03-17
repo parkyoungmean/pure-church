@@ -90,6 +90,7 @@
         </div>
         <!-- Tabs -->
         <div x-data="{ tab: 'notice' }" class="">
+          <!-- Tab Menu -->
           <div class="flex gap-x-8 items-center pt-12">
             <a
               href=""
@@ -120,9 +121,12 @@
               후원 안내
             </a>
           </div>
+          <!-- End of Tab Menu -->
           <div class="">
             <div x-show="tab === 'notice'" class="">
               <p>여기는 공지사항 탭입니다.</p>
+              <!-- SimpleList -->
+              <SimpleList />
             </div>
             <div x-show="tab === 'bbs'" class="">
               <p>여기는 자유게시판입니다.</p>
@@ -150,22 +154,24 @@
 import { reactive, toRefs } from "vue";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
+import SimpleList from "@/components/SimpleList.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
 import PrimaryCard from "@/components/PrimaryCard.vue";
 
 const schools = [
-  { title: "능력의 기도(BAP)학교" },
-  { title: "복음학교" },
-  { title: "사랑학교" },
-  { title: "사역자학교" },
-  { title: "치유(The Day)학교" },
-  { title: "친밀감(Kar)학교" },
+  { title: "능력의 기도(BAP)학교", img: "https://i.imgur.com/dPErD5s.jpg" },
+  { title: "복음학교", img: "https://i.imgur.com/UyimOMY.jpg" },
+  { title: "사랑학교", img: "https://i.imgur.com/XTEusLc.jpg" },
+  { title: "사역자학교", img: "https://i.imgur.com/LRbjgMF.jpg" },
+  { title: "치유(The Day)학교", img: "https://i.imgur.com/xUc8v0t.jpg" },
+  { title: "친밀감(Kar)학교", img: "https://i.imgur.com/C52zbsi.jpg" },
 ];
 
 export default {
   components: {
     ProfileCard,
     ServiceTeam,
+    SimpleList,
     SimpleGallery,
     PrimaryCard,
   },

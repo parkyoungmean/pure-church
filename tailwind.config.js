@@ -7,7 +7,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
-      xs: "540px",
+      xs: '540px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -27,7 +27,8 @@ module.exports = {
       blue: colors.blue,
       indigo: colors.indigo,
       purple: colors.violet,
-      pink: colors.pink
+      pink: colors.pink,
+      amber: '#FFBF00',
     },
     spacing: {
       px: '1px',
