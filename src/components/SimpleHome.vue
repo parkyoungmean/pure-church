@@ -3,66 +3,7 @@
 
   <section id="home" class="min-h-screen bg-blue-500">
     <!-- Carousel -->
-    <swiper
-      :modules="modules"
-      :slides-per-view="1"
-      :space-between="0"
-      :loop="true"
-      :autoplay="{
-        delay: 5000,
-        disableOnInteraction: false,
-      }"
-      :style="{
-        '--swiper-navigation-color': '#fff',
-        '--swiper-pagination-color': '#fff',
-      }"
-      effect="fade"
-      navigation
-      :parallax="true"
-      :speed="1200"
-      :pagination="{ clickable: true }"
-      :scrollbar="{ draggable: true }"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-      class="min-h-screen"
-    >
-      <swiper-slide>
-        <div class="title" data-swiper-parallax="-200">
-          온라인 치유학교 5기를 모집합니다. <br /><br />
-          <!-- 모든 이름 위에 뛰어난 그 이름 예수 <br /><br /> -->
-          <div class="subtitle">
-            일시: 2022년 3월 28일 ~ 2022년 5월 9일<br />신청마감: 3월 21일
-            월요일 오후 10시
-          </div>
-        </div>
-
-        <img
-          src="../assets/bg-1.jpg"
-          alt=""
-          class="object-center object-cover w-full lg:h-full min-h-screen"
-      /></swiper-slide>
-      <swiper-slide>
-        <div class="title" data-swiper-parallax="-200">
-          온라인 카르학교 3기를 모집합니다. <br /><br />
-          <!-- 모든 이름 위에 뛰어난 그 이름 예수 <br /><br /> -->
-          <div class="subtitle">
-            일시: 2022년 3월 28일 ~ 2022년 5월 9일<br />신청마감: 3월 21일
-            월요일 오후 10시
-          </div>
-        </div>
-
-        <img
-          src="../assets/bg-2.jpg"
-          alt=""
-          class="object-center object-cover w-full lg:h-full min-h-screen"
-      /></swiper-slide>
-      <swiper-slide
-        ><img
-          src="../assets/bg-3.jpg"
-          alt=""
-          class="object-center object-cover w-full lg:h-full min-h-screen"
-      /></swiper-slide>
-    </swiper>
+    <SimpleCarousel :slides="slides" />
   </section>
 
   <section id="introduce" class="min-h-screen bg-gray-100">
@@ -108,14 +49,6 @@
         :content="card"
         :index="index"
       />
-      <!-- <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-blue-500 xs:h-auto xs:square col-start-2"></div>
-      <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-blue-500 xs:h-auto xs:square"></div>
-      <div class="h-16 bg-pink-500 xs:h-auto xs:square"></div> -->
       <p class="self-center md:text-lg md:col-span-2 md:text-center md:px-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tenetur
         temporibus nihil perspiciatis iure ducimus repellendus maiores. Beatae
@@ -219,22 +152,7 @@ import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleList from "@/components/SimpleList.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
 import PrimaryCard from "@/components/PrimaryCard.vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-  EffectFade,
-  Parallax,
-} from "swiper";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import SimpleCarousel from "@/components/SimpleCarousel.vue";
 
 const schools = [
   { title: "능력의 기도(BAP)학교", img: "https://i.imgur.com/dPErD5s.jpg" },
@@ -252,36 +170,41 @@ export default {
     SimpleList,
     SimpleGallery,
     PrimaryCard,
-    Swiper,
-    SwiperSlide,
+    SimpleCarousel,
   },
   setup() {
     const state = reactive({
       count: 0,
     });
 
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
+    let slides = [
+      {
+        id: 0,
+        title: "온라인 치유학교 5기를 모집합니다.",
+        subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
+        description: "신청마감: 3월 21일 월요일 오후 10시",
+        src: "bg-1",
+      },
+      {
+        id: 1,
+        title: "온라인 카르학교 3기를 모집합니다.",
+        subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
+        description: "신청마감: 3월 21일 월요일 오후 10시",
+        src: "bg-2",
+      },
+      {
+        id: 2,
+        title: "",
+        subtitle: "",
+        description: "",
+        src: "bg-3",
+      },
+    ];
 
     return {
       ...toRefs(state),
       schools,
-      onSwiper,
-      onSlideChange,
-      modules: [
-        Navigation,
-        Pagination,
-        Scrollbar,
-        A11y,
-        Autoplay,
-        EffectFade,
-        Parallax,
-      ],
+      slides,
     };
   },
 };
@@ -291,48 +214,5 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Comforter&family=Noto+Sans+KR:wght@700&family=Roboto:wght@700&display=swap");
 #home {
   font-family: "Roboto", "Noto Sans KR", sans-serif;
-}
-.title {
-  font-size: 45px;
-  position: absolute;
-  z-index: 1;
-  top: 30%;
-  left: 10%;
-  color: white;
-  .subtitle {
-    font-size: 25px;
-    position: absolute;
-    color: white;
-  }
-}
-@media (max-width: 768px) {
-  .title {
-    font-size: 35px;
-    position: absolute;
-    z-index: 1;
-    /* top: 30%; */
-    left: 10%;
-    color: white;
-    .subtitle {
-      font-size: 20px;
-      position: absolute;
-      color: white;
-    }
-  }
-}
-@media (max-width: 540px) {
-  .title {
-    font-size: 25px;
-    position: absolute;
-    z-index: 1;
-    /* top: 30%; */
-    left: 10%;
-    color: white;
-    .subtitle {
-      font-size: 15px;
-      position: absolute;
-      color: white;
-    }
-  }
 }
 </style>
