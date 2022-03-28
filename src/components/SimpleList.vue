@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="container py-4 max-w-5xl mx-auto">
     <div
       class="
         w-full

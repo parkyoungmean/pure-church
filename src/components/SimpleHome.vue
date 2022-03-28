@@ -124,7 +124,10 @@
               <SimpleList />
             </div>
             <div x-show="tab === 'bbs'" class="">
-              <p>여기는 자유게시판입니다.</p>
+              <p class="text-cw-grey-900">여기는 자유게시판입니다.</p>
+              <!-- Blogs -->
+              <SimplePosts :posts="posts" />
+              <!-- End of Blogs -->
             </div>
             <div x-show="tab === 'gallery'" class="">
               <p>여기는 활동사진입니다.</p>
@@ -150,6 +153,7 @@ import { reactive, toRefs } from "vue";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleList from "@/components/SimpleList.vue";
+import SimplePosts from "@/components/SimplePosts.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
 import PrimaryCard from "@/components/PrimaryCard.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
@@ -168,6 +172,7 @@ export default {
     ProfileCard,
     ServiceTeam,
     SimpleList,
+    SimplePosts,
     SimpleGallery,
     PrimaryCard,
     SimpleCarousel,
@@ -176,7 +181,7 @@ export default {
     const state = reactive({
       count: 0,
     });
-
+    /* slides for home */
     let slides = [
       {
         id: 0,
@@ -201,10 +206,123 @@ export default {
       },
     ];
 
+    /* posts for bbs */
+    let posts = [
+      {
+        id: 0,
+        title: "예배 준비중",
+        img: "https://i.imgur.com/dPErD5s.jpg",
+        author: "",
+        tag: "치유학교",
+        content: "예배를 준비하고 있습니다.",
+        link: "#home",
+      },
+      {
+        id: 1,
+        title: "두번째 글",
+        img: "https://i.imgur.com/UyimOMY.jpg",
+        author: "",
+        tag: "복음학교",
+        content: "예배에 집중하는 학생들입니다.",
+        link: "#prayer",
+      },
+      {
+        id: 2,
+        title: "세번째 글",
+        img: "https://i.imgur.com/XTEusLc.jpg",
+        author: "",
+        tag: "사역자학교",
+        content: "예배에 집중하는 학생들입니다.",
+        link: "#kar",
+      },
+      {
+        id: 3,
+        title: "네번째 글",
+        img: "https://i.imgur.com/LRbjgMF.jpg",
+        author: "",
+        tag: "치유학교",
+        content: "예배에 집중하는 학생들입니다.",
+        link: "#kar",
+      },
+      {
+        id: 4,
+        title: "다섯번째 글",
+        img: "https://i.imgur.com/xUc8v0t.jpg",
+        author: "",
+        tag: "능력의 기도학교",
+        content: "예배에 집중하는 학생들입니다.",
+        link: "#kar",
+      },
+      {
+        id: 5,
+        title: "여섯번째 글",
+        img: "https://i.imgur.com/C52zbsi.jpg",
+        author: "",
+        tag: "사랑학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 6,
+        title: "일곱번째 글",
+        img: "https://i.imgur.com/HNjHFGe.jpg",
+        author: "",
+        tag: "복음학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 7,
+        title: "여덟번째 글입니다.",
+        img: "https://i.imgur.com/o9JMHBx.jpg",
+        author: "",
+        tag: "예배학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 8,
+        title: "아홉번째 글입니다.",
+        img: "https://i.imgur.com/UrQcNQz.jpg",
+        author: "",
+        tag: "사역자학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 9,
+        title: "열번째 글입니다.",
+        img: "https://i.imgur.com/QnEcvdk.jpg",
+        author: "",
+        tag: "기타",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 10,
+        title: "열한번째 글입니다.",
+        img: "https://i.imgur.com/Uwcg0vM.jpg",
+        author: "",
+        tag: "능력의 기도학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+      {
+        id: 11,
+        title: "열둘번째 글입니다.",
+        img: "https://i.imgur.com/Rm2p11B.jpg",
+        author: "",
+        tag: "카르학교",
+        content: "예배에 집중하는 학생들",
+        link: "#kar",
+      },
+    ];
+
     return {
       ...toRefs(state),
       schools,
       slides,
+      posts,
     };
   },
 };
