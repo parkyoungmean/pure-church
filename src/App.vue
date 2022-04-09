@@ -1,7 +1,10 @@
 <template>
-  <div class="h-screen">
-    <SimpleNavbar class="z-20" />
-    <SimpleHome class="z-10" />
+  <div class="app h-screen">
+    <!-- Navbar -->
+    <SimpleNavbar class="z-20" v-show="is_login ? false : true" />
+    <!-- Sidebar -->
+    <Sidebar v-show="is_login ? true : false" class=""/>
+    <router-view />
   </div>
 </template>
 
@@ -10,11 +13,22 @@
 
 import SimpleNavbar from "./components/SimpleNavbar.vue";
 import SimpleHome from "./components/SimpleHome.vue";
+import Sidebar from "./components/Sidebar.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
     SimpleNavbar,
     SimpleHome,
+    Sidebar,
+  },
+  setup () {
+    const store = useStore();
+
+    return  {
+      is_login: computed(() => store.state.is_login),
+    }
   },
 };
 </script>

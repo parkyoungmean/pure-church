@@ -16,7 +16,7 @@
     <!-- Logo -->
     <div class="flex items-center cursor-pointer">
       <span class="text-green-500 text-xl mr-1 z-10">
-        <img src="../assets/logo/01.png" class="w-[105px] h-[50px]" alt="" />
+        <img src="../assets/logo/01.png" class="w-[128px] h-[51px]" alt="" />
       </span>
     </div>
 
@@ -61,21 +61,22 @@
           >{{ link.name }}</a
         >
       </li>
-      <button
+      <router-link @click="ToggleLogin()" to="/userhome"
         class="
+          flex
           bg-green-400
           hover:bg-green-500
           duration-300
           font-sm
           text-white
           rounded
-          px-4
+          px-3
           py-2
         "
       >
-        <!-- <i class="material-icons ml-1 text-muted">login</i> -->
+        <i class="material-icons mr-2 text-muted">login</i>
         로그인하기
-      </button>
+      </router-link>
     </ul>
     <!-- End of Menu -->
   </nav>
@@ -84,11 +85,13 @@
 
 <script>
 /* eslint-disable */
-import { ref } from "vue";
+import { ref, computed, } from "vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
     let open = ref(false);
+
     let links = [
       { id: 0, name: "홈", link: "#home" },
       { id: 1, name: "사역 소개", link: "#introduce" },
@@ -100,10 +103,20 @@ export default {
     function menuOpen() {
       open.value = !open.value;
     }
+
+    const store = useStore();
+
+    const ToggleLogin = () => {
+      store.dispatch('ToggleLogin')
+      open.value = !open.value;
+    }
+
     return {
       open,
       menuOpen,
       links,
+      is_active: computed(() => store.state.is_login),
+      ToggleLogin
     };
   },
 };

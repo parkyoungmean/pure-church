@@ -1,5 +1,5 @@
 <template>
-  <section id="#" class="pt-19 pb-12 px-8 md:px-12"></section>
+  <section id="#" class="pt-8 pb-8 px-8 md:px-12"></section>
 
   <section id="home" class="min-h-screen bg-blue-500">
     <!-- Carousel -->
@@ -430,4 +430,5 @@ export default {
 #home {
   font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
+
 </style>
