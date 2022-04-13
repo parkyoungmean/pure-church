@@ -6,7 +6,7 @@
       :space-between="0"
       :loop="false"
       :autoplay="{
-        delay: 8000,
+        delay: 800,
         disableOnInteraction: false,
       }"
       :speed="2000"
@@ -15,13 +15,14 @@
     >
       <swiper-slide class="bg_my">
         <section>
+          <!-- content -->
           <section
             class="lg:grid lg:grid-cols-2 space-y-8"
-            style="height: 36rem; padding: 0 50px"
+            style="height: 36rem;"
           >
             <!-- Main Title -->
-            <main class="flex flex-col justify-around pl-20">
-              <div class="text-5xl font-extrabold -mt-2 hidden lg:block">
+            <main class="flex flex-col justify-around">
+              <div class="text-5xl font-extrabold -mt-2 hidden lg:block px-3 md:px-7">
                 <span
                   class="
                     bg-clip-text
@@ -36,16 +37,16 @@
                   
                 </span>
               </div>
-              <div class="text-7xl font-extrabold tracking-wider">
-                <span class="bg-clip-text text-gray-100 capitalize">
+              <div class="text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-wider">
+                <span class="bg-clip-text text-gray-100 capitalize px-3 md:px-7">
                   나의 메뉴
                 </span>
-                <p class="text-xs text-gray-300 w-96 font-semibold mt-7">
+                <p class="text-xs text-gray-300 w-96 font-semibold mt-7 px-3 md:px-7">
                   ⌈나의 메뉴⌋에서는 내가 북마크한 '학교'와 나의 '프로필'을 볼 수 있고 나의
                   글이 함께 표시됩니다.
                 </p>
               </div>
-              <div class="text-5xl font-extrabold hidden lg:block">
+              <div class="text-5xl font-extrabold hidden lg:block px-3 md:px-7">
                 <span
                   class="
                     bg-clip-text
@@ -63,9 +64,9 @@
             </main>
             <!-- End of Main Title -->
             <!-- Slides -->
-            <main class="pr-5">
-              <section class="py-10 mt-10">
-                <ul class="flex items-center space-x-4">
+            <main class="pr-5 px-3">
+              <section class="py-3 md:py-10 mt-10">
+                <ul class="flex items-center space-x-2 md:space-x-4">
                   <li class="card">
                     <main class="space-y-3">
                       <div class="space-y-2">
@@ -90,8 +91,10 @@
                           </ul>
                         </div> -->
                       </div>
-                      <!-- My Card -->
-                      <div class="bg_mycard">
+                      <!-- First Card -->
+                      <div class="bg_mycard w-[8.33rem] h-[11.66rem] md:w-[12.5rem] md:h-[17.5rem]
+  ">
+                        <!-- Bookmark button -->
                         <!-- <div
                           class="
                             m-3
@@ -127,7 +130,7 @@
                           <!-- End of Bookmark button -->
                         <!-- </div> -->
                       </div>
-                      <!-- End of My Card -->
+                      <!-- End of First Card -->
                     </main>
                   </li>
                   <!-- Slide01_image -->
@@ -155,13 +158,15 @@
                           </ul>
                         </div> -->
                       </div>
+                      <!-- 나의 학교 -->
                       <div class="">
                         <img
                           src="../assets/bg-3.jpg"
                           alt=""
-                          class="bg_common"
+                          class="bg_common w-[10rem] h-[10rem] md:w-[15rem] md:h-[15rem]"
                         />
                       </div>
+                      <!-- End of 나의 학교 -->
                     </main>
                   </li>
                   <!-- Slide02_image -->
@@ -193,7 +198,7 @@
                         <img
                           src="../assets/bg-4.jpg"
                           alt=""
-                          class="bg_common"
+                          class="bg_common w-[10rem] h-[10rem] md:w-[15rem] md:h-[15rem]"
                         />
                       </div>
                     </main>
@@ -260,18 +265,19 @@
             </main>
             <!-- End of Slider Button -->
           </section>
+          <!-- End of content -->
         </section>
       </swiper-slide>
       <swiper-slide class="bg_school">
         <section>
-          <!-- Body -->
+          <!-- content -->
           <section
-            class="lg:grid lg:grid-cols-2 mb-10 space-y-8"
-            style="height: 36rem; padding: 0 50px"
+            class="lg:grid lg:grid-cols-2 space-y-8"
+            style="height: 36rem;"
           >
             <!-- Main Title -->
-            <main class="flex flex-col justify-around pl-20">
-              <div class="text-5xl font-extrabold -mt-2 hidden lg:block">
+            <main class="flex flex-col justify-around">
+              <div class="text-5xl font-extrabold -mt-2 hidden lg:block px-3 md:px-7">
                 <span
                   class="
                     bg-clip-text
@@ -287,17 +293,17 @@
                   나의 메뉴
                 </span>
               </div>
-              <div class="text-7xl font-extrabold tracking-wider">
-                <span class="bg-clip-text text-gray-100 capitalize">
+              <div class="text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-wider">
+                <span class="bg-clip-text text-gray-100 capitalize px-3 md:px-7">
                   순전한 교회
                 </span>
-                <p class="text-xs text-gray-300 w-96 font-semibold mt-7">
+                <p class="text-xs text-gray-300 w-96 font-semibold mt-7 px-3 md:px-7">
                   ⌈순전한 교회⌋는 하나님 아버지를 더욱 깊이 알아 온전한 회복과 치유와 새로운
                   소망 가득한 삶을 누리고 하나님의 부르심에 합당한 삶을 올려
                   드리기 원하시는 모든 분들을 초대합니다.
                 </p>
               </div>
-              <div class="text-5xl font-extrabold hidden lg:block">
+              <div class="text-5xl font-extrabold hidden lg:block px-3 md:px-7">
                 <span
                   class="
                     bg-clip-text
@@ -315,9 +321,9 @@
             </main>
             <!-- End of Main Title -->
             <!-- Slides -->
-            <main class="pr-5 mb-10">
-              <section class="py-10 mt-10">
-                <ul class="flex items-center space-x-4">
+            <main class="pr-5 px-3">
+              <section class="py-3 md:py-10 mt-10">
+                <ul class="flex items-center space-x-2 md:space-x-4">
                   <li class="card">
                     <main class="space-y-3">
                       <div class="space-y-2">
@@ -342,8 +348,9 @@
                           </ul>
                         </div> -->
                       </div>
-                      <!-- Bookmark button -->
-                      <div class="bg_card">
+                     <!-- First Card -->
+                      <div class="bg_card w-[8.33rem] h-[11.66rem] md:w-[12.5rem] md:h-[17.5rem]">
+                         <!-- Bookmark button -->
                         <div
                           class="
                             m-3
@@ -376,8 +383,9 @@
                             </svg>
                           </button>
                         </div>
+                        <!-- End of Bookmark button -->
                       </div>
-                      <!-- End of Bookmakr button -->
+                      <!-- End of First Card -->
                     </main>
                   </li>
                   <!-- Slide01_image -->
@@ -409,7 +417,7 @@
                         <img
                           src="../assets/bg-1.jpg"
                           alt=""
-                          class="bg_common"
+                          class="bg_common w-[10rem] h-[10rem] md:w-[15rem] md:h-[15rem]"
                         />
                       </div>
                     </main>
@@ -444,7 +452,7 @@
                         <img
                           src="../assets/bg-2.jpg"
                           alt=""
-                          class="bg_common"
+                          class="bg_common w-[10rem] h-[10rem] md:w-[15rem] md:h-[15rem]"
                         />
                       </div>
                     </main>
@@ -513,9 +521,8 @@
             </main>
             <!-- End of Slides -->
           </section>
-          <!-- End of Body -->
+          <!-- End of content -->
         </section>
-        <!-- Body -->
       </swiper-slide>
     </swiper>
   </div>
@@ -551,7 +558,7 @@ export default {
 
 * {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
@@ -589,8 +596,8 @@ p {
 }
 
 .bg_card {
-  height: 17.5rem;
-  width: 12.5rem;
+  /* height: 17.5rem;
+  width: 12.5rem; */
   background-image: url(https://i.imgur.com/dPErD5s.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -600,8 +607,8 @@ p {
 }
 
 .bg_common {
-  height: 15rem;
-  width: 15rem;
+  /* height: 15rem;
+  width: 15rem; */
   border-radius: 10px;
 }
 
@@ -631,8 +638,8 @@ p {
 } */
 
 .bg_mycard {
-  height: 17.5rem;
-  width: 12.5rem;
+  /* height: 17.5rem;
+  width: 12.5rem; */
   background-image: url(https://i.imgur.com/tJghX0Z.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -651,8 +658,8 @@ $bg_my: (
 );
 /* $banana: (banana, japan); */
 
-@each $fruit, $country in $bg_school, $bg_my {
-  .#{$fruit}::before {
+@each $name, $img in $bg_school, $bg_my {
+  .#{$name}::before {
     position: absolute;
     content: "";
     top: 0;
@@ -660,7 +667,7 @@ $bg_my: (
     right: 0;
     bottom: 0;
     z-index: -1;
-    background-image: url(#{$country});
+    background-image: url(#{$img});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
