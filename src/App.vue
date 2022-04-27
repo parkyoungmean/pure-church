@@ -1,8 +1,8 @@
 <template>
   <div class="app h-screen">
-    <!-- Navbar -->
+    <!-- Navbar for Guest -->
     <SimpleNavbar class="z-20" v-show="is_login ? false : true" />
-    <!-- Sidebar -->
+    <!-- Sidebar for User -->
     <Sidebar v-show="is_login ? true : false" class=""/>
     <router-view />
   </div>
