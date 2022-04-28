@@ -228,7 +228,7 @@
                   강남 치유학교
                 </h1>
                 <h1 class="text-sm">
-                  <span class="italic">강남 하나님아버지 교회</span>,
+                  <span class="italic">강남 순전한 교회</span>,
                   <span class="italic text-sm">수료</span> / 2020-2020
                 </h1>
                 <br />
@@ -264,7 +264,8 @@ export default {
     const users = ref([]);
 
     onMounted(async () => {
-      await axios.get("http://localhost:4000/users").then((response) => {
+      /* await axios.get("http://localhost:4000/users").then((response) => { */
+      await axios.get("https://pure-api.herokuapp.com/users").then((response) => {
         users.value = response.data;
         console.log(this.users);
       });
