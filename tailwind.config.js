@@ -41,6 +41,15 @@ module.exports = {
       'cw-blue-300' : '#62B0E8',
       'cw-blue-400' : '#4098D7',
       'cw-blue-600' : '#186FAF',
+      'epic': {
+        'black': '#121212',
+        'gray': {
+          50: '#2F2F2F',
+          100: '2A2A2A',
+          200: '#202020',
+        },
+        'blue': '#007DFC'
+      }
     },
     spacing: {
       px: '1px',

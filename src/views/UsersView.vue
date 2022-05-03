@@ -15,6 +15,39 @@
                   학생 목록
                 </div>
               </div>
+              <!-- ADD USER BUTTON -->
+              <div class="flex items-cnenter justify-end mb-10 mr-5">
+                <button
+                  @click="userFormOpen()"
+                  id="add-user"
+                  type="button"
+                  class="
+                    flex
+                    items-center
+                    text-sm
+                    md:text-lg
+                    p-1
+                    md:p-1.5
+                    rounded-3xl
+                    bg-epic-blue
+                    space-x-1
+                    mr-2
+                    md:mr-5
+                  "
+                >
+                  <i
+                    class="
+                      fas
+                      fa-plus
+                      text-epic-blue
+                      p-1
+                      rounded-full
+                      bg-white
+                    "
+                  ></i>
+                  <p class="text-white text-sm font-extrabold">추가하기</p>
+                </button>
+              </div>
               <!-- USERS SECTION -->
               <div
                 class="
@@ -93,8 +126,182 @@
               hidden
             "
           >
-            <!-- CONTENT -->
+            <!-- USER FORM -->
             <div
+              v-if="open"
+              id="content"
+              class="
+                flex-1
+                overflow-y-scroll
+                p-5
+                scrollbar-thumb-color
+                dark:scrollbar-thumb-color-dark
+                scrollbar-with
+                space-y-5
+              "
+            >
+              <!-- AVARTA -->
+              <div class="flex flex-col items-center mb-5">
+                <span
+                  class="
+                    flex
+                    items-center
+                    justify-center
+                    rotate-45
+                    border-8
+                    rounded-full
+                    shadow
+                    w-60
+                    h-60
+                    border-t-epic-blue
+                  "
+                >
+                  <img
+                    src="../assets/avatar/user.png"
+                    alt=""
+                    class="object-cover -rotate-45 rounded-full w-52 h-52"
+                  />
+                  <span
+                    class="
+                      absolute
+                      bg-epic-blue
+                      border-4
+                      dark:border-gray-900
+                      rounded-full
+                      bottom-20
+                      -right-4
+                      w-7
+                      h-7
+                    "
+                  ></span>
+                </span>
+              </div>
+              <h1
+                class="
+                  w-full
+                  mb-5
+                  text-sm
+                  font-bold
+                  upercase
+                  mt-7
+                  dark:text-white
+                "
+              >
+                새로운 사용자의 정보를 입력하는 폼입니다.
+              </h1>
+              <form action="#" class="w-full mb-8">
+                <div class="space-y-6">
+                  <!-- Input Email Address -->
+                  <div class="relative w-full">
+                    <input
+                      type="email"
+                      id="email"
+                      autocomplete="off"
+                      class="floating-input peer"
+                    />
+                    <label
+                      for="email"
+                      class="
+                        floating-label
+                        peer-focus:-translate-y-3 peer-focus:scale-90
+                      "
+                    >
+                      이메일 주소
+                    </label>
+                  </div>
+
+                  <!-- Input Name -->
+                  <div class="relative w-full">
+                    <input
+                      type="text"
+                      id="name"
+                      autocomplete="off"
+                      class="floating-input peer"
+                    />
+                    <label
+                      for="name"
+                      class="
+                        floating-label
+                        peer-focus:-translate-y-3 peer-focus:scale-90
+                      "
+                    >
+                      이름
+                    </label>
+                  </div>
+
+                  <!-- Input PhoneNumber -->
+                  <div class="relative w-full">
+                    <input
+                      type="text"
+                      id="phonenumber"
+                      autocomplete="off"
+                      class="floating-input peer"
+                    />
+                    <label
+                      for="phonenumber"
+                      class="
+                        floating-label
+                        peer-focus:-translate-y-3 peer-focus:scale-90
+                      "
+                    >
+                      핸드폰번호
+                    </label>
+                  </div>
+
+                  <!-- Input ExtraInformation -->
+                  <div class="relative w-full">
+                    <textarea
+                      type="text"
+                      id="extrainfo"
+                      autocomplete="off"
+                      class="floating-input peer"
+                    />
+                    <label
+                      for="extrainfo"
+                      class="
+                        floating-label
+                        peer-focus:-translate-y-3 peer-focus:scale-90
+                      "
+                    >
+                      추가정보
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Check box && Reset Password -->
+                <div
+                  class="
+                    flex
+                    items-enter
+                    justify-between
+                    text-[13px]
+                    mt-6
+                    mb-10
+                  "
+                ></div>
+                <!-- Confirm Button -->
+                <button
+                  type="submit"
+                  class="
+                    w-full
+                    h-14
+                    bg-epic-blue
+                    text-[20px]
+                    rounded
+                    uppercase
+                    font-bold
+                    text-white
+                    hover:brightness-110
+                  "
+                >
+                  확 인
+                </button>
+              </form>
+            </div>
+            <!-- END OF USER FORM -->
+            <!-- USER INFO -->
+            <div
+              v-else
               id="content"
               class="
                 flex-1
@@ -120,7 +327,7 @@
                       shadow
                       w-60
                       h-60
-                      border-t-green-600
+                      border-t-epic-blue
                     "
                   >
                     <img
@@ -131,7 +338,7 @@
                     <span
                       class="
                         absolute
-                        bg-green-500
+                        bg-epic-blue
                         border-4
                         dark:border-gray-900
                         rounded-full
@@ -244,7 +451,7 @@
                 <hr class="my-10" />
               </div>
             </div>
-            <!-- END OF CONTENT -->
+            <!-- END OF USER INFO -->
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
         </div>
@@ -261,18 +468,29 @@ import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
     const { ref } = require("vue");
+    let open = ref(false);
+
     const users = ref([]);
 
     onMounted(async () => {
       /* await axios.get("http://localhost:4000/users").then((response) => { */
-      await axios.get("https://pure-api.herokuapp.com/users").then((response) => {
-        users.value = response.data;
-        console.log(this.users);
-      });
+      await axios
+        .get("https://pure-api.herokuapp.com/users")
+        .then((response) => {
+          users.value = response.data;
+          console.log(this.users);
+        });
     });
+
+    const userFormOpen = () => {
+      open.value = !open.value;
+      console.log(open.value);
+    };
 
     return {
       users,
+      open,
+      userFormOpen,
     };
   },
 };
