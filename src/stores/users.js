@@ -2,6 +2,11 @@ import { defineStore } from "pinia";
 
 import axios from "axios";
 
+import dayjs from "dayjs";
+import 'dayjs/locale/ko'
+
+dayjs.locale('ko')      // global로 한국어 locale 사용
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
@@ -26,27 +31,29 @@ export const useUserStore = defineStore("user", {
     async createUser(payload) {
       try {
         await axios.post('https://pure-api.herokuapp.com/createUser', {
+        /* await axios
+          .post("http://localhost:4000/createUser", { */
             email: payload.email,
             name: payload.name,
             phoneNumber: payload.phoneNumber,
             img: payload.img || "user.png",
             greetings: payload.greetings || "",
             extraInfo: payload.extraInfo || "",
-            createdAt: new Date(),
+            createdAt: dayjs(),
             bookmark: "",
           })
           .then((res) => {
             console.log("New User:", res.data);
             let user = {
               id: res.data.id,
-              Email: payload.email,
-              Name: payload.name,
-              Img: payload.img || "user.png",
-              PhoneNumber: payload.phoneNumber,
-              ExtraInfo: payload.extraInfo || "",
-              Greetings: payload.greetings || "",
-              CreatedAt: new Date(),
-              Bookmark: payload.bookmark,
+              email: payload.email,
+              name: payload.name,
+              img: payload.img || "user.png",
+              phoneNumber: payload.phoneNumber,
+              extraInfo: payload.extraInfo || "",
+              greetings: payload.greetings || "",
+              createdAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
+              bookmark: payload.bookmark,
             };
 
             console.log("payload:", user);
@@ -64,7 +71,27 @@ export const useUserStore = defineStore("user", {
     async fetchUsers() {
       try {
         const data = await axios.get('https://pure-api.herokuapp.com/users')
-        this.users = data.data;
+        /* const data = await axios.get("http://localhost:4000/users"); */
+
+        let usersArray = [];
+
+        data.data.forEach(v => {
+          let user = v;
+
+          usersArray.push({
+            id: user.id,
+            email: user.Email,
+            name: user.Name,
+            phoneNumber: user.PhoneNumber,
+            img: user.Img || "user.png",
+            greetings: user.Greetings || "",
+            extraInfo: user.ExtraInfo || "",
+            createdAt: dayjs(user.CreatedAt).format("YYYY년 MM월 DD일"),
+            bookmark: user.Bookmark,
+          });
+        })
+        this.users = usersArray;
+
       } catch (error) {
         console.error(error);
       }

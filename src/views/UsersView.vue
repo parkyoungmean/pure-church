@@ -59,13 +59,13 @@
                   >
                     <!-- AVATAR -->
                     <div class="mr-4 relative w-14">
-                      <img v-if="user.Img === 'user.png'"
-                      :src="require(`../assets/avatar/${user.Img}`)" alt=""
+                      <img v-if="user.img === 'user.png'"
+                      :src="require(`../assets/avatar/${user.img}`)" alt=""
                       class="rounded-full w-14 h-14 mr-2" />
                       <!-- AVATAR:blue dot -->
                       <img
                         v-else
-                        :src="user.Img"
+                        :src="user.img"
                         alt=""
                         class="rounded-full w-14 h-14 mr-2"
                       />
@@ -91,14 +91,14 @@
                             dark:text-gray-300
                           "
                         >
-                          {{ user.Name }}
+                          {{ user.name }}
                         </div>
                         <div class="text-gray-700 dark:text-gray-600 text-xs">
-                          등록일: {{ user.CreatedAt }}
+                          등록일: {{ user.createdAt }}
                         </div>
                       </div>
                       <div class="text-gray-400 text-sm dark:text-gray-600">
-                        {{ user.Greetings }}
+                        {{ user.greetings }}
                       </div>
                     </div>
                   </div>
