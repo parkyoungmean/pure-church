@@ -1,14 +1,16 @@
 import { createStore } from 'vuex'
+import axios from "axios";
 
 export default createStore({
   state: {
     is_login: false,
-    open_modal: false,
+    users: [],
     posts: [],
     authors: [],
     total_posts: 0,
   },
   getters: {
+    getUsers: (state) => state.users
   },
   mutations: {
     TOGGLE_LOGIN (state, dir = null) {
@@ -20,22 +22,23 @@ export default createStore({
         state.is_login = !state.is_login
       }
     },
-    TOGGLE_MODAL (state, dir = null) {
-      if (dir === 'open') {
-        state.open_modal = true
-      } else if (dir === 'close') {
-        state.open_modal = false
-      } else {
-        state.open_modal = !state.open_modal
-      }
+    SET_USERS(state, users) {
+      state.users = users;
     }
   },
   actions: {
     ToggleLogin ({ commit }) {
       commit('TOGGLE_LOGIN')
     },
-    ToggleModal ({ commit }) {
-      commit('TOGGLE_MODAL')
+    /* USER */
+    async fetchUsers({ commit }) {
+      try {
+        const data = await axios.get('https://pure-api.herokuapp.com/users')
+        commit('SET_USERS', data.data)
+      }
+      catch (error) {
+        console.error(error);
+      }
     }
   },
   modules: {

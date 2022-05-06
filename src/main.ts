@@ -6,4 +6,7 @@ import store from './store'
 
 import '@/assets/tailwind.css'
 
-createApp(App).use(store).use(router).mount('#app')
+/* Inport Pinia into config file */
+import { createPinia } from "pinia";
+
+createApp(App).use(store).use(router).use(createPinia()).mount('#app')

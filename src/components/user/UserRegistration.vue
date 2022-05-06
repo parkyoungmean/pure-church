@@ -54,13 +54,15 @@
       </span>
     </div>
     <h1 class="w-full mb-5 text-sm font-bold upercase mt-7 dark:text-white">
-      새로운 사용자의 정보를 입력하는 폼입니다.
+      새로운 사용자의 정보를 입력하는 폼입니다. <br />
+      *표시는 필수 입력항목입니다.
     </h1>
-    <form action="#" class="w-full mb-8">
+    <form ref="form" @submit.prevent="onSubmit" class="w-full mb-8">
       <div class="space-y-6">
         <!-- Input Email Address -->
         <div class="relative w-full">
           <input
+            v-model="user.email"
             type="email"
             id="email"
             autocomplete="off"
@@ -70,13 +72,14 @@
             for="email"
             class="floating-label peer-focus:-translate-y-3 peer-focus:scale-90"
           >
-            이메일 주소
+            * 이메일 주소
           </label>
         </div>
 
         <!-- Input Name -->
         <div class="relative w-full">
           <input
+            v-model="user.name"
             type="text"
             id="name"
             autocomplete="off"
@@ -86,13 +89,14 @@
             for="name"
             class="floating-label peer-focus:-translate-y-3 peer-focus:scale-90"
           >
-            이름
+            * 이름
           </label>
         </div>
 
         <!-- Input PhoneNumber -->
         <div class="relative w-full">
           <input
+            v-model="user.phoneNumber"
             type="text"
             id="phonenumber"
             autocomplete="off"
@@ -102,13 +106,14 @@
             for="phonenumber"
             class="floating-label peer-focus:-translate-y-3 peer-focus:scale-90"
           >
-            핸드폰번호
+            * 핸드폰번호
           </label>
         </div>
 
         <!-- Input ExtraInformation -->
         <div class="relative w-full">
           <textarea
+            v-model="user.extraInfo"
             type="text"
             id="extrainfo"
             autocomplete="off"
@@ -123,7 +128,7 @@
         </div>
       </div>
 
-      <!-- Check box && Reset Password -->
+      <!-- Blank -->
       <div
         class="flex items-enter justify-between text-[13px] mt-6 md:mb-10"
       ></div>
@@ -149,9 +154,67 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { reactive } from "@vue/runtime-core";
+import { useUserStore } from "../../stores/users";
+
 export default {
   setup() {
-    return {};
+    let user = reactive({
+      email: "",
+      name: "",
+      img: "",
+      phoneNumber: null,
+      extraInfo: "",
+      grettings: "",
+    });
+
+    const initUser = () => {
+      user = reactive({
+        email: "",
+        name: "",
+        img: "",
+        phoneNumber: null,
+        extraInfo: "",
+        grettings: "",
+      });
+    };
+
+    const store = useUserStore();
+
+    const validationNumber = (str) => {
+      let pattern_num = /[0-9]/; // 숫자체크
+      let pattern_eng = /[a-zA-Z]/; // 문자체크
+      let pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 문자체크
+      let pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+
+      if (
+        pattern_num.test(str) && !pattern_eng.test(str) && !pattern_spc.test(str) && !pattern_kor.test(str)
+      ) {
+        return true;
+      } else {
+        alert("숫자만 입력 가능합니다.");
+        return false;
+      }
+    };
+
+    const onSubmit = () => {
+      if (user.email === "" || user.name === "" || user.phoneNumber === null) {
+        alert("필수입력 항목을 입력해주세요!");
+        return;
+      } 
+      if(validationNumber(user.phoneNumber)) {
+        store.createUser(user);
+        alert("새 학생 등록 성공!");
+        /* 초기화하기 */
+        initUser();
+      }
+    };
+
+    return {
+      user,
+      onSubmit,
+    };
   },
 };
 </script>

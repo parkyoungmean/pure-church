@@ -59,7 +59,12 @@
                   >
                     <!-- AVATAR -->
                     <div class="mr-4 relative w-14">
+                      <img v-if="user.Img === 'user.png'"
+                      :src="require(`../assets/avatar/${user.Img}`)" alt=""
+                      class="rounded-full w-14 h-14 mr-2" />
+                      <!-- AVATAR:blue dot -->
                       <img
+                        v-else
                         :src="user.Img"
                         alt=""
                         class="rounded-full w-14 h-14 mr-2"
@@ -200,7 +205,7 @@
                 <hr class="mb-5 w-1/6" />
                 <div class="flex -space-x-6">
                   <img
-                    src="http://t1.daumcdn.net/thumb/C210x210.fjpg.q75/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fcontentshub%2Fsdb%2F03e1cae25bba9e22ef3cb6935201ccf765c657fab9675eea94d2b79738a60742"
+                    src="https://t1.daumcdn.net/thumb/C210x210.fjpg.q75/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fcontentshub%2Fsdb%2F03e1cae25bba9e22ef3cb6935201ccf765c657fab9675eea94d2b79738a60742"
                     alt="호레이스 바둔"
                     class="
                       inline-block
@@ -285,9 +290,9 @@
 
 <script>
 /* eslint-disable */
-import axios from "axios";
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import { useUserStore } from "../stores/users";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../tailwind.config";
 import UserRegistration from "@/components/user/UserRegistration.vue";
@@ -300,20 +305,25 @@ export default {
     const { ref } = require("vue");
     let open = ref(false);
 
-    const users = ref([]);
+    /* const users = ref([]); */
 
     const fullConfig = resolveConfig(tailwindConfig);
 
-    const store = useStore();
+    /* Vuex */
+    const vuexStore = useStore();
+    /* Pinia */
+    const store = useUserStore();
 
-    onMounted(async () => {
-      /* await axios.get("http://localhost:4000/users").then((response) => { */
-      await axios
-        .get("https://pure-api.herokuapp.com/users")
-        .then((response) => {
-          users.value = response.data;
-          console.log(this.users);
-        });
+    const getUsers = computed(() => {
+      return store.getUsers;
+    });
+
+    const users = computed(() => {
+      return store.users;
+    });
+
+    onMounted(() => {
+      store.fetchUsers();
     });
 
     /* grab the current breakpoint of the screen  */
@@ -358,10 +368,10 @@ export default {
     };
 
     const userFormOpen = () => {
-      if(getCurrentBreakpoint().value < 769) {
+      if (getCurrentBreakpoint().value < 769) {
         console.log(getCurrentBreakpoint());
-        console.log('open dialog!');
-        ToggleModal();
+        console.log("open dialog!");
+        toggleModal();
         console.log(open.value);
       } else {
         console.log(getCurrentBreakpoint());
@@ -370,15 +380,15 @@ export default {
       }
     };
 
-    const ToggleModal = () => {
-        store.dispatch('ToggleModal')
-    }
-    
+    const toggleModal = () => {
+      store.toggleModal();
+    };
+
     return {
       users,
       open,
       userFormOpen,
-      ToggleModal,
+      toggleModal,
     };
   },
 };
@@ -389,6 +399,6 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
