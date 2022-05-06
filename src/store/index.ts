@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     is_login: false,
+    open_modal: false,
     posts: [],
     authors: [],
     total_posts: 0,
@@ -18,11 +19,23 @@ export default createStore({
       } else {
         state.is_login = !state.is_login
       }
+    },
+    TOGGLE_MODAL (state, dir = null) {
+      if (dir === 'open') {
+        state.open_modal = true
+      } else if (dir === 'close') {
+        state.open_modal = false
+      } else {
+        state.open_modal = !state.open_modal
+      }
     }
   },
   actions: {
     ToggleLogin ({ commit }) {
       commit('TOGGLE_LOGIN')
+    },
+    ToggleModal ({ commit }) {
+      commit('TOGGLE_MODAL')
     }
   },
   modules: {

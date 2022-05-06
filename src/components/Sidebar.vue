@@ -1,7 +1,7 @@
 <template>
   <div class="hscreen bg-gray-50 pb-14 lg:pb-19">
       <header>
-          <div class="fixed w-full z-20 border-b bg-white">
+          <div class="fixed w-full border-b bg-white z-20">
               <div class="px-6 md:px-12 lg:container lg:mx-auto lg:px-6 lg:py-2">
                   <div class="flex items-center justify-between">
                       <!-- Logo -->

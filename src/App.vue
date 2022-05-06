@@ -1,7 +1,28 @@
 <template>
+  <!-- MODAL -->
+  <div v-show="open_modal" class="fixed inset-0 x-10 overflow-y-auto flex h-screen w-screen items-center justify-center bg-gray-700/60 px-3 py-10 z-30">
+    <div class="w-full -mb-16 md:max-w-md rounded-md bg-white p-2 shadow-md">
+      <!-- Close Button -->
+      <div class="flex justify-end">
+        <button @click="ToggleModal()" class="text-blue-400 top-5 right-0 h-7 w-7 text-2xl font-semibold justify-center items-center focus:outline-none">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <!-- USER FORM -->
+      <UserRegistration />
+      <!-- END OF USER FORM -->
+      <!-- <h1 class="text-xl font-semibold text-amber-900">안녕하세요?</h1>
+      <p class="mt-1 text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quis voluptatum modi omnis laudantium hic nesciunt, sequi iusto dignissimos ratione quibusdam explicabo aut nulla, numquam ad molestias debitis asperiores minus.</p> -->
+      <!-- <div class="flex space-x-2 mt-2">
+        <button class="inline-flex justify-center px-4 py-2 text-sm font-medium text-amber-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">확인</button>
+        <button @click="ToggleModal()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">취소</button>
+      </div> -->
+    </div>
+  </div>
+  <!-- END OF MODAL -->
   <div class="app h-screen">
     <!-- Navbar for Guest -->
-    <SimpleNavbar class="z-20" v-show="is_login ? false : true" />
+    <SimpleNavbar v-show="is_login ? false : true" class="z-20" />
     <!-- Sidebar for User -->
     <Sidebar v-show="is_login ? true : false" class=""/>
     <router-view />
@@ -10,24 +31,31 @@
 
 <script>
 /* eslint-disable */
-
 import SimpleNavbar from "./components/SimpleNavbar.vue";
 import SimpleHome from "./components/SimpleHome.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import UserRegistration from "./components/user/UserRegistration.vue";
 
 export default {
   components: {
     SimpleNavbar,
     SimpleHome,
     Sidebar,
+    UserRegistration,
   },
   setup () {
     const store = useStore();
 
+    const ToggleModal = () => {
+        store.dispatch('ToggleModal')
+    }
+
     return  {
       is_login: computed(() => store.state.is_login),
+      open_modal: computed(() => store.state.open_modal),
+      ToggleModal,
     }
   },
 };

@@ -1,14 +1,14 @@
 <template>
   <div class="bg-gray-100 dark:bg-gray-800">
     <div class="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
-      <div class="p-4 sm:p-12 lg:p-20 w-full">
+      <div class="p-4 sm:p-12 lg:p-20 mt-20 md:mt-10 w-full">
         <div class="max-h-full h-full flex flex-row">
           <!-- LEFT USERS LIST -->
           <aside
             class="w-full lg:w-3/5 bg-white dark:bg-gray-900 rounded-lg lg:mr-5"
           >
             <div class="max-w-full h-full w-full flex flex-col">
-              <div class="flex p-10 justify-between">
+              <div class="flex p-7 md:p-10 justify-between">
                 <div
                   class="text-4xl font-semibold text-gray-900 dark:text-white"
                 >
@@ -36,14 +36,7 @@
                   "
                 >
                   <i
-                    class="
-                      fas
-                      fa-plus
-                      text-epic-blue
-                      p-1
-                      rounded-full
-                      bg-white
-                    "
+                    class="fas fa-plus text-epic-blue p-1 rounded-full bg-white"
                   ></i>
                   <p class="text-white text-sm font-extrabold">추가하기</p>
                 </button>
@@ -62,7 +55,7 @@
                   <div
                     v-for="user in users"
                     :key="user.id"
-                    class="cursor-pointer flex px-10"
+                    class="cursor-pointer flex px-7 md:px-10"
                   >
                     <!-- AVATAR -->
                     <div class="mr-4 relative w-14">
@@ -127,177 +120,7 @@
             "
           >
             <!-- USER FORM -->
-            <div
-              v-if="open"
-              id="content"
-              class="
-                flex-1
-                overflow-y-scroll
-                p-5
-                scrollbar-thumb-color
-                dark:scrollbar-thumb-color-dark
-                scrollbar-with
-                space-y-5
-              "
-            >
-              <!-- AVARTA -->
-              <div class="flex flex-col items-center mb-5">
-                <span
-                  class="
-                    flex
-                    items-center
-                    justify-center
-                    rotate-45
-                    border-8
-                    rounded-full
-                    shadow
-                    w-60
-                    h-60
-                    border-t-epic-blue
-                  "
-                >
-                  <img
-                    src="../assets/avatar/user.png"
-                    alt=""
-                    class="object-cover -rotate-45 rounded-full w-52 h-52"
-                  />
-                  <span
-                    class="
-                      absolute
-                      bg-epic-blue
-                      border-4
-                      dark:border-gray-900
-                      rounded-full
-                      bottom-20
-                      -right-4
-                      w-7
-                      h-7
-                    "
-                  ></span>
-                </span>
-              </div>
-              <h1
-                class="
-                  w-full
-                  mb-5
-                  text-sm
-                  font-bold
-                  upercase
-                  mt-7
-                  dark:text-white
-                "
-              >
-                새로운 사용자의 정보를 입력하는 폼입니다.
-              </h1>
-              <form action="#" class="w-full mb-8">
-                <div class="space-y-6">
-                  <!-- Input Email Address -->
-                  <div class="relative w-full">
-                    <input
-                      type="email"
-                      id="email"
-                      autocomplete="off"
-                      class="floating-input peer"
-                    />
-                    <label
-                      for="email"
-                      class="
-                        floating-label
-                        peer-focus:-translate-y-3 peer-focus:scale-90
-                      "
-                    >
-                      이메일 주소
-                    </label>
-                  </div>
-
-                  <!-- Input Name -->
-                  <div class="relative w-full">
-                    <input
-                      type="text"
-                      id="name"
-                      autocomplete="off"
-                      class="floating-input peer"
-                    />
-                    <label
-                      for="name"
-                      class="
-                        floating-label
-                        peer-focus:-translate-y-3 peer-focus:scale-90
-                      "
-                    >
-                      이름
-                    </label>
-                  </div>
-
-                  <!-- Input PhoneNumber -->
-                  <div class="relative w-full">
-                    <input
-                      type="text"
-                      id="phonenumber"
-                      autocomplete="off"
-                      class="floating-input peer"
-                    />
-                    <label
-                      for="phonenumber"
-                      class="
-                        floating-label
-                        peer-focus:-translate-y-3 peer-focus:scale-90
-                      "
-                    >
-                      핸드폰번호
-                    </label>
-                  </div>
-
-                  <!-- Input ExtraInformation -->
-                  <div class="relative w-full">
-                    <textarea
-                      type="text"
-                      id="extrainfo"
-                      autocomplete="off"
-                      class="floating-input peer"
-                    />
-                    <label
-                      for="extrainfo"
-                      class="
-                        floating-label
-                        peer-focus:-translate-y-3 peer-focus:scale-90
-                      "
-                    >
-                      추가정보
-                    </label>
-                  </div>
-                </div>
-
-                <!-- Check box && Reset Password -->
-                <div
-                  class="
-                    flex
-                    items-enter
-                    justify-between
-                    text-[13px]
-                    mt-6
-                    mb-10
-                  "
-                ></div>
-                <!-- Confirm Button -->
-                <button
-                  type="submit"
-                  class="
-                    w-full
-                    h-14
-                    bg-epic-blue
-                    text-[20px]
-                    rounded
-                    uppercase
-                    font-bold
-                    text-white
-                    hover:brightness-110
-                  "
-                >
-                  확 인
-                </button>
-              </form>
-            </div>
+            <UserRegistration v-if="open" />
             <!-- END OF USER FORM -->
             <!-- USER INFO -->
             <div
@@ -464,13 +287,24 @@
 /* eslint-disable */
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";
+import { useStore } from "vuex";
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config";
+import UserRegistration from "@/components/user/UserRegistration.vue";
 
 export default {
+  components: {
+    UserRegistration,
+  },
   setup() {
     const { ref } = require("vue");
     let open = ref(false);
 
     const users = ref([]);
+
+    const fullConfig = resolveConfig(tailwindConfig);
+
+    const store = useStore();
 
     onMounted(async () => {
       /* await axios.get("http://localhost:4000/users").then((response) => { */
@@ -482,19 +316,79 @@ export default {
         });
     });
 
-    const userFormOpen = () => {
-      open.value = !open.value;
-      console.log(open.value);
+    /* grab the current breakpoint of the screen  */
+    const getCurrentBreakpoint = () => {
+      let currentBreakpoint;
+      const breakpointsArray = Object.entries(fullConfig.theme.screens);
+
+      breakpointsArray.sort((a, b) => {
+        const valA = [a[1].split("px")][0][0];
+        const valB = [b[1].split("px")][0][0];
+        const valAInt = parseInt(valA, 10);
+        const valBInt = parseInt(valB, 10);
+        if (valAInt > valBInt) {
+          return 1;
+        }
+        if (valAInt < valBInt) {
+          return -1;
+        }
+        return 0;
+      });
+
+      for (let i = 0; i < breakpointsArray.length; i++) {
+        const breakpointValue = parseInt(
+          [breakpointsArray[i][1].split("px")],
+          10
+        );
+
+        if (window.innerWidth >= breakpointValue) {
+          currentBreakpoint = breakpointsArray[i];
+        } else {
+          if (!currentBreakpoint) {
+            [currentBreakpoint] = breakpointsArray;
+          }
+          break;
+        }
+      }
+      return {
+        key: currentBreakpoint[0],
+        valueString: currentBreakpoint[1],
+        value: parseInt([currentBreakpoint[1].split("px")], 10),
+      };
     };
 
+    const userFormOpen = () => {
+      if(getCurrentBreakpoint().value < 769) {
+        console.log(getCurrentBreakpoint());
+        console.log('open dialog!');
+        ToggleModal();
+        console.log(open.value);
+      } else {
+        console.log(getCurrentBreakpoint());
+        open.value = !open.value;
+        console.log(open.value);
+      }
+    };
+
+    const ToggleModal = () => {
+        store.dispatch('ToggleModal')
+    }
+    
     return {
       users,
       open,
       userFormOpen,
+      ToggleModal,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.modal-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+}
 </style>
