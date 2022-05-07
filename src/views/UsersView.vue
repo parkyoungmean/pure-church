@@ -53,7 +53,7 @@
                 <div class="w-full space-y-10">
                   <!-- USER -->
                   <div
-                    @click="viewUserDetail(user.id)"
+                    @click="userDetailOpen(user.id)"
                     v-for="user in users"
                     :key="user.id"
                     class="cursor-pointer flex px-7 md:px-10"
@@ -132,164 +132,8 @@
             <UserRegistration v-if="open" />
             <!-- END OF USER FORM -->
             <!-- USER DETAIL -->
-            <div
-              v-else
-              id="content"
-              class="
-                flex-1
-                overflow-y-scroll
-                p-5
-                scrollbar-thumb-color
-                dark:scrollbar-thumb-color-dark
-                scrollbar-with
-                space-y-5
-              "
-            >
-              <div>
-                <!-- AVARTA -->
-                <div class="flex flex-col items-center mb-5">
-                  <span
-                    class="
-                      flex
-                      items-center
-                      justify-center
-                      rotate-45
-                      border-8
-                      rounded-full
-                      shadow
-                      w-60
-                      h-60
-                      border-t-epic-blue
-                    "
-                  >
-                    <img
-                      v-if="currentUser.img === 'user.png'"
-                      :src="require(`../assets/avatar/${currentUser.img}`)"
-                      alt=""
-                      class="object-cover -rotate-45 rounded-full w-52 h-52"
-                    />
-                    <img
-                      v-else
-                      :src="currentUser.img"
-                      alt=""
-                      class="object-cover -rotate-45 rounded-full w-52 h-52"
-                    />
-                    <span
-                      class="
-                        absolute
-                        bg-epic-blue
-                        border-4
-                        dark:border-gray-900
-                        rounded-full
-                        bottom-20
-                        -right-4
-                        w-7
-                        h-7
-                      "
-                    ></span>
-                  </span>
-                </div>
-                <!-- SIMPLE INTRODUCTION  -->
-                <div class="flex flex-col items-center gap-3 text-gray-900">
-                  <h1 class="text-3xl font-bold">{{ currentUser.name }}</h1>
-                  <p class="text-xl tracking-widest text-gray-400">
-                    등록일: {{ currentUser.createdAt }}
-                  </p>
-                  <p class="text-sm tracking-widest text-gray-400">
-                    {{ currentUser.greetings }}
-                  </p>
-                </div>
-              </div>
-              <div class="mb-5 pt-5 px-10 text-gray-800 dark:text-gray-400">
-                <!-- 연락처 -->
-                <h1 class="uppercase tracking-widst text-lg font-bold">
-                  연락처
-                </h1>
-                <hr class="mb-5 w-1/6" />
-                <h1>{{ currentUser.phoneNumber }}</h1>
-                <h1>{{ currentUser.email }}</h1>
-                <h1>영국, 런던</h1>
-                <hr class="my-10" />
-                <!-- 관계 -->
-                <h1 class="uppercase tracking-widst text-lg font-bold">관계</h1>
-                <hr class="mb-5 w-1/6" />
-                <div class="flex -space-x-6">
-                  <img
-                    src="https://t1.daumcdn.net/thumb/C210x210.fjpg.q75/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fcontentshub%2Fsdb%2F03e1cae25bba9e22ef3cb6935201ccf765c657fab9675eea94d2b79738a60742"
-                    alt="호레이스 바둔"
-                    class="
-                      inline-block
-                      w-16
-                      h-16
-                      rounded-full
-                      border-4 border-gray-200
-                      transition
-                      duration-300
-                      hover:translate-y-2
-                    "
-                  />
-                  <img
-                    src="https://img1.daumcdn.net/thumb/R720x0/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fliveboard%2Fcineplay%2F0004751349384bb0ab3d969203cf870d.jpg"
-                    alt="아니타 달링"
-                    class="
-                      inline-block
-                      w-16
-                      h-16
-                      rounded-full
-                      border-4 border-gray-200
-                      transition
-                      duration-300
-                      hover:translate-y-2
-                    "
-                  />
-                  <img
-                    src="https://img.khan.co.kr/news/2021/05/26/l_2021052601002985500248376.webp"
-                    alt="바로니스"
-                    class="
-                      inline-block
-                      w-16
-                      h-16
-                      rounded-full
-                      border-4 border-gray-200
-                      transition
-                      duration-300
-                      hover:translate-y-2
-                    "
-                  />
-                </div>
-                <hr class="my-10" />
-                <!-- 교육 -->
-                <h1 class="uppercase tracking-widst text-lg font-bold">교육</h1>
-                <hr class="mb-5 w-1/6" />
-                <h1 class="text-sm font-semibold tracking-wider uppercase">
-                  VOL11기 학교
-                </h1>
-                <h1 class="text-sm">
-                  <span class="italic">도봉 순전한 교회</span>,
-                  <span class="italic text-sm">수료</span> / 2016.4-2016.6
-                </h1>
-                <br />
-                <h1 class="text-sm font-semibold tracking-wider uppercase">
-                  강남 치유학교
-                </h1>
-                <h1 class="text-sm">
-                  <span class="italic">강남 순전한 교회</span>,
-                  <span class="italic text-sm">수료</span> / 2020-2020
-                </h1>
-                <br />
-                <h1 class="text-sm font-semibold tracking-wider uppercase">
-                  치유학교 5기
-                </h1>
-                <h1 class="text-sm">
-                  <span class="italic">온라인</span>,
-                  <span class="italic text-sm text-green-400">진행중</span> /
-                  2022-2022
-                </h1>
-                <br />
-                <hr class="my-10" />
-              </div>
-            </div>
-            <!-- END OF USER INFO -->
+            <UserDetail v-else />
+            <!-- END OF USER DETAIL -->
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
         </div>
@@ -306,16 +150,16 @@ import { useUserStore } from "../stores/users";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../tailwind.config";
 import UserRegistration from "@/components/user/UserRegistration.vue";
+import UserDetail from "@/components/user/UserDetail.vue";
 
 export default {
   components: {
     UserRegistration,
+    UserDetail,
   },
   setup() {
     const { ref } = require("vue");
     let open = ref(false);
-
-    /* const users = ref([]); */
 
     const fullConfig = resolveConfig(tailwindConfig);
 
@@ -381,17 +225,17 @@ export default {
       };
     };
 
+    /* Create user infomation */
     const userFormOpen = () => {
       /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
         console.log(getCurrentBreakpoint());
         console.log("open dialog!");
         toggleModal();
-        console.log(open.value);
+        userMode('create');
       } else {
         console.log(getCurrentBreakpoint());
         open.value = !open.value;
-        console.log(open.value);
       }
     };
 
@@ -399,16 +243,32 @@ export default {
       store.toggleModal();
     };
 
-    const viewUserDetail = (id) => {
+    const userMode = (mode) => {
+      store.userMode(mode);
+    };
+
+    /* Read user infomation */
+    const userDetailOpen = (id) => {
       store.selectedUser(id);
+
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        console.log(getCurrentBreakpoint());
+        console.log("open dialog!");
+        toggleModal();
+        userMode('read');
+      } else {
+        console.log(getCurrentBreakpoint());
+        open.value = false;
+      }
     };
 
     return {
       users,
       open,
       userFormOpen,
+      userDetailOpen,
       toggleModal,
-      viewUserDetail,
       currentUser,
     };
   },

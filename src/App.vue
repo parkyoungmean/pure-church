@@ -39,9 +39,12 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <!-- USER FORM -->
-      <UserRegistration />
-      <!-- END OF USER FORM -->
+      <!-- USER REGISTRATION FORM -->
+      <UserRegistration v-if="user_mode==='create'" />
+      <!-- END OF USER REGISTRATION FORM -->
+      <!-- USER DETAIL -->
+      <UserDetail v-else-if="user_mode==='read'" />
+      <!-- END OF USER DETAIL -->
       <!-- <h1 class="text-xl font-semibold text-amber-900">안녕하세요?</h1>
       <p class="mt-1 text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quis voluptatum modi omnis laudantium hic nesciunt, sequi iusto dignissimos ratione quibusdam explicabo aut nulla, numquam ad molestias debitis asperiores minus.</p> -->
       <!-- <div class="flex space-x-2 mt-2">
@@ -69,6 +72,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
 import UserRegistration from "./components/user/UserRegistration.vue";
+import UserDetail from "./components/user/UserDetail.vue";
 
 export default {
   components: {
@@ -76,6 +80,7 @@ export default {
     SimpleHome,
     Sidebar,
     UserRegistration,
+    UserDetail,
   },
   setup() {
     /* Vuex */
@@ -90,6 +95,7 @@ export default {
 
     return {
       is_login: computed(() => vuexStore.state.is_login),
+      user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
       toggleModal,
     };

@@ -4,15 +4,17 @@
     class="
       flex-1
       overflow-y-scroll
-      p-5
+      p-2
+      md:p-5
       scrollbar-thumb-color
       dark:scrollbar-thumb-color-dark
       scrollbar-with
-      space-y-5
+      space-y-1
+      md:space-y-5
     "
   >
     <!-- AVARTA -->
-    <div class="flex flex-col items-center mb-5">
+    <div class="flex flex-col items-center mb-3 md:mb-5">
       <span
         class="
           flex
@@ -53,7 +55,7 @@
         ></span>
       </span>
     </div>
-    <h1 class="w-full mb-5 text-sm font-bold upercase mt-7 dark:text-white">
+    <h1 class="w-full mb-5 text-xs md:text-sm font-bold upercase mt-7 dark:text-white">
       새로운 사용자의 정보를 입력하는 폼입니다. <br />
       *표시는 필수 입력항목입니다.
     </h1>

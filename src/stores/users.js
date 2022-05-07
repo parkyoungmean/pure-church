@@ -10,6 +10,7 @@ dayjs.locale('ko')      // global로 한국어 locale 사용
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
+    user_mode: '',
     users: [],
     currentUser: [],
   }),
@@ -30,6 +31,16 @@ export const useUserStore = defineStore("user", {
         this.open_modal = false;
       } else {
         this.open_modal = !this.open_modal;
+      }
+    },
+
+    userMode(dir = null) {
+      if (dir === "create") {
+        this.user_mode = "create";
+      } else if (dir === "read") {
+        this.user_mode = "read";
+      } else {
+        this.user_mode = "update";
       }
     },
 
