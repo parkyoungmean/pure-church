@@ -18,7 +18,7 @@
       z-30
     "
   >
-    <div class="w-full -mb-21 md:max-w-md rounded-md bg-white p-2 shadow-md">
+    <div class="w-full -mb-12 md:max-w-md rounded-md bg-white p-2 shadow-md">
       <!-- Close Button -->
       <div class="flex justify-end">
         <button

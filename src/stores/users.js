@@ -11,11 +11,16 @@ export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
     users: [],
+    currentUser: [],
   }),
   getters: {
     getUsers(state) {
       return state.users;
     },
+    getCurrentUser(state) {
+      console.log(state.currentUser);
+      return state.currentUser;
+    }
   },
   actions: {
     toggleModal(dir = null) {
@@ -27,6 +32,13 @@ export const useUserStore = defineStore("user", {
         this.open_modal = !this.open_modal;
       }
     },
+
+    /* setting Current User */
+    async selectedUser(payload) {
+      const index = this.users.findIndex((element) => element.id === payload);
+      this.currentUser = this.users[index];
+    },
+    
     /* Create */
     async createUser(payload) {
       try {
@@ -91,6 +103,7 @@ export const useUserStore = defineStore("user", {
           });
         })
         this.users = usersArray;
+        this.currentUser = usersArray[0];
 
       } catch (error) {
         console.error(error);

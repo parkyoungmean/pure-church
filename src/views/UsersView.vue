@@ -53,15 +53,19 @@
                 <div class="w-full space-y-10">
                   <!-- USER -->
                   <div
+                    @click="viewUserDetail(user.id)"
                     v-for="user in users"
                     :key="user.id"
                     class="cursor-pointer flex px-7 md:px-10"
                   >
                     <!-- AVATAR -->
                     <div class="mr-4 relative w-14">
-                      <img v-if="user.img === 'user.png'"
-                      :src="require(`../assets/avatar/${user.img}`)" alt=""
-                      class="rounded-full w-14 h-14 mr-2" />
+                      <img
+                        v-if="user.img === 'user.png'"
+                        :src="require(`../assets/avatar/${user.img}`)"
+                        alt=""
+                        class="rounded-full w-14 h-14 mr-2"
+                      />
                       <!-- AVATAR:blue dot -->
                       <img
                         v-else
@@ -127,7 +131,7 @@
             <!-- USER FORM -->
             <UserRegistration v-if="open" />
             <!-- END OF USER FORM -->
-            <!-- USER INFO -->
+            <!-- USER DETAIL -->
             <div
               v-else
               id="content"
@@ -159,7 +163,14 @@
                     "
                   >
                     <img
-                      src="https://i.imgur.com/tJghX0Z.jpg"
+                      v-if="currentUser.img === 'user.png'"
+                      :src="require(`../assets/avatar/${currentUser.img}`)"
+                      alt=""
+                      class="object-cover -rotate-45 rounded-full w-52 h-52"
+                    />
+                    <img
+                      v-else
+                      :src="currentUser.img"
                       alt=""
                       class="object-cover -rotate-45 rounded-full w-52 h-52"
                     />
@@ -180,13 +191,12 @@
                 </div>
                 <!-- SIMPLE INTRODUCTION  -->
                 <div class="flex flex-col items-center gap-3 text-gray-900">
-                  <h1 class="text-3xl font-bold">크루엘라</h1>
+                  <h1 class="text-3xl font-bold">{{ currentUser.name }}</h1>
                   <p class="text-xl tracking-widest text-gray-400">
-                    등록일: 2016년 03월 21일
+                    등록일: {{ currentUser.createdAt }}
                   </p>
                   <p class="text-sm tracking-widest text-gray-400">
-                    안녕 자기? 보여줄게, 내가 누군지 난 원래부터 뛰어나고,
-                    못됐고, 약간 돌았지
+                    {{ currentUser.greetings }}
                   </p>
                 </div>
               </div>
@@ -196,8 +206,8 @@
                   연락처
                 </h1>
                 <hr class="mb-5 w-1/6" />
-                <h1>010-10000-0001</h1>
-                <h1>loremipsu@gmail.com</h1>
+                <h1>{{ currentUser.phoneNumber }}</h1>
+                <h1>{{ currentUser.email }}</h1>
                 <h1>영국, 런던</h1>
                 <hr class="my-10" />
                 <!-- 관계 -->
@@ -322,6 +332,10 @@ export default {
       return store.users;
     });
 
+    const currentUser = computed(() => {
+      return store.getCurrentUser;
+    });
+
     onMounted(() => {
       store.fetchUsers();
     });
@@ -368,6 +382,7 @@ export default {
     };
 
     const userFormOpen = () => {
+      /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
         console.log(getCurrentBreakpoint());
         console.log("open dialog!");
@@ -384,11 +399,17 @@ export default {
       store.toggleModal();
     };
 
+    const viewUserDetail = (id) => {
+      store.selectedUser(id);
+    };
+
     return {
       users,
       open,
       userFormOpen,
       toggleModal,
+      viewUserDetail,
+      currentUser,
     };
   },
 };
