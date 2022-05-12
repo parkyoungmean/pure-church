@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SimpleHome from '../components/SimpleHome.vue'
+import { useUserStore } from "../stores/users";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Simplehome',
     /* component: HomeView */
-    component: SimpleHome
+    component: () => import(/* webpackChunkName: "simplehome" */ '../components/SimpleHome.vue')
   },
   {
     path: '/userhome',
@@ -20,22 +19,46 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/users',
     name: 'users',
-    component: () => import(/* webpackChunkName: "users" */ '../views/UsersView.vue')
+    component: () => import(/* webpackChunkName: "users" */ '../views/UsersView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
   },
   {
     path: '/userdetail',
     name: 'userdetail',
-    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserDetail.vue')
+    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserDetail.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
   },
   {
     path: '/userregistration',
     name: 'userregistration',
-    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserRegistration.vue')
+    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserRegistration.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
   },
   {
     path: '/useredit',
     name: 'useredit',
-    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserEdit.vue')
+    component: () => import(/* webpackChunkName: "users" */ '../components/user/UserEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
   }
 ]
 

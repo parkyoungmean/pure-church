@@ -1,4 +1,26 @@
 <template>
+  <!-- Close Button -->
+  <div class="flex justify-end p-6 md:hidden">
+    <button
+      @click="$router.go(-1)"
+      class="
+        text-blue-400
+        top-5
+        right-0
+        h-7
+        w-7
+        text-2xl
+        font-semibold
+        justify-center
+        items-center
+        focus:outline-none
+      "
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+  </div>
+  <!-- End of Close Button -->
+  <!-- USER REGISTRATION FORM -->
   <div
     id="content"
     class="
@@ -166,6 +188,7 @@
       </button>
     </form>
   </div>
+  <!-- END OF USER REGISTRATION FORM -->
 </template>
 
 <script>
@@ -236,9 +259,7 @@ export default {
 
           if (getCurrentBreakpoint().value < 768) {
             router.go(-1);
-            alert("모바일입니다!");
           } else {
-            alert("브라우저입니다!");
             userMode("read");
           }
         });

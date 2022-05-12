@@ -46,7 +46,7 @@
     <!-- Navbar for Guest -->
     <SimpleNavbar v-show="is_login ? false : true" class="z-20" />
     <!-- Sidebar for User -->
-    <Sidebar v-show="is_login ? true : false" class="" />
+    <Sidebar v-show="is_login ? true : false" :class="show_sidebar ? '' : 'hidden'" />
     <router-view />
   </div>
 </template>
@@ -81,6 +81,7 @@ export default {
       is_login: computed(() => vuexStore.state.is_login),
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
+      show_sidebar: computed(() => store.show_sidebar),
       toggleModal,
     };
   },

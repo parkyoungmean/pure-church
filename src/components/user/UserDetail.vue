@@ -1,4 +1,26 @@
 <template>
+  <!-- Close Button -->
+  <div class="flex justify-end p-6 md:hidden">
+    <button
+      @click="$router.go(-1)"
+      class="
+        text-blue-400
+        top-5
+        right-0
+        h-7
+        w-7
+        text-2xl
+        font-semibold
+        justify-center
+        items-center
+        focus:outline-none
+      "
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+  </div>
+  <!-- End of Close Button -->
+  <!-- USER DETAIL -->
   <div
     id="content"
     class="
@@ -222,6 +244,7 @@
           수정
         </button>
         <button
+          @click="deleteUser"
           class="
             inline-flex
             justify-center
@@ -245,6 +268,7 @@
       </div>
     </div>
   </div>
+  <!-- END OF USER DETAIL -->
 </template>
 
 <script>
@@ -273,7 +297,26 @@ export default {
         userMode("update");
       }
     };
-    
+
+    /* Delete user information */
+    const deleteUser = () => {
+      if (confirm("정말 삭제합니까?")) {
+        /* alert("ok"); */
+
+        store.deleteUser(currentUser.value).then(() => {
+          alert("학생 정보 삭제 성공!");
+          if (getCurrentBreakpoint().value < 768) {
+            router.go(-1);
+          } else {
+            userMode("read");
+            router.go(-1);
+          }
+        });
+      } else {
+        alert("취소되었습니다.");
+      }
+    };
+
     const userMode = (mode) => {
       store.userMode(mode);
     };
@@ -281,10 +324,11 @@ export default {
     return {
       currentUser,
       userEditOpen,
+      deleteUser,
     };
   },
 };
 </script>
-
+ 
 <style lang="scss" scoped>
 </style>

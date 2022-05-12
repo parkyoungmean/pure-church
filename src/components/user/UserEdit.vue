@@ -1,4 +1,26 @@
 <template>
+  <!-- Close Button -->
+  <div class="flex justify-end p-6 md:hidden">
+    <button
+      @click="$router.go(-1)"
+      class="
+        text-blue-400
+        top-5
+        right-0
+        h-7
+        w-7
+        text-2xl
+        font-semibold
+        justify-center
+        items-center
+        focus:outline-none
+      "
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+  </div>
+  <!-- End of Close Button -->
+  <!-- USER EDIT FORM -->
   <div
     id="content"
     class="
@@ -31,32 +53,18 @@
           border-t-epic-blue
         "
       >
-      <img
-            v-if="currentUser.img === 'user.png'"
-            :src="require(`../../assets/avatar/${currentUser.img}`)"
-            alt=""
-            class="
-              object-cover
-              -rotate-45
-              rounded-full
-              w-26
-              h-26
-              md:w-52 md:h-52
-            "
-          />
-          <img
-            v-else
-            :src="currentUser.img"
-            alt=""
-            class="
-              object-cover
-              -rotate-45
-              rounded-full
-              w-26
-              h-26
-              md:w-52 md:h-52
-            "
-          />
+        <img
+          v-if="currentUser.img === 'user.png'"
+          :src="require(`../../assets/avatar/${currentUser.img}`)"
+          alt=""
+          class="object-cover -rotate-45 rounded-full w-26 h-26 md:w-52 md:h-52"
+        />
+        <img
+          v-else
+          :src="currentUser.img"
+          alt=""
+          class="object-cover -rotate-45 rounded-full w-26 h-26 md:w-52 md:h-52"
+        />
         <span
           class="
             absolute
@@ -187,6 +195,7 @@
       </button>
     </form>
   </div>
+  <!-- END OF USER EDIT FORM -->
 </template>
   
   <script>
@@ -236,15 +245,13 @@ export default {
       }
 
       if (validationNumber(currentUser.value.phoneNumber)) {
-        store.updateUser(currentUser.value)
-        .then(() => {
+        store.updateUser(currentUser.value).then(() => {
           alert("학생 정보 수정 성공!");
 
           if (getCurrentBreakpoint().value < 768) {
             router.go(-1);
-            alert("모바일입니다!");
           } else {
-            alert("브라우저입니다!");
+            userMode("read");
           }
         });
       }

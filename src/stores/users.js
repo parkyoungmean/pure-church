@@ -10,6 +10,7 @@ dayjs.locale("ko"); // global로 한국어 locale 사용
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
+    show_sidebar: true,
     user_mode: "read",
     users: [],
     currentUser: [],
@@ -166,6 +167,33 @@ export const useUserStore = defineStore("user", {
       } catch (error) {
         alert("학생 정보의 수정이 실패하였습니다ㅜㅜ");
         console.error("User's Update 에러:", error);
+      }
+    },
+    /* Delete */
+    async deleteUser(payload) {
+      try {
+        await axios.post('https://pure-api.herokuapp.com/deleteUser', {
+        /* await axios
+          .post("http://localhost:4000/deleteUser", { */
+            id: payload.id,
+          })
+          .then((res) => {
+            console.log("data:", res.data);
+            
+            const index = this.users.findIndex(
+              (element) => element.id === payload.id
+            );
+            console.log('인덱스?', index);
+            this.users.splice(index, 1);
+            console.log(this.users[index]);
+            this.currentsUser = this.users[index];
+            
+            console.log("학생의 정보가 삭제되었습니다.");
+
+          });
+      } catch (error) {
+        alert("학생 정보의 삭제가 실패하였습니다ㅜㅜ");
+        console.error("User's Delete 에러:", error);
       }
     },
   },
