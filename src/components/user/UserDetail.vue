@@ -81,7 +81,7 @@
       <div class="flex flex-col items-center gap-1 md:gap-3 text-gray-900">
         <h1 class="text-xl md:text-3xl font-bold">{{ currentUser.name }}</h1>
         <p class="text-xs md:text-sm tracking-widest text-gray-400">
-          등록일: {{ currentUser.createdAt }}
+          등록일: {{ currentUser.convertedAt }}
         </p>
         <p class="text-xs md:text-sm tracking-widest text-gray-400">
           {{ currentUser.greetings }}
@@ -197,7 +197,52 @@
         <span class="italic text-green-400">진행중</span> / 2022-2022
       </h1>
       <br />
-      <hr class="my-5 md:my-10" />
+      <hr class="my-3 md:my-5" />
+      <div class="flex justify-end space-x-2 mt-2">
+        <button
+          @click="userEditOpen"
+          class="
+            inline-flex
+            justify-center
+            px-4
+            py-2
+            text-sm
+            font-medium
+            text-amber-900
+            bg-blue-100
+            border border-transparent
+            rounded-md
+            hover:bg-blue-200
+            focus:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-offset-2
+            focus-visible:ring-blue-500
+          "
+        >
+          수정
+        </button>
+        <button
+          class="
+            inline-flex
+            justify-center
+            px-4
+            py-2
+            text-sm
+            font-medium
+            text-red-900
+            bg-blue-100
+            border border-transparent
+            rounded-md
+            hover:bg-blue-200
+            focus:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-offset-2
+            focus-visible:ring-blue-500
+          "
+        >
+          삭제
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -206,17 +251,36 @@
 /* eslint-disable */
 import { computed } from "@vue/runtime-core";
 import { useUserStore } from "../../stores/users";
+import { useRouter } from "vue-router";
+import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
   setup() {
     const store = useUserStore();
+    const router = useRouter();
 
     const currentUser = computed(() => {
       return store.getCurrentUser;
     });
 
+    /* Update user infomation */
+    const userEditOpen = () => {
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        router.push("/useredit");
+        userMode("update");
+      } else {
+        userMode("update");
+      }
+    };
+    
+    const userMode = (mode) => {
+      store.userMode(mode);
+    };
+
     return {
       currentUser,
+      userEditOpen,
     };
   },
 };

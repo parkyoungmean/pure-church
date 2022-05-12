@@ -98,7 +98,7 @@
                           {{ user.name }}
                         </div>
                         <div class="text-gray-700 dark:text-gray-600 text-xs">
-                          등록일: {{ user.createdAt }}
+                          등록일: {{ user.convertedAt }}
                         </div>
                       </div>
                       <div class="text-gray-400 text-sm dark:text-gray-600">
@@ -128,12 +128,15 @@
               hidden
             "
           >
-            <!-- USER FORM -->
-            <UserRegistration v-if="open" />
-            <!-- END OF USER FORM -->
             <!-- USER DETAIL -->
-            <UserDetail v-else />
+            <UserDetail v-if="user_mode === 'read'" />
             <!-- END OF USER DETAIL -->
+            <!-- USER REGISTRATION FORM -->
+            <UserRegistration v-else-if="user_mode === 'create'" />
+            <!-- END OF USER REGISTRATION FORM -->
+            <!-- USER EDIT FORM -->
+            <UserEdit v-else />
+            <!-- END OF USER EDIT FORM -->
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
         </div>
@@ -145,28 +148,30 @@
 <script>
 /* eslint-disable */
 import { onMounted, computed } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { useUserStore } from "../stores/users";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../tailwind.config";
-import UserRegistration from "@/components/user/UserRegistration.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
+import UserRegistration from "@/components/user/UserRegistration.vue";
+import UserEdit from "@/components/user/UserEdit.vue";
+import { getCurrentBreakpoint } from "../common/common";
+
 
 export default {
   components: {
-    UserRegistration,
     UserDetail,
+    UserRegistration,
+    UserEdit,
   },
   setup() {
     const { ref } = require("vue");
-    let open = ref(false);
-
-    const fullConfig = resolveConfig(tailwindConfig);
 
     /* Vuex */
     const vuexStore = useStore();
     /* Pinia */
     const store = useUserStore();
+
+    const router = useRouter();
 
     const getUsers = computed(() => {
       return store.getUsers;
@@ -184,60 +189,32 @@ export default {
       store.fetchUsers();
     });
 
-    /* grab the current breakpoint of the screen  */
-    const getCurrentBreakpoint = () => {
-      let currentBreakpoint;
-      const breakpointsArray = Object.entries(fullConfig.theme.screens);
-
-      breakpointsArray.sort((a, b) => {
-        const valA = [a[1].split("px")][0][0];
-        const valB = [b[1].split("px")][0][0];
-        const valAInt = parseInt(valA, 10);
-        const valBInt = parseInt(valB, 10);
-        if (valAInt > valBInt) {
-          return 1;
-        }
-        if (valAInt < valBInt) {
-          return -1;
-        }
-        return 0;
-      });
-
-      for (let i = 0; i < breakpointsArray.length; i++) {
-        const breakpointValue = parseInt(
-          [breakpointsArray[i][1].split("px")],
-          10
-        );
-
-        if (window.innerWidth >= breakpointValue) {
-          currentBreakpoint = breakpointsArray[i];
-        } else {
-          if (!currentBreakpoint) {
-            [currentBreakpoint] = breakpointsArray;
-          }
-          break;
-        }
+    /* Read user infomation */
+    const userDetailOpen = (id) => {
+      store.selectedUser(id);
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        router.push("/userdetail");
+        userMode("read");
+      } else {
+        userMode("read");
       }
-      return {
-        key: currentBreakpoint[0],
-        valueString: currentBreakpoint[1],
-        value: parseInt([currentBreakpoint[1].split("px")], 10),
-      };
     };
 
     /* Create user infomation */
     const userFormOpen = () => {
       /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
-        console.log(getCurrentBreakpoint());
-        console.log("open dialog!");
-        toggleModal();
-        userMode('create');
+        router.push("/userregistration");
+        userMode("create");
       } else {
-        console.log(getCurrentBreakpoint());
-        open.value = !open.value;
+        userMode("create");
       }
     };
+
+    function increaseCount(n) {
+      console.log(n);
+    }
 
     const toggleModal = () => {
       store.toggleModal();
@@ -247,28 +224,13 @@ export default {
       store.userMode(mode);
     };
 
-    /* Read user infomation */
-    const userDetailOpen = (id) => {
-      store.selectedUser(id);
-
-      /* If Mobile screen */
-      if (getCurrentBreakpoint().value < 769) {
-        console.log(getCurrentBreakpoint());
-        console.log("open dialog!");
-        toggleModal();
-        userMode('read');
-      } else {
-        console.log(getCurrentBreakpoint());
-        open.value = false;
-      }
-    };
-
     return {
       users,
-      open,
       userFormOpen,
       userDetailOpen,
+      increaseCount,
       toggleModal,
+      user_mode: computed(() => store.user_mode),
       currentUser,
     };
   },

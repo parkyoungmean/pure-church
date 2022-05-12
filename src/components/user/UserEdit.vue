@@ -31,11 +31,32 @@
           border-t-epic-blue
         "
       >
-        <img
-          src="../../assets/avatar/user.png"
-          alt=""
-          class="object-cover -rotate-45 rounded-full w-26 h-26 md:w-52 md:h-52"
-        />
+      <img
+            v-if="currentUser.img === 'user.png'"
+            :src="require(`../../assets/avatar/${currentUser.img}`)"
+            alt=""
+            class="
+              object-cover
+              -rotate-45
+              rounded-full
+              w-26
+              h-26
+              md:w-52 md:h-52
+            "
+          />
+          <img
+            v-else
+            :src="currentUser.img"
+            alt=""
+            class="
+              object-cover
+              -rotate-45
+              rounded-full
+              w-26
+              h-26
+              md:w-52 md:h-52
+            "
+          />
         <span
           class="
             absolute
@@ -67,8 +88,8 @@
         dark:text-white
       "
     >
-      새로운 사용자의 정보를
-      <span class="text-red-500 font-bold">등록</span>
+      사용자의 정보를
+      <span class="text-red-500 font-bold">수정</span>
       하는 폼입니다. <br />
       *표시는 필수 입력항목입니다.
     </h1>
@@ -77,7 +98,7 @@
         <!-- Input Email Address -->
         <div class="relative w-full">
           <input
-            v-model="user.email"
+            v-model="currentUser.email"
             type="email"
             id="email"
             autocomplete="off"
@@ -94,7 +115,7 @@
         <!-- Input Name -->
         <div class="relative w-full">
           <input
-            v-model="user.name"
+            v-model="currentUser.name"
             type="text"
             id="name"
             autocomplete="off"
@@ -111,7 +132,7 @@
         <!-- Input PhoneNumber -->
         <div class="relative w-full">
           <input
-            v-model="user.phoneNumber"
+            v-model="currentUser.phoneNumber"
             type="text"
             id="phonenumber"
             autocomplete="off"
@@ -128,7 +149,7 @@
         <!-- Input ExtraInformation -->
         <div class="relative w-full">
           <textarea
-            v-model="user.extraInfo"
+            v-model="currentUser.extraInfo"
             type="text"
             id="extrainfo"
             autocomplete="off"
@@ -162,47 +183,27 @@
           hover:brightness-110
         "
       >
-        확 인
+        수정하기
       </button>
     </form>
   </div>
 </template>
-
-<script>
+  
+  <script>
 /* eslint-disable */
-import { reactive } from "@vue/runtime-core";
+import { computed } from "@vue/runtime-core";
 import { useUserStore } from "../../stores/users";
 import { useRouter } from "vue-router";
 import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
   setup() {
-    let user = reactive({
-      email: "",
-      name: "",
-      img: "",
-      phoneNumber: null,
-      extraInfo: "",
-      greetings: "",
-    });
-
-    const initUser = () => {
-      user = reactive({
-        email: "",
-        name: "",
-        img: "",
-        phoneNumber: null,
-        extraInfo: "",
-        greetings: "",
-      });
-    };
-
     const router = useRouter();
     const store = useUserStore();
 
-    const userMode = (mode) => {
-      store.userMode(mode);
-    };
+    const currentUser = computed(() => {
+      return store.getCurrentUser;
+    });
 
     const validationNumber = (str) => {
       let pattern_num = /[0-9]/; // 숫자체크
@@ -224,34 +225,38 @@ export default {
     };
 
     const onSubmit = () => {
-      if (user.email === "" || user.name === "" || user.phoneNumber === null) {
+      console.log(currentUser.value.phoneNumber);
+      if (
+        currentUser.value.email === "" ||
+        currentUser.value.name === "" ||
+        currentUser.value.phoneNumber === null
+      ) {
         alert("필수입력 항목을 입력해주세요!");
         return;
       }
-      if (validationNumber(user.phoneNumber)) {
-        store.createUser(user).then(() => {
-          alert("새 학생 등록 성공!");
-          /* 초기화하기 */
-          initUser();
+
+      if (validationNumber(currentUser.value.phoneNumber)) {
+        store.updateUser(currentUser.value)
+        .then(() => {
+          alert("학생 정보 수정 성공!");
 
           if (getCurrentBreakpoint().value < 768) {
             router.go(-1);
             alert("모바일입니다!");
           } else {
             alert("브라우저입니다!");
-            userMode("read");
           }
         });
       }
     };
 
     return {
-      user,
+      currentUser,
       onSubmit,
     };
   },
 };
 </script>
-
-<style lang="scss" scoped>
+  
+  <style lang="scss" scoped>
 </style>

@@ -3,14 +3,14 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 import dayjs from "dayjs";
-import 'dayjs/locale/ko'
+import "dayjs/locale/ko";
 
-dayjs.locale('ko')      // global로 한국어 locale 사용
+dayjs.locale("ko"); // global로 한국어 locale 사용
 
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
-    user_mode: '',
+    user_mode: "read",
     users: [],
     currentUser: [],
   }),
@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", {
     getCurrentUser(state) {
       console.log(state.currentUser);
       return state.currentUser;
-    }
+    },
   },
   actions: {
     toggleModal(dir = null) {
@@ -49,12 +49,13 @@ export const useUserStore = defineStore("user", {
       const index = this.users.findIndex((element) => element.id === payload);
       this.currentUser = this.users[index];
     },
-    
+
     /* Create */
     async createUser(payload) {
       try {
-        await axios.post('https://pure-api.herokuapp.com/createUser', {
-        /* await axios
+        await axios
+          .post("https://pure-api.herokuapp.com/createUser", {
+            /* await axios
           .post("http://localhost:4000/createUser", { */
             email: payload.email,
             name: payload.name,
@@ -63,10 +64,12 @@ export const useUserStore = defineStore("user", {
             greetings: payload.greetings || "",
             extraInfo: payload.extraInfo || "",
             createdAt: dayjs(),
+            updatedAt: "1000-01-01T00:00:00.000Z",
             bookmark: "",
           })
           .then((res) => {
             console.log("New User:", res.data);
+            console.log(res.data.properties.Bookmark.rich_text[0].text.content);
             let user = {
               id: res.data.id,
               email: payload.email,
@@ -75,30 +78,30 @@ export const useUserStore = defineStore("user", {
               phoneNumber: payload.phoneNumber,
               extraInfo: payload.extraInfo || "",
               greetings: payload.greetings || "",
-              createdAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
-              bookmark: payload.bookmark,
+              createdAt: res.data.created_time,
+              convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
+              bookmark: res.data.properties.Bookmark.rich_text[0].text.content,
             };
 
             console.log("payload:", user);
 
             this.users.unshift(user);
-            
-            this.open_modal = false;
+            this.currentUser = user;
           });
       } catch (error) {
-        alert('새 학생 등록이 실패하였습니다ㅜㅜ')
+        alert("새 학생 등록이 실패하였습니다ㅜㅜ");
         console.error("New User's Create 에러:", error);
       }
     },
     /* Read */
     async fetchUsers() {
       try {
-        const data = await axios.get('https://pure-api.herokuapp.com/users')
+        const data = await axios.get("https://pure-api.herokuapp.com/users");
         /* const data = await axios.get("http://localhost:4000/users"); */
 
         let usersArray = [];
 
-        data.data.forEach(v => {
+        data.data.forEach((v) => {
           let user = v;
 
           usersArray.push({
@@ -109,15 +112,60 @@ export const useUserStore = defineStore("user", {
             img: user.Img || "user.png",
             greetings: user.Greetings || "",
             extraInfo: user.ExtraInfo || "",
-            createdAt: dayjs(user.CreatedAt).format("YYYY년 MM월 DD일"),
+            createdAt: user.CreatedAt,
+            convertedAt: dayjs(user.CreatedAt).format("YYYY년 MM월 DD일"),
+            updatedAt: user.UpdatedAt,
             bookmark: user.Bookmark,
           });
-        })
+        });
         this.users = usersArray;
         this.currentUser = usersArray[0];
-
       } catch (error) {
         console.error(error);
+      }
+    },
+    /* Update */
+    async updateUser(payload) {
+      try {
+        await axios.post('https://pure-api.herokuapp.com/updateUser', {
+        /* await axios
+          .post("http://localhost:4000/updateUser", { */
+            id: payload.id,
+            email: payload.email,
+            name: payload.name,
+            phoneNumber: payload.phoneNumber,
+            img: payload.img || "user.png",
+            greetings: payload.greetings || "",
+            extraInfo: payload.extraInfo || "",
+            createdAt: payload.createdAt,
+            updatedAt: dayjs(),
+            bookmark: payload.bookmark,
+          })
+          .then((res) => {
+            console.log("data:", res.data);
+            let user = {
+              id: payload.id,
+              email: payload.email,
+              name: payload.name,
+              img: payload.img || "user.png",
+              phoneNumber: payload.phoneNumber,
+              extraInfo: payload.extraInfo || "",
+              greetings: payload.greetings || "",
+              createdAt: payload.createdAt,
+              updatedAt: res.data.last_edited_time,
+              bookmark: payload.bookmark,
+            };
+            console.log("payload:", user);
+            console.log("학생의 정보가 수정되었습니다.");
+            const index = this.users.findIndex(
+              (element) => element.id === payload.id
+            );
+            this.users[index] = payload;
+            this.currentsUser = payload;
+          });
+      } catch (error) {
+        alert("학생 정보의 수정이 실패하였습니다ㅜㅜ");
+        console.error("User's Update 에러:", error);
       }
     },
   },

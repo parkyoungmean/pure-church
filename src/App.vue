@@ -39,18 +39,6 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <!-- USER REGISTRATION FORM -->
-      <UserRegistration v-if="user_mode==='create'" />
-      <!-- END OF USER REGISTRATION FORM -->
-      <!-- USER DETAIL -->
-      <UserDetail v-else-if="user_mode==='read'" />
-      <!-- END OF USER DETAIL -->
-      <!-- <h1 class="text-xl font-semibold text-amber-900">안녕하세요?</h1>
-      <p class="mt-1 text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quis voluptatum modi omnis laudantium hic nesciunt, sequi iusto dignissimos ratione quibusdam explicabo aut nulla, numquam ad molestias debitis asperiores minus.</p> -->
-      <!-- <div class="flex space-x-2 mt-2">
-        <button class="inline-flex justify-center px-4 py-2 text-sm font-medium text-amber-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">확인</button>
-        <button @click="toggleModal()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">취소</button>
-      </div> -->
     </div>
   </div>
   <!-- END OF MODAL -->
@@ -71,16 +59,12 @@ import Sidebar from "./components/Sidebar.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
-import UserRegistration from "./components/user/UserRegistration.vue";
-import UserDetail from "./components/user/UserDetail.vue";
 
 export default {
   components: {
     SimpleNavbar,
     SimpleHome,
     Sidebar,
-    UserRegistration,
-    UserDetail,
   },
   setup() {
     /* Vuex */
