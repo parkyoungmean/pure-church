@@ -5,18 +5,18 @@
         <div class="max-h-full h-full flex flex-row">
           <!-- LEFT USERS LIST -->
           <aside
-            class="w-full lg:w-3/5 bg-white dark:bg-gray-900 rounded-lg lg:mr-5"
+            class="w-full lg:w-3/5 bg-white dark:bg-gray-900 rounded-lg md:mr-5"
           >
             <div class="max-w-full h-full w-full flex flex-col">
               <div class="flex p-7 md:p-10 justify-between">
                 <div
-                  class="text-4xl font-semibold text-gray-900 dark:text-white"
+                  class="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white"
                 >
                   학생 목록
                 </div>
               </div>
               <!-- ADD USER BUTTON -->
-              <div class="flex items-cnenter justify-end mb-10 mr-5">
+              <div class="flex items-cnenter justify-end mb-10 md:mr-2">
                 <button
                   @click="userFormOpen()"
                   id="add-user"
@@ -24,7 +24,7 @@
                   class="
                     flex
                     items-center
-                    text-sm
+                    text-xs
                     md:text-lg
                     p-1
                     md:p-1.5

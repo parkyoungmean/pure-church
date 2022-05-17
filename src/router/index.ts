@@ -59,7 +59,19 @@ const routes: Array<RouteRecordRaw> = [
       store.show_sidebar = false;
       next();
     }
-  }
+  },
+  /* 학교관리 */
+  {
+    path: '/schools',
+    name: 'schools',
+    component: () => import(/* webpackChunkName: "users" */ '../views/SchoolsView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

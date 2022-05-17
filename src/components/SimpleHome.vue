@@ -159,12 +159,43 @@ import PrimaryCard from "@/components/PrimaryCard.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
 
 const schools = [
-  { title: "능력의 기도(BAP)학교", img: "https://i.imgur.com/dPErD5s.jpg" },
-  { title: "복음학교", img: "https://i.imgur.com/UyimOMY.jpg" },
-  { title: "사랑학교", img: "https://i.imgur.com/XTEusLc.jpg" },
-  { title: "사역자학교", img: "https://i.imgur.com/LRbjgMF.jpg" },
-  { title: "치유(The Day)학교", img: "https://i.imgur.com/xUc8v0t.jpg" },
-  { title: "친밀감(Kar)학교", img: "https://i.imgur.com/C52zbsi.jpg" },
+  {
+    title: "복음학교",
+    subtitle: "복음으로 하나됨",
+    img: "https://i.imgur.com/UyimOMY.jpg",
+    color: "amber",
+  },
+  {
+    title: "치유(The Day)학교",
+    subtitle: "하나님 나라의 회복과 능력",
+    img: "https://i.imgur.com/xUc8v0t.jpg",
+    color: "orange",
+  },
+  {
+    title: "친밀감(Kar)학교",
+    subtitle: "두드리다, 머물다, 회복하다",
+    img: "https://i.imgur.com/C52zbsi.jpg",
+    color: "rose",
+  },
+  {
+    title: "능력의 기도(BAP)학교",
+    subtitle: "참된 영적 전쟁과 승리",
+    img: "https://i.imgur.com/dPErD5s.jpg",
+    color: "fuchsia",
+  },
+
+  {
+    title: "사랑학교",
+    subtitle: "사랑은 오래참고 온유하며",
+    img: "https://i.imgur.com/XTEusLc.jpg",
+    color: "pink",
+  },
+  {
+    title: "사역자학교",
+    subtitle: "충성되이 여겨 내게 직분을 맡기심이니",
+    img: "https://i.imgur.com/LRbjgMF.jpg",
+    color: "blue",
+  },
 ];
 
 export default {
