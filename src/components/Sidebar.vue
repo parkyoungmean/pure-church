@@ -51,11 +51,13 @@
                                             </router-link>
                                         </li> -->
                                         <li>
-                                            <router-link to="/users" class="border-t py-3 lg:border-t-0 lg:border-l lg:pl-8 group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
+                                            <router-link to="/users" class="border-t pt-3 lg:border-t-0 lg:border-l lg:pl-8 group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">manage_accounts</span>
                                                 <span class="relative group-hover:text-blue-800">학생관리</span>
                                             </router-link>
-                                            <router-link to="/schools" class="border-t py-3 lg:border-t-0 lg:pl-8 group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
+                                        </li>
+                                        <li>
+                                            <router-link to="/schools" class="py-3 lg:border-t-0 lg:pl-8 group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">account_balance</span>
                                                 <span class="relative group-hover:text-blue-800">학교관리</span>
                                             </router-link>

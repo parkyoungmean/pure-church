@@ -33,6 +33,7 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
       fuchsia: colors.fuchsia,
+
       /* color of bbs */
       "cw-grey-050": "#F0F4FB",
       "cw-grey-100": "#D9E2EC",
