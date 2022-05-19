@@ -1,47 +1,47 @@
 <template>
   <div class="bg-gray-100 dark:bg-gray-800">
     <div class="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
-      <div class="p-4 sm:p-12 lg:p-20 mt-20 md:mt-10 w-full">
+      <div class="p-4 sm:p-12 lg:p-10 mt-20 md:mt-10 w-full">
         <div class="max-h-full h-full flex flex-row">
           <!-- LEFT USERS LIST -->
           <aside
-            class="w-full lg:w-3/5 bg-white dark:bg-gray-900 rounded-lg md:mr-5"
+            class="w-full lg:w-4/12 bg-white dark:bg-gray-900 rounded-lg md:mr-5"
           >
             <div class="max-w-full h-full w-full flex flex-col">
-              <div class="flex p-7 md:p-10 justify-between">
+              <div class="flex p-7 md:pl-12 md:pr-5 md:py-10 justify-between">
                 <div
                   class="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white"
                 >
                   학생 목록
                 </div>
+                <!-- ADD USER BUTTON -->
+                <div class="flex items-cnenter justify-end mb-3 2xl:mb-10 md:mr-0">
+                  <button
+                    @click="userFormOpen()"
+                    id="add-user"
+                    type="button"
+                    class="
+                      flex
+                      items-center
+                      text-xs
+                      md:text-lg
+                      p-1
+                      md:p-1.5
+                      rounded-3xl
+                      bg-epic-blue
+                      space-x-1
+                      mr-2
+                      md:mr-5
+                    "
+                  >
+                    <i
+                      class="fas fa-plus text-epic-blue p-1 rounded-full bg-white"
+                    ></i>
+                    <p class="text-white text-sm font-extrabold">추가하기</p>
+                  </button>
+                </div>
               </div>
-              <!-- ADD USER BUTTON -->
-              <div class="flex items-cnenter justify-end mb-10 md:mr-2">
-                <button
-                  @click="userFormOpen()"
-                  id="add-user"
-                  type="button"
-                  class="
-                    flex
-                    items-center
-                    text-xs
-                    md:text-lg
-                    p-1
-                    md:p-1.5
-                    rounded-3xl
-                    bg-epic-blue
-                    space-x-1
-                    mr-2
-                    md:mr-5
-                  "
-                >
-                  <i
-                    class="fas fa-plus text-epic-blue p-1 rounded-full bg-white"
-                  ></i>
-                  <p class="text-white text-sm font-extrabold">추가하기</p>
-                </button>
-              </div>
-              <!-- USERS SECTION -->
+              <!-- USERS SECTION START-->
               <div
                 class="
                   flex-1
@@ -125,6 +125,7 @@
               flex flex-col
               dark:bg-gray-900
               lg:flex
+              lg:w-8/12
               hidden
             "
           >

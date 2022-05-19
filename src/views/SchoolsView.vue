@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 dark:bg-gray-800">
     <div class="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
-      <div class="p-4 sm:p-12 lg:p-20 w-full">
+      <div class="p-4 sm:p-12 lg:p-10 2xl:p-20 w-full">
         <div class="max-h-full h-full flex flex-row">
           <!-- LEFT SCHOOLS LIST -->
           <aside
@@ -193,7 +193,7 @@
               max-h-ful
               h-full
               bg-white
-              rounde-lg
+              rounded-lg
               w-full
               flex flex-col
               dark:bg-gray-900
@@ -202,7 +202,7 @@
               hidden
             "
           >
-            <div class="pt-10 pb-12 pl-10">
+            <div class="pt-10 2xl:pt-10 pb-12 pl-10">
               <!-- Navigation Text -->
               <div class="flex">
                 <!-- Left -->
@@ -214,7 +214,7 @@
                     </div>
                     <!-- Title -->
                     <div class="pt-10">
-                      <h1 class="text-4xl font-bold tracking-wide">
+                      <h1 class="text-3xl 2xl:text-4xl font-bold tracking-wide">
                         {{ schools[1].title }}
                       </h1>
                     </div>
@@ -228,10 +228,10 @@
                     <!-- Description -->
                     <p
                       v-html="schools[1].description"
-                      class="leading-relaxed pt-8"
+                      class="leading-relaxed text-sm 2xl:text-lg pt-8"
                     ></p>
                   </div>
-                  <div class="flex items-center justify-between pt-12">
+                  <div class="flex items-center justify-between pt-10">
                     <!-- Bookmark Button -->
                     <button
                       class="
@@ -338,9 +338,9 @@
                 <!-- End of Right -->
               </div>
               <!-- School Series -->
-              <div class="pt-4">
-                  <h2 class="text-2xl font-medium">학교 모음</h2>
-                  <div class="flex justify-between py-6 pr-5 space-x-4">
+              <div class="pt-12">
+                  <h2 class="text-xl 2xl:text-2xl font-medium">학교 모음</h2>
+                  <div class="flex justify-between py-1 2xl:py-3 pr-5 space-x-4">
                     <SchoolSeries v-for="(school, index) in schoolSeries" :key="index" :content="school" />
                   </div>
               </div>
@@ -447,8 +447,8 @@ const schoolSeries = [
     createdAt: "2주 전",
     status: "open",
     term: {
-      start: "2022-03-28",
-      end: "2022-05-16",
+      start: "2022.03.28",
+      end: "2022.05.16",
     },
     time: "매주 화요일 저녁6시"
   },
@@ -459,8 +459,8 @@ const schoolSeries = [
     createdAt: "2주 전",
     status: "close",
     term: {
-      start: "2021-11-16",
-      end: "2022-01-09",
+      start: "2021.11.16",
+      end: "2022.01.09",
     },
     time: "매주 화요일 저녁6시"
   },
@@ -471,8 +471,8 @@ const schoolSeries = [
     createdAt: "2주 전",
     status: "close",
     term: {
-      start: "2021-03-16",
-      end: "2021-05-04",
+      start: "2021.03.16",
+      end: "2021.05.04",
     },
     time: "매주 화요일 저녁6시"
   },
@@ -484,8 +484,8 @@ const schoolSeries = [
     createdAt: "2주 전",
     status: "close",
     term: {
-      start: "2021-08-24",
-      end: "2021-10-12",
+      start: "2021.08.24",
+      end: "2021.10.12",
     },
     time: "매주 화요일 저녁6시"
   },
