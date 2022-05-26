@@ -56,7 +56,7 @@ export const useUserStore = defineStore("user", {
       try {
         await axios
           .post("https://pure-api.herokuapp.com/createUser", {
-            /* await axios
+        /* await axios
           .post("http://localhost:4000/createUser", { */
             email: payload.email,
             name: payload.name,
