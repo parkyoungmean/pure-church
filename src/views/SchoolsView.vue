@@ -66,11 +66,12 @@
                 "
               >
                 <div
+                  @click="viewSchoolDetail(school.id)"
                   v-for="(school, index) in schools"
                   :key="index"
                   class="w-full space-y-2 md:space-y-4"
                 >
-                  <!-- SCHOOL01 -->
+                  <!-- SCHOOL -->
                   <div
                     class="
                       relative
@@ -179,7 +180,7 @@
                       />
                     </div>
                   </div>
-                  <!-- END OF SCHOOL01 -->
+                  <!-- END OF SCHOOL -->
                 </div>
               </div>
               <!-- END OF SCHOOLS SECTION  -->
@@ -197,8 +198,7 @@
               w-full
               flex flex-col
               dark:bg-gray-900
-              lg:flex
-              lg:w-4/6
+              lg:flex lg:w-4/6
               hidden
             "
           >
@@ -210,24 +210,24 @@
                   <div class="max-w-md">
                     <div class="flex items-center text-sm pt-9">
                       <span class="text-gray-900">순전한 학교&nbsp;</span>
-                      <span> / {{ schools[1].title }} </span>
+                      <span> / {{ currentSchool.title }} </span>
                     </div>
                     <!-- Title -->
                     <div class="pt-10">
                       <h1 class="text-4xl font-bold tracking-wide">
-                        {{ schools[1].title }}
+                        {{ currentSchool.title }}
                       </h1>
                     </div>
                     <!-- Simple Statics -->
                     <div class="flex items-center justify-between pt-4">
                       <div class="pl-2 leading-none">
-                        40명 수료 /
-                        <span class="text-gray-900/40">(50명 지원)</span>
+                        {{ currentSchool.graduate }}명 수료 /
+                        <span class="text-gray-900/40">({{ currentSchool.registration }}명 지원)</span>
                       </div>
                     </div>
                     <!-- Description -->
                     <p
-                      v-html="schools[1].description"
+                      v-html="currentSchool.description"
                       class="leading-relaxed pt-8"
                     ></p>
                   </div>
@@ -330,19 +330,26 @@
                   <!-- Content -->
                   <!-- <img :src="schools[1].img" alt=""> -->
                   <p
-                      v-html="schools[1].curriculum"
-                      class="leading-relaxed pt-8 pr-5"
-                    ></p>
-                  <div :class="`absolute w-[440px] h-[250px] bg-gradient-to-r from-transparent ${schools[1].color.textGradientColor} top-24 right-0`"></div>
+                    v-html="currentSchool.curriculum"
+                    class="leading-relaxed pt-8 pr-10"
+                  ></p>
+                  <div
+                    :class="`absolute w-[440px] h-[250px] bg-gradient-to-r from-transparent ${currentSchool.color.textGradientColor} top-24 right-0`"
+                  ></div>
                 </div>
                 <!-- End of Right -->
               </div>
               <!-- School Series -->
               <div class="pt-4">
-                  <h2 class="text-2xl font-medium">학교 모음</h2>
-                  <div class="flex justify-between py-6 pr-5 space-x-4">
-                    <SchoolSeries v-for="(school, index) in schoolSeries" :key="index" :content="school" />
-                  </div>
+                <h2 class="text-2xl font-medium">학교 모음</h2>
+                <div class="flex justify-between py-6 pr-5 space-x-4">
+                  <SchoolSeries
+                    v-for="(school, index) in schoolSeries"
+                    :key="index"
+                    :content="school"
+                    :color="currentSchool.color"
+                  />
+                </div>
               </div>
             </div>
           </section>
@@ -355,94 +362,15 @@
 
 <script>
 /* eslint-disable */
+import { computed } from "vue-demi";
 import SchoolSeries from "../components/school/SchoolSeries.vue";
-
-const schools = [
-  {
-    title: "복음 학교",
-    subtitle: "복음으로 하나됨",
-    img: "https://i.imgur.com/UyimOMY.jpg",
-    description: "",
-    color: {
-      bgColor: "bg-amber-200",
-      gradientColor: "to-amber-600",
-      textGradientColor: "to-amber-600/20",
-      titleColor: "text-amber-900",
-      subtitleColor: "text-amber-800",
-    },
-  },
-  {
-    title: "치유(The Day) 학교",
-    subtitle: "하나님 나라의 회복과 능력",
-    img: "https://i.imgur.com/xUc8v0t.jpg",
-    description:
-      "십자가의 은혜와 구원 받은 그리스도인들이 왜 우울함과 육체적 정신적 마음의 질병을 경험하며 두려워하며 사는가? <br> 이 모든 질문을 무의식, 죄 선악, 생명, 빛 성령 등의 연관 관계를 통해 성경 안에서 밝히며 하나님의 완전한 생명의 빛 안에 머무를 수 있는 길을 제시해드립니다.",
-    curriculum: "1강  '선善'의 이동(변질의 서막) <br> 2강  두 보호자_1(그들의 일, 우리의 반응) <br> 3강  두 보호자_2(그들의 일, 우리의 관계) <br> 4강  두 보호자_3(그들의 일, 우리의 몸) <br> 5강  막다른 길에서_1(절대 옳은 자의 몸부림) <br> 6강  막다른 길에서_2(절대 옳은 자의 피난처) <br> 7강 법적 소유권(볕을 쐬다) <br> 8강 모든 것이 끝나버리기 전에(선택의 동반)",
-    color: {
-      bgColor: "bg-orange-200",
-      gradientColor: "to-orange-600",
-      textGradientColor: "to-orange-600/20",
-      titleColor: "text-orange-900",
-      subtitleColor: "text-orange-800",
-    },
-  },
-  {
-    title: "친밀감(Kar) 학교",
-    subtitle: "두드리다, 머물다, 회복하다",
-    img: "https://i.imgur.com/C52zbsi.jpg",
-    description:
-      "KAR(카르)은 마음이란 뜻의 라틴어로, 다음 세 단어의 약자입니다. <br> 1) konck: 두드리다 2) abide: 머물다 3) recover: 회복하다. <br> 하나님과 우리의 호흡이 느껴질 만큼 가까이에서 얼굴을 마주하여 그 마음을 함께 나눔으로 <br> 하나님 아버지와 더 깊은 친밀감으로 인도되는 시간이 될 것입니다.",
-    color: {
-      bgColor: "bg-rose-200",
-      gradientColor: "to-rose-600",
-      textGradientColor: "to-rose-600/20",
-      titleColor: "text-rose-900",
-      subtitleColor: "text-rose-800",
-    },
-  },
-  {
-    title: "능력의 기도(BAP) 학교",
-    subtitle: "참된 영적 전쟁과 승리",
-    img: "https://i.imgur.com/dPErD5s.jpg",
-    color: {
-      bgColor: "bg-fuchsia-200",
-      gradientColor: "to-fuchsia-600",
-      textGradientColor: "to-fuchsia-600/20",
-      titleColor: "text-fuchsia-900",
-      subtitleColor: "text-fuchsia-800",
-    },
-  },
-
-  {
-    title: "사랑 학교",
-    subtitle: "사랑은 오래참고 온유하며",
-    img: "https://i.imgur.com/XTEusLc.jpg",
-    color: {
-      bgColor: "bg-pink-200",
-      gradientColor: "to-pink-600",
-      textGradientColor: "to-pink-600/20",
-      titleColor: "text-pink-900",
-      subtitleColor: "text-pink-800",
-    },
-  },
-  {
-    title: "사역자 학교",
-    subtitle: "충성되이 여겨 내게 직분을 맡기심이니",
-    img: "https://i.imgur.com/LRbjgMF.jpg",
-    color: {
-      bgColor: "bg-blue-200",
-      gradientColor: "to-blue-600",
-      textGradientColor: "to-blue-600/20",
-      titleColor: "text-blue-900",
-      subtitleColor: "text-blue-800",
-    },
-  },
-];
+import { useSchoolStore } from "../stores/schools";
 
 const schoolSeries = [
   {
     title: "온라인 치유학교 5기",
-    background: "https://pbs.twimg.com/media/DqRkUGmUcAA9cZT?format=jpg&name=large",
+    background:
+      "https://pbs.twimg.com/media/DqRkUGmUcAA9cZT?format=jpg&name=large",
     bgColor: "bg-orange-200",
     createdAt: "2주 전",
     status: "open",
@@ -450,55 +378,87 @@ const schoolSeries = [
       start: "2022-03-28",
       end: "2022-05-16",
     },
-    time: "매주 화요일 저녁6시"
+    time: "매주 화요일 저녁6시",
   },
   {
     title: "온라인 치유학교 4기",
-    background: "https://pbs.twimg.com/media/FRakvHPVUAEFSTa?format=jpg&name=large",
+    background:
+      "https://pbs.twimg.com/media/FRakvHPVUAEFSTa?format=jpg&name=large",
     bgColor: "bg-orange-200",
     createdAt: "2주 전",
-    status: "close",
+    status: "closed",
     term: {
       start: "2021-11-16",
       end: "2022-01-09",
     },
-    time: "매주 화요일 저녁6시"
+    time: "매주 화요일 저녁6시",
   },
   {
     title: "온라인 치유학교 3기",
-    background: "https://pbs.twimg.com/media/D6NJXX6WkAYr8OC?format=jpg&name=medium",
+    background:
+      "https://pbs.twimg.com/media/D6NJXX6WkAYr8OC?format=jpg&name=medium",
     bgColor: "bg-orange-200",
     createdAt: "2주 전",
-    status: "close",
+    status: "closed",
     term: {
       start: "2021-03-16",
       end: "2021-05-04",
     },
-    time: "매주 화요일 저녁6시"
+    time: "매주 화요일 저녁6시",
   },
   {
     title: "강남 치유학교",
     avatar: "",
-    background: "https://pbs.twimg.com/media/FA4g4w7WEAAdmb4?format=jpg&name=large",
+    background:
+      "https://pbs.twimg.com/media/FA4g4w7WEAAdmb4?format=jpg&name=large",
     bgColor: "bg-orange-200",
     createdAt: "2주 전",
-    status: "close",
+    status: "closed",
     term: {
       start: "2021-08-24",
       end: "2021-10-12",
     },
-    time: "매주 화요일 저녁6시"
+    time: "매주 화요일 저녁6시",
   },
-]
+];
 
 export default {
   components: {
     SchoolSeries,
   },
   setup() {
+    /* Pinia */
+    const store = useSchoolStore();
+
+
+    const schools = computed(() => {
+      return store.schools;
+    });
+
+    if(store.schools != 'undefined' && store.schools != null) {
+      store.currentSchool = store.schools[0];
+    }
+
+    const viewSchoolDetail = (id) => {
+      console.log(id);
+      if(store.schools != 'undefined' && store.schools != null) {
+        const index = store.schools.findIndex((element) => element.id === id);
+        store.currentSchool = store.schools[index];
+        console.log(store.currentSchool);
+        /* store.selectedSchool(id); */
+      }
+    };
+
+    const currentSchool = computed(() => {
+      console.log(store.getCurrentSchool);
+      return store.getCurrentSchool;
+    })
+
     return {
       schools,
       schoolSeries,
+      viewSchoolDetail,
+      currentSchool,
     };
   },
 };

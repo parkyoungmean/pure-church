@@ -54,10 +54,10 @@ export const useUserStore = defineStore("user", {
     /* Create */
     async createUser(payload) {
       try {
-        await axios
-          .post("https://pure-api.herokuapp.com/createUser", {
-            /* await axios
-          .post("http://localhost:4000/createUser", { */
+        /* await axios
+          .post("https://pure-api.herokuapp.com/createUser", { */
+            await axios
+          .post("http://localhost:4000/createUser", {
             email: payload.email,
             name: payload.name,
             phoneNumber: payload.phoneNumber,
@@ -97,8 +97,8 @@ export const useUserStore = defineStore("user", {
     /* Read */
     async fetchUsers() {
       try {
-        const data = await axios.get("https://pure-api.herokuapp.com/users");
-        /* const data = await axios.get("http://localhost:4000/users"); */
+        /* const data = await axios.get("https://pure-api.herokuapp.com/users"); */
+        const data = await axios.get("http://localhost:4000/users");
 
         let usersArray = [];
 

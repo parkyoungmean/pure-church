@@ -8,7 +8,7 @@
         <!-- <span class="px-2 py-0.5 absolute right-2 top-2 text-white rounded-lg bg-gray-900/50 text-xxs">
             {{ content.status }}
         </span> -->
-        <div :class="`px-5 py-5 ${content.bgColor}`">
+        <div :class="`px-5 py-5 ${color.bgColor}`">
             <div class="flex items-center">
                 <span class="text-xs font-normal tracking-wider text-gray-400">
                     {{ content.status }}
@@ -17,7 +17,7 @@
             </div>
             <h3 class="inline-block pt-1 font-medium leading-relaxed"> {{ content.title }} </h3>
             <span class="inline-block pt-4 text-xs tracking-wider text-gray-500">
-                일시: {{ content.term.start }} ~ {{ content.term.end }}
+                {{ content.term.start.replaceAll('-', '.') }}~{{ content.term.end.replaceAll('-', '.') }}
             </span>
         </div>
     </div>
@@ -27,6 +27,10 @@
 export default {
     props: {
         content: {
+            type: Object,
+            required: true,
+        },
+        color: {
             type: Object,
             required: true,
         },
