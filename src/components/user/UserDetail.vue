@@ -1,6 +1,6 @@
 <template>
   <!-- Close Button -->
-  <div class="flex justify-end p-6 md:hidden">
+  <div class="flex justify-end px-6 pt-3 md:hidden">
     <button
       @click="$router.go(-1)"
       class="

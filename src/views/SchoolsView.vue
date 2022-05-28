@@ -66,7 +66,7 @@
                 "
               >
                 <div
-                  @click="viewSchoolDetail(school.id)"
+                  @click="schoolDetailOpen(school.id)"
                   v-for="(school, index) in schools"
                   :key="index"
                   class="w-full space-y-2 md:space-y-4"
@@ -202,144 +202,11 @@
               hidden
             "
           >
-            <div class="pt-10 2xl:pt-10 pb-12 pl-10">
-              <!-- Navigation Text -->
-              <div class="flex">
-                <!-- Left -->
-                <div class="flex flex-col w-1/2">
-                  <div class="max-w-md">
-                    <div class="flex items-center text-sm pt-9">
-                      <span class="text-gray-900">순전한 학교&nbsp;</span>
-                      <span> / {{ currentSchool.title }} </span>
-                    </div>
-                    <!-- Title -->
-                    <div class="pt-10">
-                      <h1 class="text-4xl font-bold tracking-wide">
-                        {{ currentSchool.title }}
-                      </h1>
-                    </div>
-                    <!-- Simple Statics -->
-                    <div class="flex items-center justify-between pt-4">
-                      <div class="pl-2 leading-none">
-                        {{ currentSchool.graduate }}명 수료 /
-                        <span class="text-gray-900/40">({{ currentSchool.registration }}명 지원)</span>
-                      </div>
-                    </div>
-                    <!-- Description -->
-                    <p
-                      v-html="currentSchool.description"
-                      class="leading-relaxed pt-8"
-                    ></p>
-                  </div>
-                  <div class="flex items-center justify-between pt-10">
-                    <!-- Bookmark Button -->
-                    <button
-                      class="
-                        flex
-                        items-center
-                        py-2
-                        space-x-2
-                        text-red-500
-                        hover:text-red-600
-                      "
-                    >
-                      <svg
-                        class="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"
-                        ></path>
-                      </svg>
-                      <span class="">북마크하기</span>
-                    </button>
-                    <!-- Share Button -->
-                    <div class="flex items-center space-x-6 pr-3">
-                      <button>
-                        <img
-                          src="../assets/icon/kakao-talk-96.png"
-                          alt=""
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          src="../assets/icon/naver.png"
-                          alt=""
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          src="../assets/icon/facebook-512.png"
-                          alt=""
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          src="../assets/icon/instagram-96.png"
-                          alt=""
-                          class="w-5 h-5"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Left -->
-                <!-- Right -->
-                <div class="flex relative flex-col items-end w-1/2">
-                  <div class="flex items-start pr-20 space-x-2">
-                    <span class="text-3xl font-bold leading-tight">01 </span>
-                    <span class="text-xl">/ 05</span>
-                  </div>
-                  <div class="flex pr-10 space-x-16">
-                    <!-- Left Arrow Button -->
-                    <button class="p-3">
-                      <svg
-                        class="w-6 h-6 text-gray-300"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                    <!-- Right Arrow Button -->
-                    <button class="p-3">
-                      <svg
-                        class="w-6 h-6 text-gray-300"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                  <!-- Content -->
-                  <!-- <img :src="schools[1].img" alt=""> -->
-                  <p
-                    v-html="currentSchool.curriculum"
-                    class="leading-relaxed pt-8 pr-10"
-                  ></p>
-                  <div
-                    :class="`absolute w-[440px] h-[250px] bg-gradient-to-r from-transparent ${currentSchool.color.textGradientColor} top-24 right-0`"
-                  ></div>
-                </div>
-                <!-- End of Right -->
-              </div>
-              <!-- School Series -->
+            <div class="pt-10 pb-12 pl-10">
+              <!-- SCHOOL DETAIL -->
+              <SchoolDetail />
+              <!-- END OF SCHOOL DETAIL -->
+              <!-- SCHOOL SERIES -->
               <div class="pt-4">
                 <h2 class="text-2xl font-medium">학교 모음</h2>
                 <div class="flex justify-between py-6 pr-5 space-x-4">
@@ -351,6 +218,7 @@
                   />
                 </div>
               </div>
+              <!-- END OF SCHOOL SERIES -->
             </div>
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
@@ -362,9 +230,12 @@
 
 <script>
 /* eslint-disable */
-import { computed } from "vue-demi";
+import { computed, onMounted } from "vue-demi";
+import { useRouter } from "vue-router";
+import SchoolDetail from "../components/school/SchoolDetail.vue";
 import SchoolSeries from "../components/school/SchoolSeries.vue";
 import { useSchoolStore } from "../stores/schools";
+import { getCurrentBreakpoint } from "../common/common";
 
 const schoolSeries = [
   {
@@ -424,12 +295,14 @@ const schoolSeries = [
 
 export default {
   components: {
+    SchoolDetail,
     SchoolSeries,
   },
   setup() {
     /* Pinia */
     const store = useSchoolStore();
 
+    const router = useRouter();
 
     const schools = computed(() => {
       return store.schools;
@@ -439,14 +312,28 @@ export default {
       store.currentSchool = store.schools[0];
     }
 
-    const viewSchoolDetail = (id) => {
+    const schoolDetailOpen = (id) => {
+
       console.log(id);
+
       if(store.schools != 'undefined' && store.schools != null) {
         const index = store.schools.findIndex((element) => element.id === id);
         store.currentSchool = store.schools[index];
         console.log(store.currentSchool);
         /* store.selectedSchool(id); */
       }
+
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        router.push("/schooldetail");
+        schoolMode("read");
+      } else {
+        schoolMode("read");
+      }
+    };
+
+    const schoolMode = (mode) => {
+      store.schoolMode(mode);
     };
 
     const currentSchool = computed(() => {
@@ -457,7 +344,7 @@ export default {
     return {
       schools,
       schoolSeries,
-      viewSchoolDetail,
+      schoolDetailOpen,
       currentSchool,
     };
   },
