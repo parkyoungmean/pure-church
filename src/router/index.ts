@@ -72,6 +72,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/schooldetail',
+    name: 'schooldetail',
+    component: () => import(/* webpackChunkName: "users" */ '../components/school/SchoolDetail.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

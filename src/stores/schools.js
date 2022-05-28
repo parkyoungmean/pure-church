@@ -9,6 +9,7 @@ dayjs.locale("ko"); // global로 한국어 locale 사용
 
 export const useSchoolStore = defineStore("school", {
   state: () => ({
+    school_mode: "read",
     schools: [
       {
         id: "01",
@@ -136,6 +137,15 @@ export const useSchoolStore = defineStore("school", {
     },
   },
   actions: {
+    schoolMode(dir = null) {
+      if (dir === "create") {
+        this.school_mode = "create";
+      } else if (dir === "read") {
+        this.school_mode = "read";
+      } else {
+        this.school_mode = "update";
+      }
+    },
     /* select Current School */
     async selectedSchool(state, payload) {
       if (payload != "undefined" && payload != null) {
