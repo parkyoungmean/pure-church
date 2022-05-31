@@ -126,11 +126,69 @@ export const useSchoolStore = defineStore("school", {
         },
       },
     ],
+    schoolSeries: [
+      {
+        title: "온라인 치유학교 5기",
+        background:
+          "https://pbs.twimg.com/media/DqRkUGmUcAA9cZT?format=jpg&name=large",
+        bgColor: "bg-orange-200",
+        createdAt: "2주 전",
+        status: "open",
+        term: {
+          start: "2022.03.28",
+          end: "2022.05.16",
+        },
+        time: "매주 화요일 저녁6시",
+      },
+      {
+        title: "온라인 치유학교 4기",
+        background:
+          "https://pbs.twimg.com/media/FRakvHPVUAEFSTa?format=jpg&name=large",
+        bgColor: "bg-orange-200",
+        createdAt: "2주 전",
+        status: "closed",
+        term: {
+          start: "2021.11.16",
+          end: "2022.01.09",
+        },
+        time: "매주 화요일 저녁6시",
+      },
+      {
+        title: "온라인 치유학교 3기",
+        background:
+          "https://pbs.twimg.com/media/D6NJXX6WkAYr8OC?format=jpg&name=medium",
+        bgColor: "bg-orange-200",
+        createdAt: "2주 전",
+        status: "closed",
+        term: {
+          start: "2021.03.16",
+          end: "2021.05.04",
+        },
+        time: "매주 화요일 저녁6시",
+      },
+      {
+        title: "강남 치유학교",
+        avatar: "",
+        background:
+          "https://pbs.twimg.com/media/FA4g4w7WEAAdmb4?format=jpg&name=large",
+        bgColor: "bg-orange-200",
+        createdAt: "2주 전",
+        status: "closed",
+        term: {
+          start: "2021.08.24",
+          end: "2021.10.12",
+        },
+        time: "매주 화요일 저녁6시",
+      },
+    ],
     currentSchool: [],
   }),
   getters: {
     async getSchools(state) {
       return state.schools;
+    },
+    getSchoolSeries(state) {
+      return state.schoolSeries;
     },
     getCurrentSchool(state) {
       return state.currentSchool;

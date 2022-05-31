@@ -205,20 +205,7 @@
             <div class="pt-10 pb-12 pl-10">
               <!-- SCHOOL DETAIL -->
               <SchoolDetail />
-              <!-- END OF SCHOOL DETAIL -->
-              <!-- SCHOOL SERIES -->
-              <div class="pt-4">
-                <h2 class="text-2xl font-medium">학교 모음</h2>
-                <div class="flex justify-between py-6 pr-5 space-x-4">
-                  <SchoolSeries
-                    v-for="(school, index) in schoolSeries"
-                    :key="index"
-                    :content="school"
-                    :color="currentSchool.color"
-                  />
-                </div>
-              </div>
-              <!-- END OF SCHOOL SERIES -->
+              <!-- END OF SCHOOL DETAIL -->              
             </div>
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
@@ -233,70 +220,12 @@
 import { computed, onMounted } from "vue-demi";
 import { useRouter } from "vue-router";
 import SchoolDetail from "../components/school/SchoolDetail.vue";
-import SchoolSeries from "../components/school/SchoolSeries.vue";
 import { useSchoolStore } from "../stores/schools";
 import { getCurrentBreakpoint } from "../common/common";
-
-const schoolSeries = [
-  {
-    title: "온라인 치유학교 5기",
-    background:
-      "https://pbs.twimg.com/media/DqRkUGmUcAA9cZT?format=jpg&name=large",
-    bgColor: "bg-orange-200",
-    createdAt: "2주 전",
-    status: "open",
-    term: {
-      start: "2022.03.28",
-      end: "2022.05.16",
-    },
-    time: "매주 화요일 저녁6시",
-  },
-  {
-    title: "온라인 치유학교 4기",
-    background:
-      "https://pbs.twimg.com/media/FRakvHPVUAEFSTa?format=jpg&name=large",
-    bgColor: "bg-orange-200",
-    createdAt: "2주 전",
-    status: "closed",
-    term: {
-      start: "2021.11.16",
-      end: "2022.01.09",
-    },
-    time: "매주 화요일 저녁6시",
-  },
-  {
-    title: "온라인 치유학교 3기",
-    background:
-      "https://pbs.twimg.com/media/D6NJXX6WkAYr8OC?format=jpg&name=medium",
-    bgColor: "bg-orange-200",
-    createdAt: "2주 전",
-    status: "closed",
-    term: {
-      start: "2021.03.16",
-      end: "2021.05.04",
-    },
-    time: "매주 화요일 저녁6시",
-  },
-  {
-    title: "강남 치유학교",
-    avatar: "",
-    background:
-      "https://pbs.twimg.com/media/FA4g4w7WEAAdmb4?format=jpg&name=large",
-    bgColor: "bg-orange-200",
-    createdAt: "2주 전",
-    status: "closed",
-    term: {
-      start: "2021.08.24",
-      end: "2021.10.12",
-    },
-    time: "매주 화요일 저녁6시",
-  },
-];
 
 export default {
   components: {
     SchoolDetail,
-    SchoolSeries,
   },
   setup() {
     /* Pinia */
@@ -343,7 +272,6 @@ export default {
 
     return {
       schools,
-      schoolSeries,
       schoolDetailOpen,
       currentSchool,
     };

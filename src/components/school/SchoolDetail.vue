@@ -19,7 +19,7 @@
         <i class="fas fa-arrow-left"></i>
       </button>
     </div>
-    <div class="md:flex">
+    <div class="md:flex sm:px-10">
       <!-- Left -->
       <div class="flex flex-col md:w-1/2 p-5 md:p-0">
         <div class="md:max-w-md text-sm md:text-md">
@@ -152,6 +152,19 @@
       </div>
       <!-- End of Right -->
     </div>
+    <!-- SCHOOL SERIES -->
+    <div class="pt-14 px-7">
+      <h2 class="text-2xl font-medium">학교 모음</h2>
+      <div class="md:flex justify-between xxs:px-10 xs:px-25 sm:px-48 md:px-6 md:py-6 md:pr-5 md:space-x-4">
+        <SchoolSeries
+          v-for="(school, index) in schoolSeries"
+          :key="index"
+          :content="school"
+          :color="currentSchool.color"
+        />
+      </div>
+    </div>
+    <!-- END OF SCHOOL SERIES -->
   </div>
 </template>
 
@@ -159,8 +172,12 @@
 /* eslint-disable */
 import { computed } from "@vue/runtime-core";
 import { useSchoolStore } from "../../stores/schools";
+import SchoolSeries from "../../components/school/SchoolSeries.vue";
 
 export default {
+  components: {
+    SchoolSeries,
+  },
   setup() {
     const store = useSchoolStore();
 
@@ -168,8 +185,12 @@ export default {
       return store.getCurrentSchool;
     });
 
+    const schoolSeries = computed(() => {
+      return store.getSchoolSeries;
+    });
     return {
       currentSchool,
+      schoolSeries,
     };
   },
 };
