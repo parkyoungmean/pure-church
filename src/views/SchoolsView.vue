@@ -202,11 +202,16 @@
               hidden
             "
           >
-            <div class="pt-10 pb-12 pl-10">
-              <!-- SCHOOL DETAIL -->
+            <!-- SCHOOL INFO DETAIL -->
+            <div v-if="school_mode === 'read'" class="pt-10 pb-12 pl-10">
               <SchoolDetail />
-              <!-- END OF SCHOOL DETAIL -->              
             </div>
+            <!-- END OF SCHOOL INFO DETAIL -->
+            <!-- SCHOOL REGISTER -->
+            <div v-else-if="school_mode === 'create'" class="pt-10 pb-12">
+              <SchoolRegistration />
+            </div>
+            <!-- END OF SCHOOL REGISTER -->
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
         </div>
@@ -220,12 +225,14 @@
 import { computed, onMounted } from "vue-demi";
 import { useRouter } from "vue-router";
 import SchoolDetail from "../components/school/SchoolDetail.vue";
+import SchoolRegistration from "@/components/school/SchoolRegistration.vue";
 import { useSchoolStore } from "../stores/schools";
 import { getCurrentBreakpoint } from "../common/common";
 
 export default {
   components: {
     SchoolDetail,
+    SchoolRegistration,
   },
   setup() {
     /* Pinia */
@@ -237,15 +244,14 @@ export default {
       return store.schools;
     });
 
-    if(store.schools != 'undefined' && store.schools != null) {
+    if (store.schools != "undefined" && store.schools != null) {
       store.currentSchool = store.schools[0];
     }
 
     const schoolDetailOpen = (id) => {
-
       console.log(id);
 
-      if(store.schools != 'undefined' && store.schools != null) {
+      if (store.schools != "undefined" && store.schools != null) {
         const index = store.schools.findIndex((element) => element.id === id);
         store.currentSchool = store.schools[index];
         console.log(store.currentSchool);
@@ -261,6 +267,17 @@ export default {
       }
     };
 
+    /* Create School Infomation */
+    const schoolFormOpen = () => {
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        router.push("/schoolregistration");
+        schoolMode("create");
+      } else {
+        schoolMode("create");
+      }
+    };
+
     const schoolMode = (mode) => {
       store.schoolMode(mode);
     };
@@ -268,11 +285,13 @@ export default {
     const currentSchool = computed(() => {
       console.log(store.getCurrentSchool);
       return store.getCurrentSchool;
-    })
+    });
 
     return {
       schools,
+      schoolFormOpen,
       schoolDetailOpen,
+      school_mode: computed(() => store.school_mode),
       currentSchool,
     };
   },

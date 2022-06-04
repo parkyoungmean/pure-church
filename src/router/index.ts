@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/schools',
     name: 'schools',
-    component: () => import(/* webpackChunkName: "users" */ '../views/SchoolsView.vue'),
+    component: () => import(/* webpackChunkName: "schools" */ '../views/SchoolsView.vue'),
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
@@ -75,7 +75,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/schooldetail',
     name: 'schooldetail',
-    component: () => import(/* webpackChunkName: "users" */ '../components/school/SchoolDetail.vue'),
+    component: () => import(/* webpackChunkName: "schoolDetail" */ '../components/school/SchoolDetail.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
+  {
+    path: '/schoolregistration',
+    name: 'schoolregistration',
+    component: () => import(/* webpackChunkName: "schoolsRegistration" */ '../components/school/SchoolRegistration.vue'),
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
