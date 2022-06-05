@@ -1,5 +1,5 @@
 <template>
-  <section id="#" class="pt-8 pb-8 px-8 md:px-12"></section>
+  <section id="#" class="px-8 md:px-12"></section>
 
   <section id="home" class="min-h-screen bg-blue-500">
     <!-- Carousel -->
@@ -7,7 +7,14 @@
   </section>
 
   <section id="introduce" class="min-h-screen bg-gray-100">
-    <ProfileCard />
+    <div class="pb-15 md:pb-25">
+      <!-- <ProfileCard class="w-1/2" /> -->
+      <img
+        src="https://imgur.com/50h3qbC.jpg"
+        alt=""
+        class="bg-cover bg-center bg-no-repeat w-full min-h-screen"
+      />
+    </div>
     <ServiceTeam />
   </section>
   <!-- pure school section -->
@@ -216,20 +223,62 @@ export default {
     let slides = [
       {
         id: 0,
+        title: "",
+        subtitle: "",
+        description: "",
+        src: "https://imgur.com/2LodOZ7.jpg",
+      },
+      {
+        id: 1,
+        title: "순전한 교회 미국 단기선교",
+        subtitle: "선교기간: 2022년 6월 6일 ~ 6월 17일",
+        description: "선교팀: 장원혁담임목사님, 박운진, 김철수, 조선영, 임상화",
+        src: "https://imgur.com/vjvKkr9.jpg",
+      },
+      {
+        id: 2,
+        title: "",
+        subtitle: "",
+        description: "",
+        src: "https://imgur.com/XRcLyuT.jpg",
+      },
+      {
+        id: 3,
+        title: "",
+        subtitle: "",
+        description: "",
+        src: "https://imgur.com/UVimnZ6.jpg",
+      },
+      {
+        id: 4,
+        title: "순전한 교회에 오신 여러분을 환영합니다.",
+        subtitle: "",
+        description: "",
+        src: "bg-1",
+      },
+      /* {
+        id: 4,
         title: "온라인 치유학교 5기를 모집합니다.",
         subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
         description: "신청마감: 3월 21일 월요일 오후 10시",
         src: "bg-1",
-      },
+      }, */
       {
-        id: 1,
+        id: 5,
+        title: "",
+        subtitle: "",
+        description: "",
+        src: "bg-2",
+      },
+      /* {
+        id: 5,
         title: "온라인 카르학교 3기를 모집합니다.",
         subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
         description: "신청마감: 3월 21일 월요일 오후 10시",
         src: "bg-2",
-      },
+      }, */
       {
-        id: 2,
+        id: 6,
         title: "",
         subtitle: "",
         description: "",
@@ -461,5 +510,4 @@ export default {
 #home {
   font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
-
 </style>
