@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
   state: {
     is_login: false,
+    is_mobile: false,
     users: [],
     posts: [],
     authors: [],
@@ -22,6 +23,15 @@ export default createStore({
         state.is_login = !state.is_login
       }
     },
+    TOGGLE_SCREEN (state, dir = null) {
+      if (dir === 'mobile') {
+        state.is_mobile = true
+      } else if (dir === 'browse') {
+        state.is_mobile = false
+      } else {
+        state.is_mobile = !state.is_mobile
+      }
+    },
     SET_USERS(state, users) {
       state.users = users;
     }
@@ -29,6 +39,9 @@ export default createStore({
   actions: {
     ToggleLogin ({ commit }) {
       commit('TOGGLE_LOGIN')
+    },
+    ToggleScreen ({ commit }) {
+      commit('TOGGLE_SCREEN')
     },
     /* USER */
     async fetchUsers({ commit }) {

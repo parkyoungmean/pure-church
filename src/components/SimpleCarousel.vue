@@ -22,25 +22,31 @@
     @slideChange="onSlideChange"
     class="min-h-screen"
   >
-    <swiper-slide v-for="(slide, index) in slides" :key="index" style="height: 100vh; padding-top: 67px;" >
+    <swiper-slide
+      v-for="(slide, index) in slides"
+      :key="index"
+      style="height: 100vh; padding-top: 67px"
+    >
       <div class="title" data-swiper-parallax="-200">
-        {{ slide.title }} <br /><br />
-        <!-- 모든 이름 위에 뛰어난 그 이름 예수 <br /><br /> -->
-        <div class="subtitle">
-          {{ slide.subtitle }} <br />{{ slide.description }}
+        <p v-html="slide.title" :class="`${slide.color.titleColor}`"></p>
+        <br /><br />
+        <div class="subtitle w-full">
+          <p v-html="slide.subtitle" :class="`${slide.color.subtitleColor}`"></p>
+          <br />
+          <p v-html="slide.description"></p>
         </div>
       </div>
       <img
-        v-if="slide.src.includes('bg-')"
-        :src="require(`../assets/${slide.src}.jpg`)"
-        alt=""
-        class="object-center object-cover w-full lg:h-full min-h-screen"
-      />
-      <img
-        v-else
-        :src="slide.src"
+        v-if="is_mobile ? false : true"
+        :src="`${slide.src}.jpg`"
         alt=""
         class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
+      />
+      <img
+        v-if="is_mobile ? true : false"
+        :src="`${slide.mobile_src}.jpg`"
+        alt=""
+        class="object-center object-cover w-full lg:h-full min-h-screen"
       />
     </swiper-slide>
   </swiper>
@@ -48,6 +54,9 @@
 
 <script>
 /* eslint-disable */
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { getCurrentBreakpoint } from "../common/common";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import {
@@ -78,15 +87,26 @@ export default {
     SwiperSlide,
   },
   setup() {
+    /* Vuex */
+    const store = useStore();
+
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
 
     const onSlideChange = () => {
       console.log("slide change");
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        console.log("모바일 화면 크기입니다.");
+        store.dispatch("ToggleScreen");
+      } else {
+        console.log("브라우저 화면 크기입니다.");
+      }
     };
 
     return {
+      is_mobile: computed(() => store.state.is_mobile),
       onSwiper,
       onSlideChange,
       modules: [
@@ -105,49 +125,34 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  font-size: 65px;
+  font-size: 50px;
   position: absolute;
   z-index: 1;
   top: 30%;
   left: 20%;
   color: white;
   .subtitle {
-    font-size: 30px;
+    font-size: 27px;
     position: absolute;
     color: white;
   }
 }
 @media (max-width: 1280px) {
   .title {
-    font-size: 55px;
+    font-size: 40px;
     position: absolute;
     z-index: 1;
     top: 30%;
     left: 20%;
     color: white;
     .subtitle {
-      font-size: 25px;
+      font-size: 22px;
       position: absolute;
       color: white;
     }
   }
 }
 @media (max-width: 768px) {
-  .title {
-    font-size: 45px;
-    position: absolute;
-    z-index: 1;
-    /* top: 30%; */
-    left: 10%;
-    color: white;
-    .subtitle {
-      font-size: 20px;
-      position: absolute;
-      color: white;
-    }
-  }
-}
-@media (max-width: 540px) {
   .title {
     font-size: 35px;
     position: absolute;
@@ -156,7 +161,22 @@ export default {
     left: 10%;
     color: white;
     .subtitle {
-      font-size: 15px;
+      font-size: 17px;
+      position: absolute;
+      color: white;
+    }
+  }
+}
+@media (max-width: 540px) {
+  .title {
+    font-size: 25px;
+    position: absolute;
+    z-index: 1;
+    /* top: 30%; */
+    left: 10%;
+    color: white;
+    .subtitle {
+      font-size: 12px;
       position: absolute;
       color: white;
     }
