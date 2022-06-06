@@ -94,6 +94,18 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/notices/slide',
+    name: 'slidenotice',
+    component: () => import(/* webpackChunkName: "schoolsRegistration" */ '../components/common/CustomContent.vue'),
+    props: true,
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },     
 ]
 
 const router = createRouter({

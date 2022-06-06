@@ -31,22 +31,57 @@
         <p v-html="slide.title" :class="`${slide.color.titleColor}`"></p>
         <br /><br />
         <div class="subtitle w-full">
-          <p v-html="slide.subtitle" :class="`${slide.color.subtitleColor}`"></p>
+          <p
+            v-html="slide.subtitle"
+            :class="`${slide.color.subtitleColor}`"
+          ></p>
           <br />
           <p v-html="slide.description"></p>
+          <div
+            v-if="slide.subcontent"
+            class="
+              flex
+              w-28
+              md:w-40
+              items-center
+              text-xs
+              md:text-lg
+              p-1
+              md:p-1.5
+              rounded-3xl
+              bg-epic-blue
+              space-x-1
+              mr-1
+              md:mr-2
+              text-center
+            "
+          >
+            <router-link
+              :to="{
+                name: 'slidenotice',
+                params: { htmlContent: slide.subcontent.htmlContent },
+              }"
+              >{{ slide.subcontent.title }}</router-link
+            >
+            <i class="fas fa-arrow-right"></i>
+          </div>
         </div>
       </div>
+      <!-- 브라우저 화면 크기일 경우 -->
       <img
-        v-if="is_mobile ? false : true"
+        v-if="!is_mobile"
         :src="`${slide.src}.jpg`"
         alt=""
         class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
+        :class="slide.src == '' ? 'hidden' : ''"
       />
+      <!-- 모바일 화면 크기일 경우 -->
       <img
-        v-if="is_mobile ? true : false"
+        v-else
         :src="`${slide.mobile_src}.jpg`"
         alt=""
         class="object-center object-cover w-full lg:h-full min-h-screen"
+        :class="slide.mobile_src == '' ? 'hidden' : ''"
       />
     </swiper-slide>
   </swiper>
@@ -92,10 +127,6 @@ export default {
 
     const onSwiper = (swiper) => {
       console.log(swiper);
-    };
-
-    const onSlideChange = () => {
-      console.log("slide change");
       /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
         console.log("모바일 화면 크기입니다.");
@@ -103,6 +134,10 @@ export default {
       } else {
         console.log("브라우저 화면 크기입니다.");
       }
+    };
+
+    const onSlideChange = () => {
+      console.log("slide change");
     };
 
     return {
