@@ -127,7 +127,7 @@
         </div>
         <div class="field input-group">
           <label for="schoolcolor">*대표 색상 선택하기</label>
-          <div class="grid grid-cols-8 gap-8 items-center">
+          <div class="grid grid-cols-8 xl:grid-cols-10 gap-8 items-center">
             <!-- click - ring-2 ring-yellow-800 -->
             <label for="" class="option_item">
               <input
@@ -646,7 +646,7 @@
       <div class="form-step slidepage flex flex-col items-center">
         <h1 class="text-center text-lg md:text-2xl font-extrabold">쿼리큘럼</h1>
         <!-- Input Lecture -->
-        <div class="flex justify-center mb-5 field h-14 w-[180%]">
+        <div class="flex justify-center field h-14 w-[180%]">
           <input
             @keypress.enter="addLecture"
             class="px-5 py-2 rounded-l-full bg-blue-100 placeholder-blue-400"
@@ -688,7 +688,7 @@
                   items-center
                   gap-4
                   p-1
-                  md:p-4
+                  md:p-1
                   bg-gradient-to-r
                   from-blue-200
                   to-blue-100
@@ -905,6 +905,8 @@ export default {
         createdAt: new Date().getTime(),
         active: false,
       });
+
+      lecture_title.value = "";
     };
 
     const removeLecture = (lecture) => {
@@ -960,17 +962,18 @@ input {
   width: 400%;
   margin: 0 auto;
   /* border-radius: 0.35rem; */
-  padding: 1.5rem;
+  padding: 1.0rem;
 }
 
 .form .form-step {
-  width: 25%;
+  width: 23%;
+  margin: 0 75px 0 0;
   transition: margin-left 0.3s ease-in-out;
 }
 
 .form .form-step .field {
-  width: 450px;
-  margin: 40px 0;
+  width: 550px;
+  margin: 20px 0;
   position: relative;
 }
 
@@ -992,6 +995,7 @@ input {
 .option_item .radio {
   position: absolute;
   top: 6px;
+  left: 5px;
   z-index: 1;
   opacity: 0;
 }
@@ -1007,7 +1011,7 @@ input {
     display: block;
     position: relative;
     /* width: 175px;
-  height: 20px; */
+    height: 20px; */
     margin: 4px;
   }
   .option_item .option_inner {
