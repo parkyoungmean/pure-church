@@ -48,7 +48,7 @@
         duration-700
         ease-in
       "
-      :class="[open ? 'top-19' : 'top-[-100%]']"
+      :class="[open ? 'top-16.5' : 'top-[-100%]']"
     >
       <li
         v-for="link in links"
