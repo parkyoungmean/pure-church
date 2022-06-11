@@ -69,7 +69,7 @@
       </div>
       <!-- 브라우저 화면 크기일 경우 -->
       <img
-        v-if="!is_mobile"
+        v-if="!isMobile"
         :src="`${slide.src}.jpg`"
         alt=""
         class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
@@ -89,8 +89,7 @@
 
 <script>
 /* eslint-disable */
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, ref } from "vue";
 import { getCurrentBreakpoint } from "../common/common";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -123,25 +122,28 @@ export default {
   },
   setup() {
     /* Vuex */
-    const store = useStore();
+
+    const isMobile = ref(null);
 
     const onSwiper = (swiper) => {
-      console.log(swiper);
-      /* If Mobile screen */
-      if (getCurrentBreakpoint().value < 769) {
-        console.log("모바일 화면 크기입니다.");
-        store.dispatch("ToggleScreen");
-      } else {
-        console.log("브라우저 화면 크기입니다.");
-      }
+      /* console.log(swiper); */
     };
 
     const onSlideChange = () => {
-      console.log("slide change");
+      /* console.log("slide change"); */
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+       /*  console.log("모바일 화면 크기입니다."); */
+        isMobile.value = true;
+
+      } else {
+        /* console.log("브라우저 화면 크기입니다."); */
+        isMobile.value = false;
+      }
     };
 
     return {
-      is_mobile: computed(() => store.state.is_mobile),
+      isMobile,
       onSwiper,
       onSlideChange,
       modules: [

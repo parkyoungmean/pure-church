@@ -217,18 +217,18 @@ export default {
     const store = useStore();
 
     const onSwiper = (swiper) => {
-      console.log(swiper);
+      /* console.log(swiper); */
     };
     
     const onSlideChange = () => {
-      console.log("slide change");
+      /* console.log("slide change"); */
       /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
-        console.log("모바일 화면 크기입니다.");
+        /* console.log("모바일 화면 크기입니다."); */
         cnt.value = 1;
         store.dispatch("ToggleScreen");
       } else {
-        console.log("브라우저 화면 크기입니다.");
+        /* console.log("브라우저 화면 크기입니다."); */
         cnt.value = 3;
       }
     };
