@@ -35,10 +35,10 @@
       >
         <div class="relative flex flex-col items-center justify-center text-white bg-black w h rounded-3xl" :class="cnt === 1 ? 'shadow-lg' : 'shadow-2xl'">
           <span class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent rounded-3xl"></span>
-          <h1 class="name absolute font-extrabold" :class="cnt === 1 ? 'bottom-15 text-lg' : 'bottom-26 text-3xl'">{{ pastor.name }} {{ pastor.role }} </h1>
-          <h2 v-if="pastor.email" class="description absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-11 text-xs' : 'bottom-19 text-md'"> {{pastor.email }} </h2>
-          <p class="parish absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-7 text-xs' : 'bottom-13 text-md'"> 담당: {{ pastor.parish }} </p>
-          <p class="description absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-3 text-xs' : 'bottom-7 text-md'"> {{ pastor.description }} </p>
+          <h1 class="name absolute font-extrabold" :class="cnt === 1 ? 'bottom-11 text-lg' : 'bottom-26 text-3xl'">{{ pastor.name }} {{ pastor.role }} </h1>
+          <h2 v-if="pastor.email" class="description absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-8 text-xs' : 'bottom-19 text-md'"> {{pastor.email }} </h2>
+          <p class="parish absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-4 text-xs' : 'bottom-13 text-md'"> 담당: {{ pastor.parish }} </p>
+          <p class="description absolute text-base text-center text-gray-200" :class="cnt === 1 ? 'bottom-0 text-xs' : 'bottom-7 text-md'"> {{ pastor.description }} </p>
           <img :src="require(`../assets/${pastor.img}`)" alt="" class="h object-cover rounded-3xl" />
         </div>
       </swiper-slide>
@@ -154,12 +154,12 @@ export default {
         email: "acts100@naver.com",
         img: "최윤희목사님.png",
         role: "목사",
-        parish: "장년부, 청소년부, 영상팀, 화요 BAP중보기도팀"
+        parish: "장년부, 청소년부, 영상팀, 화요BAP중보기도팀"
       },
       {
         id: 5,
         name: "서정매",
-        email: "lael_tai@naver.com",
+        email: "tabitha13@naver.com",
         img: "서정매전도사님01.png",
         role: "전도사",
         parish: "순전한 미니스트리, 장년부, 영어예배, 수요중보기도팀"
@@ -167,7 +167,7 @@ export default {
       {
         id: 5,
         name: "서정매",
-        email: "lael_tai@naver.com",
+        email: "tabitha13@naver.com",
         img: "서정매전도사님02.png",
         role: "전도사",
         parish: "순전한 미니스트리, 장년부, 영어예배, 수요중보기도팀"
