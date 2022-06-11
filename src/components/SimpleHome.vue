@@ -165,6 +165,7 @@ import SimpleGallery from "@/components/SimpleGallery.vue";
 import PrimaryCard from "@/components/PrimaryCard.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
 
+
 const schools = [
   {
     title: "복음학교",
