@@ -134,14 +134,6 @@ export default {
       },
       {
         id: 2,
-        name: "박성민",
-        email: "psmyki@naver.com",
-        img: "박성민목사님02.png",
-        role: "목사",
-        parish: "장년부, 어린이부서"
-      },
-      {
-        id: 3,
         name: "이영태",
         email: "lael_tai@naver.com",
         img: "이영태목사님.png",
@@ -149,7 +141,7 @@ export default {
         parish: "청년부, 장년부, 예배인도"
       },
       {
-        id: 4,
+        id: 3,
         name: "최윤희",
         email: "acts100@naver.com",
         img: "최윤희목사님.png",
@@ -157,18 +149,10 @@ export default {
         parish: "장년부, 청소년부, 영상팀, 화요BAP중보기도팀"
       },
       {
-        id: 5,
+        id: 4,
         name: "서정매",
         email: "tabitha13@naver.com",
         img: "서정매전도사님01.png",
-        role: "전도사",
-        parish: "순전한 미니스트리, 장년부, 영어예배, 수요중보기도팀"
-      },
-      {
-        id: 5,
-        name: "서정매",
-        email: "tabitha13@naver.com",
-        img: "서정매전도사님02.png",
         role: "전도사",
         parish: "순전한 미니스트리, 장년부, 영어예배, 수요중보기도팀"
       },

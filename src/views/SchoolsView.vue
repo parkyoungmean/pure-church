@@ -105,8 +105,8 @@
                         hover:before:opacity-100`"
                     >
                       <div class="w-max relative space-y-1 p-4">
-                        <h4 :class="`text-lg ${school.color.titleColor}`">
-                          {{ school.title }}
+                        <h4 :class="`text-lg ${school.color.nameColor}`">
+                          {{ school.name }}
                         </h4>
                         <div
                           :class="`relative h-6 text-sm ${school.color.subtitleColor}`"
@@ -162,7 +162,7 @@
                         </div>
                       </div>
                       <img
-                        :src="school.img"
+                        :src="`${school.img}.jpg`"
                         alt=""
                         class="
                           absolute

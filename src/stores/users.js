@@ -70,7 +70,7 @@ export const useUserStore = defineStore("user", {
           })
           .then((res) => {
             console.log("New User:", res.data);
-            console.log(res.data.properties.Bookmark.rich_text[0].text.content);
+            
             let user = {
               id: res.data.id,
               email: payload.email,

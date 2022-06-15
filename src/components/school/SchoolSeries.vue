@@ -15,7 +15,7 @@
                 </span>
                 <span class="w-2 h-2 ml-2 rounded-full" :class="content.status === 'open' ? 'bg-green-300' : 'bg-orange-500'"></span>
             </div>
-            <h3 class="inline-block pt-1 font-medium leading-relaxed"> {{ content.title }} </h3>
+            <h3 class="inline-block pt-1 font-medium leading-relaxed"> {{ content.name }} </h3>
             <span class="inline-block pt-4 text-sm md:text-xs tracking-wider text-gray-500">
                 {{ content.term.start.replaceAll('-', '.') }}~{{ content.term.end.replaceAll('-', '.') }}
             </span>

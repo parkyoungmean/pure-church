@@ -109,16 +109,29 @@
       하는 폼입니다. <br />
       *표시는 필수 입력항목입니다.
     </h1>
-    <!-- Input Form -->
+    <!-- School Registration Form -->
     <form ref="form" @submit.prevent="onSubmit" class="form">
       <!-- One Step -->
       <div
         class="form-step form-step-active slidepage flex flex-col items-center"
       >
-        <h1 class="text-center text-lg md:text-2xl font-extrabold">기본 정보</h1>
+        <h1 class="text-center text-lg md:text-2xl font-extrabold">
+          기본 정보
+        </h1>
         <div class="field input-group">
           <label for="schoolname">*학교 이름</label>
           <input
+            v-model="school_name"
+            type="text"
+            name="schoolname"
+            id="schoolname"
+            class="border border-gray-400 rounded-md w-100"
+          />
+        </div>
+        <div class="field input-group">
+          <label for="schoolname">*소제목</label>
+          <input
+            v-model="subtitle"
             type="text"
             name="schoolname"
             id="schoolname"
@@ -128,476 +141,44 @@
         <div class="field input-group">
           <label for="schoolcolor">*대표 색상 선택하기</label>
           <div class="grid grid-cols-8 xl:grid-cols-10 gap-8 items-center">
-            <!-- click - ring-2 ring-yellow-800 -->
-            <label for="" class="option_item">
+            <label
+              v-for="(color, index) in school_colors"
+              :key="index"
+              for=""
+              class="option_item"
+            >
               <input
                 type="radio"
-                name="color"
-                id="amber"
+                :name="color.origin"
+                id="color"
                 class="radio peer"
-                value="amber"
+                :value="color.origin"
                 v-model="input_color"
               />
               <span
-                class="
-                  color1
+                :class="`
                   option_inner
                   p-1
                   md:p-2
                   rounded-full
-                  peer-checked:ring-2 peer-checked:ring-amber-600
-                  text-amber-800 text-xs
+                  peer-checked:ring-2 peer-checked:${color.ringColor}
+                  ${color.subtitleColor} text-xs
                   transition
                   hover:ring-2
-                  bg-amber-200
-                  hover:bg-amber-600
-                "
+                  ${color.bgColor}
+                  hover:${color.hBgColor}`"
               ></span>
               <div
-                class="
-                  absolute
+                :class="`absolute
                   -inset-0.5
                   bg-gradient-to-r
-                  from-amber-600
-                  to-amber-600
+                  ${color.fromColor}
+                  ${color.toColor}
                   rounded-lg
                   blur
                   opacity-75
                   hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="orange"
-                class="radio peer"
-                value="orange"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color2
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-orange-600
-                  text-orange-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-orange-200
-                  hover:bg-orange-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-amber-600
-                  to-amber-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="rose"
-                class="radio peer"
-                value="rose"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color3
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-rose-600
-                  text-rose-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-rose-200
-                  hover:bg-rose-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-rose-600
-                  to-rose-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="fuchsia"
-                class="radio peer"
-                value="fuchsia"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color4
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-fuchsia-600
-                  text-fuchsia-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-fuchsia-200
-                  hover:bg-fuchsia-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-fuchsia-600
-                  to-fuchsia-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="pink"
-                class="radio peer"
-                value="pink"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color5
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-pink-600
-                  text-pink-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-pink-200
-                  hover:bg-pink-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-pink-600
-                  to-pink-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="blue"
-                class="radio peer"
-                value="blue"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color6
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2
-                  peer-checked:ring-blue-600
-                  peer-checked:ring-2
-                  peer-checked:ring-blue-600
-                  text-blue-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-blue-200
-                  hover:bg-blue-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-blue-600
-                  to-blue-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="rose_bud"
-                class="radio peer"
-                value="rose_bud"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color7
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-rose-bud-600
-                  text-rose-bud-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-rose-bud-200
-                  hover:bg-rose-bud-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-rose-bud-600
-                  to-rose-bud-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="lavender_blue"
-                class="radio peer"
-                value="lavender_blue"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color8
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-lavender-blue-600
-                  text-lavender-blue-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-lavender-blue-200
-                  hover:bg-lavender-blue-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-lavender-blue-600
-                  to-lavender-blue-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="mauve"
-                class="radio peer"
-                value="mauve"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color9
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-mauve-600
-                  text-mauve-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-mauve-200
-                  hover:bg-mauve-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-mauve-600
-                  to-mauve-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="carnation_pink"
-                class="radio peer"
-                value="carnation_pink"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color10
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-carnation-pink-600
-                  text-[carnation-pink-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-carnation-pink-200
-                  hover:bg-carnation-pink-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-carnation-pink-600
-                  to-carnation-pink-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="regent_st_blue"
-                class="radio peer"
-                value="regent_st_blue"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color11
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-regent-st-blue-600
-                  text-regent-st-blue-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-regent-st-blue-200
-                  hover:bg-regent-st-blue-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-regent-st-blue-600
-                  to-regent-st-blue-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
-              ></div>
-            </label>
-            <label for="" class="option_item">
-              <input
-                type="radio"
-                name="color"
-                id="magic_mint"
-                class="radio peer"
-                value="magic_mint"
-                v-model="input_color"
-              />
-              <span
-                class="
-                  color12
-                  option_inner
-                  p-1
-                  md:p-2
-                  rounded-full
-                  peer-checked:ring-2 peer-checked:ring-magic-mint-600
-                  text-magic-mint-800 text-xs
-                  transition
-                  hover:ring-2
-                  bg-magic-mint-200
-                  hover:bg-magic-mint-600
-                "
-              ></span>
-              <div
-                class="
-                  absolute
-                  -inset-0.5
-                  bg-gradient-to-r
-                  from-magic-mint-600
-                  to-magic-mint-600
-                  rounded-lg
-                  blur
-                  opacity-75
-                  hidden
-                  peer-checked:block
-                "
+                  peer-checked:block`"
               ></div>
             </label>
           </div>
@@ -605,6 +186,7 @@
         <div class="field input-group">
           <label for="schoolintroduce">*학교 소개</label>
           <textarea
+            v-model="description"
             type="text"
             name="schoolintroduce"
             id="schoolintroduce"
@@ -648,7 +230,7 @@
         <!-- Input Lecture -->
         <div class="flex justify-center field h-14 w-[180%]">
           <input
-            @keypress.enter="addLecture"
+            @keypress.enter.prevent="addLecture"
             class="px-5 py-2 rounded-l-full bg-blue-100 placeholder-blue-400"
             type="text"
             placeholder="강의제목을 입력하세요."
@@ -799,10 +381,13 @@
       <!-- End of Two Step -->
       <!-- Three Step -->
       <div class="form-step slidepage flex flex-col items-center">
-        <h1 class="text-center text-lg md:text-2xl font-extrabold">대표 이미지 업로드</h1>
+        <h1 class="text-center text-lg md:text-2xl font-extrabold">
+          대표 이미지 업로드
+        </h1>
         <div class="field input-group">
           <label for="imgurl">이미지 URL 주소</label>
           <input
+            v-model="img"
             type="text"
             name="imgurl"
             id="imgurl"
@@ -876,12 +461,186 @@
 
 <script>
 import { ref } from "vue-demi";
+import { useSchoolStore } from "../../stores/schools";
+import { useRouter } from "vue-router";
+import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
   setup() {
+    const school_name = ref("");
+    const subtitle = ref(""); // 소제목
     const input_color = ref(null);
+    const description = ref(""); // 학교 소개
     const lectures = ref([]);
     const lecture_title = ref("");
+    const img = ref("");
+
+    /* school colors */
+    const school_colors = [
+      {
+        origin: "amber",
+        ringColor: "ring-amber-600",
+        hBgColor: "bg-amber-600",
+        fromColor: "from-amber-600",
+        toColor: "to-amber-600",
+        bgColor: "bg-amber-200",
+        gradientColor: "to-amber-600",
+        textGradientColor: "to-amber-600/20",
+        nameColor: "text-amber-900",
+        subtitleColor: "text-amber-800",
+      },
+      {
+        origin: "orange",
+        ringColor: "ring-orange-600",
+        hBgColor: "bg-orange-600",
+        fromColor: "from-orange-600",
+        toColor: "to-orange-600",
+        bgColor: "bg-orange-200",
+        gradientColor: "to-orange-600",
+        textGradientColor: "to-orange-600/20",
+        nameColor: "textoranger-900",
+        subtitleColor: "text-orange-800",
+      },
+      {
+        origin: "rose",
+        ringColor: "ring-rose-600",
+        hBgColor: "bg-rose-600",
+        fromColor: "from-rose-600",
+        toColor: "to-rose-600",
+        bgColor: "bg-rose-200",
+        gradientColor: "to-rose-600",
+        textGradientColor: "to-rose-600/20",
+        nameColor: "text-rose-900",
+        subtitleColor: "text-rose-800",
+      },
+      {
+        origin: "fuchsia",
+        ringColor: "ring-fuchsia-600",
+        hBgColor: "bg-fuchsia-600",
+        fromColor: "from-fuchsia-600",
+        toColor: "to-fuchsia-600",
+        bgColor: "bg-fuchsia-200",
+        gradientColor: "to-fuchsia-600",
+        textGradientColor: "to-fuchsia-600/20",
+        nameColor: "text-fuchsia-900",
+        subtitleColor: "text-fuchsia-800",
+      },
+      {
+        origin: "pink",
+        ringColor: "ring-pink-600",
+        hBgColor: "bg-pink-600",
+        fromColor: "from-pink-600",
+        toColor: "to-pink-600",
+        bgColor: "bg-pink-200",
+        gradientColor: "to-pink-600",
+        textGradientColor: "to-pink-600/20",
+        nameColor: "text-pink-900",
+        subtitleColor: "text-pink-800",
+      },
+      {
+        origin: "blue",
+        ringColor: "ring-blue-600",
+        hBgColor: "bg-blue-600",
+        fromColor: "from-blue-600",
+        toColor: "to-blue-600",
+        bgColor: "bg-blue-200",
+        gradientColor: "to-blue-600",
+        textGradientColor: "to-blue-600/20",
+        nameColor: "text-blue-900",
+        subtitleColor: "text-blue-800",
+      },
+      {
+        origin: "rose",
+        ringColor: "ring-rose-bud-600",
+        hBgColor: "bg-rose-bud-600",
+        fromColor: "from-rose-bud-600",
+        toColor: "to-rose-bud-600",
+        bgColor: "bg-rose-bud-200",
+        gradientColor: "to-rose-bud-600",
+        textGradientColor: "to-rose-bud-600/20",
+        nameColor: "text-rose-bud-900",
+        subtitleColor: "text-rose-bud-800",
+      },
+      {
+        origin: "rose-bud",
+        ringColor: "ring-rose-bud-600",
+        hBgColor: "bg-rose-bud-600",
+        fromColor: "from-rose-bud-600",
+        toColor: "to-rose-bud-600",
+        bgColor: "bg-rose-bud-200",
+        gradientColor: "to-rose-bud-600",
+        textGradientColor: "to-rose-bud-600/20",
+        nameColor: "text-rose-bud-900",
+        subtitleColor: "text-rose-bud-800",
+      },
+      {
+        origin: "lavender-blue",
+        ringColor: "ring-lavender-blue-600",
+        hBgColor: "bg-lavender-blue-600",
+        fromColor: "from-lavender-blue-600",
+        toColor: "to-lavender-blue-600",
+        bgColor: "bg-lavender-blue-200",
+        gradientColor: "to-lavender-blue-600",
+        textGradientColor: "to-lavender-blue-600/20",
+        nameColor: "text-lavender-blue-900",
+        subtitleColor: "text-lavender-blue-800",
+      },
+      {
+        origin: "mauve",
+        ringColor: "ring-mauve-600",
+        hBgColor: "bg-mauve-600",
+        fromColor: "from-mauve-600",
+        toColor: "to-mauve-600",
+        bgColor: "bg-mauve-200",
+        gradientColor: "to-mauve-600",
+        textGradientColor: "to-mauve-600/20",
+        nameColor: "text-mauve-900",
+        subtitleColor: "text-mauve-800",
+      },
+      {
+        origin: "carnation-pink",
+        ringColor: "ring-carnation-pink-600",
+        hBgColor: "bg-carnation-pink-600",
+        fromColor: "from-carnation-pink-600",
+        toColor: "to-carnation-pink-600",
+        bgColor: "bg-carnation-pink-200",
+        gradientColor: "to-carnation-pink-600",
+        textGradientColor: "to-carnation-pink-600/20",
+        nameColor: "text-carnation-pink-900",
+        subtitleColor: "text-carnation-pink-800",
+      },
+      {
+        origin: "regent-st-blue",
+        ringColor: "ring-regent-st-blue-600",
+        hBgColor: "bg-regent-st-blue-600",
+        fromColor: "from-regent-st-blue-600",
+        toColor: "to-regent-st-blue-600",
+        bgColor: "bg-regent-st-blue-200",
+        gradientColor: "to-regent-st-blue-600",
+        textGradientColor: "to-regent-st-blue-600/20",
+        nameColor: "text-regent-st-blue-900",
+        subtitleColor: "text-regent-st-blue-800",
+      },
+      {
+        origin: "magic-mint",
+        ringColor: "ring-magic-mint-600",
+        hBgColor: "bg-magic-mint-600",
+        fromColor: "from-magic-mint-600",
+        toColor: "to-magic-mint-600",
+        bgColor: "bg-magic-mint-200",
+        gradientColor: "to-magic-mint-600",
+        textGradientColor: "to-magic-mint-600/20",
+        nameColor: "text-magic-mint-900",
+        subtitleColor: "text-magic-mint-800",
+      },
+    ];
+
+    const router = useRouter();
+    const store = useSchoolStore();
+
+    const schoolMode = (mode) => {
+      store.schoolMode(mode);
+    };
 
     const nextBtn = (pos) => {
       const slidePage = document.querySelector(".slidepage");
@@ -913,22 +672,56 @@ export default {
       lectures.value = lectures.value.filter((l) => l !== lecture);
     };
 
+    /* 학교 정보 전송하기(create) */
     const onSubmit = () => {
-      console.log(input_color.value);
-      if (input_color.value === null) {
+      if (
+        school_name.value === "" ||
+        subtitle.value === "" ||
+        input_color.value === null ||
+        description.value === ""
+      ) {
+        alert("필수입력 항목을 입력해주세요!");
         return;
       }
 
       const school = {
-        color: input_color,
+        name: school_name.value,
+        subtitle: subtitle.value,
+        color: input_color.value,
+        description: description.value,
+        curriculum: lectures.value,
+        img: img.value,
       };
-      alert(input_color.value);
-      console.log(input_color.value);
+
+      store.createSchool(school).then(() => {
+        alert("새 학교 등록 성공!");
+
+        /* 초기화 */
+        school_name.value = "";
+        subtitle.value = ""; // 소제목
+        input_color.value = null;
+        description.value = ""; // 학교 소개
+        lectures.value = [];
+        lecture_title.value = "";
+        img.value = "";
+
+        if (getCurrentBreakpoint().value < 768) {
+          router.go(-1);
+        } else {
+          schoolMode("read");
+        }
+      });
     };
+
     return {
+      school_colors, // 대표 색상
+      school_name,
+      subtitle,
       input_color,
+      description,
       lectures,
       lecture_title,
+      img,
       addLecture,
       removeLecture,
       nextBtn,
@@ -962,7 +755,7 @@ input {
   width: 400%;
   margin: 0 auto;
   /* border-radius: 0.35rem; */
-  padding: 1.0rem;
+  padding: 1rem;
 }
 
 .form .form-step {
@@ -994,8 +787,8 @@ input {
 
 .option_item .radio {
   position: absolute;
-  top: 6px;
-  left: 5px;
+  top: 7px;
+  left: 4px;
   z-index: 1;
   opacity: 0;
 }

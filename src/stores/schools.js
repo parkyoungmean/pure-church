@@ -13,9 +13,9 @@ export const useSchoolStore = defineStore("school", {
     schools: [
       {
         id: "01",
-        title: "복음 학교",
+        name: "복음 학교",
         subtitle: "복된 사람들, 복음을 되짚다",
-        img: "https://i.imgur.com/UyimOMY.jpg",
+        img: "https://i.imgur.com/UyimOMY",
         description:
           "성경의 모든 이야기는 인류의 구원자요 영원한 왕이신 예수 그리스도로 향해 있습니다. <br> 《복음 학교》는 성경이 어떻게 예수님과 연결되어 있는지, 우리 삶이 예수님을 중심으로 하나님의 구원 계획에 어떻게 연결되어야 하는지 구체적으로 제시합니다.",
         curriculum:
@@ -26,15 +26,15 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-amber-200",
           gradientColor: "to-amber-600",
           textGradientColor: "to-amber-600/20",
-          titleColor: "text-amber-900",
+          nameColor: "text-amber-900",
           subtitleColor: "text-amber-800",
         },
       },
       {
         id: "02",
-        title: "치유(The Day) 학교",
+        name: "치유(The Day) 학교",
         subtitle: "하나님 나라의 회복과 능력",
-        img: "https://i.imgur.com/xUc8v0t.jpg",
+        img: "https://i.imgur.com/xUc8v0t",
         description:
           "십자가의 은혜와 구원 받은 그리스도인들이 왜 우울함과 육체적 정신적 마음의 질병을 경험하며 두려워하며 사는가? <br> 이 모든 질문을 무의식, 죄 선악, 생명, 빛 성령 등의 연관 관계를 통해 성경 안에서 밝히며 하나님의 완전한 생명의 빛 안에 머무를 수 있는 길을 제시해드립니다.",
         curriculum:
@@ -45,15 +45,15 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-orange-200",
           gradientColor: "to-orange-600",
           textGradientColor: "to-orange-600/20",
-          titleColor: "text-orange-900",
+          nameColor: "text-orange-900",
           subtitleColor: "text-orange-800",
         },
       },
       {
         id: "03",
-        title: "친밀감(Kar) 학교",
+        name: "친밀감(Kar) 학교",
         subtitle: "두드리다, 머물다, 회복하다",
-        img: "https://i.imgur.com/C52zbsi.jpg",
+        img: "https://i.imgur.com/C52zbsi",
         description:
           "KAR(카르)은 마음이란 뜻의 라틴어로, 다음 세 단어의 약자입니다. <br> 1) konck: 두드리다 2) abide: 머물다 3) recover: 회복하다. <br><br> 하나님과 우리의 호흡이 느껴질 만큼 가까이에서 얼굴을 마주하여 그 마음을 함께 나눔으로 하나님 아버지와 더 깊은 친밀감으로 인도되는 시간이 될 것입니다.",
         curriculum:
@@ -64,15 +64,15 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-rose-200",
           gradientColor: "to-rose-600",
           textGradientColor: "to-rose-600/20",
-          titleColor: "text-rose-900",
+          nameColor: "text-rose-900",
           subtitleColor: "text-rose-800",
         },
       },
       {
         id: "04",
-        title: "능력의 기도(BAP) 학교",
+        name: "능력의 기도(BAP) 학교",
         subtitle: "참된 영적 전쟁과 승리",
-        img: "https://i.imgur.com/dPErD5s.jpg",
+        img: "https://i.imgur.com/dPErD5s",
         description:
           "《능력의 기도(BAP) 학교》는 기도의 삶과 영적인 삶의 향상을 돕기 위한 학교입니다. 교회와 관련된 모든 사역을 위한 영적 힘이 되도록 기도로 돕습니다.",
         curriculum:
@@ -83,15 +83,15 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-fuchsia-200",
           gradientColor: "to-fuchsia-600",
           textGradientColor: "to-fuchsia-600/20",
-          titleColor: "text-fuchsia-900",
+          nameColor: "text-fuchsia-900",
           subtitleColor: "text-fuchsia-800",
         },
       },
       {
         id: "05",
-        title: "사랑 학교",
+        name: "사랑 학교",
         subtitle: "사랑은 오래참고 온유하며",
-        img: "https://i.imgur.com/XTEusLc.jpg",
+        img: "https://i.imgur.com/XTEusLc",
         description:
           "《사랑 학교》는 지금까지 알아왔던 하나님의 사랑을 새로운 차원의 시각으로 바라보게 하고 그 분의 사랑 가운데 동행하는 삶을 도전하게 하는 학교입니다.<br> 대상: 하나님 아버지의 사랑을 만나 깊은 사랑과 회복을 소망하는 모든 그리스도인",
         curriculum:
@@ -102,15 +102,15 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-pink-200",
           gradientColor: "to-pink-600",
           textGradientColor: "to-pink-600/20",
-          titleColor: "text-pink-900",
+          nameColor: "text-pink-900",
           subtitleColor: "text-pink-800",
         },
       },
       {
         id: "06",
-        title: "사역자 학교",
+        name: "사역자 학교",
         subtitle: "충성되이 여겨 내게 직분을 맡기심이니",
-        img: "https://i.imgur.com/LRbjgMF.jpg",
+        img: "https://i.imgur.com/LRbjgMF",
         description:
           "《사역자 학교》는 하나님을 사랑하여 그 분께서 맡기신 직분을 충성되이 감당하기 원하는 사역자 분들을 위한 학교입니다.<br><br> 대상: 하나님 아버지의 사랑에 감격하여 맡기신 직분을 소중히 여기어 잘 감당하기를 소망하는 모든 그리스도인 사역자",
         curriculum:
@@ -121,17 +121,17 @@ export const useSchoolStore = defineStore("school", {
           bgColor: "bg-blue-200",
           gradientColor: "to-blue-600",
           textGradientColor: "to-blue-600/20",
-          titleColor: "text-blue-900",
+          nameColor: "text-blue-900",
           subtitleColor: "text-blue-800",
         },
       },
     ],
     schoolSeries: [
       {
-        title: "온라인 치유학교 5기",
+        name: "온라인 치유학교 5기",
         background:
           "https://pbs.twimg.com/media/DqRkUGmUcAA9cZT?format=jpg&name=large",
-        bgColor: "bg-orange-200",
+        bgColor: "orange",
         createdAt: "2주 전",
         status: "open",
         term: {
@@ -141,10 +141,10 @@ export const useSchoolStore = defineStore("school", {
         time: "매주 화요일 저녁6시",
       },
       {
-        title: "온라인 치유학교 4기",
+        name: "온라인 치유학교 4기",
         background:
           "https://pbs.twimg.com/media/FRakvHPVUAEFSTa?format=jpg&name=large",
-        bgColor: "bg-orange-200",
+        bgColor: "orange",
         createdAt: "2주 전",
         status: "closed",
         term: {
@@ -154,10 +154,10 @@ export const useSchoolStore = defineStore("school", {
         time: "매주 화요일 저녁6시",
       },
       {
-        title: "온라인 치유학교 3기",
+        name: "온라인 치유학교 3기",
         background:
           "https://pbs.twimg.com/media/D6NJXX6WkAYr8OC?format=jpg&name=medium",
-        bgColor: "bg-orange-200",
+        bgColor: "orange",
         createdAt: "2주 전",
         status: "closed",
         term: {
@@ -167,11 +167,11 @@ export const useSchoolStore = defineStore("school", {
         time: "매주 화요일 저녁6시",
       },
       {
-        title: "강남 치유학교",
+        name: "강남 치유학교",
         avatar: "",
         background:
           "https://pbs.twimg.com/media/FA4g4w7WEAAdmb4?format=jpg&name=large",
-        bgColor: "bg-orange-200",
+        bgColor: "orange",
         createdAt: "2주 전",
         status: "closed",
         term: {
@@ -211,6 +211,64 @@ export const useSchoolStore = defineStore("school", {
           (element) => element.id === payload
         );
         this.currentSchool = this.schools[index];
+      }
+    },
+    /* Create */
+    async createSchool(payload) {
+      try {
+        await axios
+          .post("https://pure-api.herokuapp.com/school/createSchool", {
+        /* await axios.post("http://localhost:4000/school/createSchool", { */
+          name: payload.name,
+          subtitle: payload.subtitle,
+          color: {
+            bgColor: `bg-${payload.color}-200`,
+            gradientColor: `to-${payload.color}-600`,
+            textGradientColor: `to-${payload.color}-600/20`,
+            nameColor: `text-${payload.color}-900`,
+            subtitleColor: `text-${payload.color}-800`,
+          },
+          description: payload.description || "",
+          curriculum: payload.curriculum || [],
+          registration: "0",
+          graduate: "0",
+          img: payload.img || "https://imgur.com/KddmMij",
+          createdAt: dayjs(),
+          updatedAt: "1000-01-01T00:00:00.000Z",
+          bookmark: "",
+        })
+        .then((res) => {
+          console.log("New School:", res.data);
+
+          let school = {
+            id: res.data.id,
+            name: payload.name,
+            subtitle: payload.subtitle,
+            color: {
+              bgColor: `bg-${payload.color}-200`,
+              gradientColor: `to-${payload.color}-600`,
+              textGradientColor: `to-${payload.color}-600/20`,
+              nameColor: `text-${payload.color}-900`,
+              subtitleColor: `text-${payload.color}-800`,
+            },
+            description: payload.description || "",
+            curriculum: payload.curriculum || [],
+            registration: "0",
+            graduate: "0",
+            img: payload.img || "https://imgur.com/KddmMij",
+            createdAt: res.data.created_time,
+            convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
+            updatedAt: "1000-01-01T00:00:00.000Z",
+            bookmark: res.data.properties.Bookmark.rich_text[0].text.content,
+          };
+          console.log("payload:", school);
+
+          this.schools.unshift(school);
+          this.currentSchool = school;
+        });
+      } catch (error) {
+        alert("새 학교 등록이 실패하였습니다.ㅜㅜ");
+        console.error("New School's Create 에러:", error);
       }
     },
   },
