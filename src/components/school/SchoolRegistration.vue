@@ -22,7 +22,7 @@
   <!-- End of Close Button -->
   <!-- SCHOOL REGISTER -->
   <div class="container mx-auto">
-    <!-- progressbar -->
+    <!-- Progressbar -->
     <div class="progress-bar flex my-5 text-sm md:text-lg">
       <div class="step" v-for="(step, index) in progress_bar" :key="index">
         <p
@@ -35,7 +35,9 @@
           class="bullet border-2 border-blue-600 rounded-full"
           :class="{ active: step.isActive }"
         >
-          <span class="absolute left-2.5 text-center text-blue-600">{{ index + 1 }}</span>
+          <span class="absolute left-2.5 text-center text-blue-600">{{
+            index + 1
+          }}</span>
         </div>
         <div
           class="check fas fa-check"
@@ -43,75 +45,8 @@
         ></div>
       </div>
     </div>
-    <!-- Steper -->
-    <!-- <div class="relative w-full mb-20 px-5">
-      <div class="w-full flex justify-between px-4 py-4">
-        <button
-          class="
-            w-8
-            h-8
-            bg-amber-500
-            rounded-md
-            text-white
-            transition
-            duration-300
-            hover:bg-green-500
-            disabled:bg-gray-400
-          "
-        >
-          1
-        </button>
-        <button
-          class="
-            w-8
-            h-8
-            bg-amber-500
-            rounded-md
-            text-white
-            transition
-            duration-300
-            hover:bg-green-500
-            disabled:bg-gray-400
-          "
-        >
-          2
-        </button>
-        <button
-          class="
-            w-8
-            h-8
-            bg-amber-500
-            rounded-md
-            text-white
-            transition
-            duration-300
-            hover:bg-green-500
-            disabled:bg-gray-400
-          "
-        >
-          3
-        </button>
-        <button
-          class="
-            w-8
-            h-8
-            bg-amber-500
-            rounded-md
-            text-white
-            transition
-            duration-300
-            hover:bg-green-500
-            disabled:bg-gray-400 disabled
-          "
-        >
-          4
-        </button>
-      </div>
-      <div class="w-full px-8 -mt-8">
-        <div class="w-full h-[1px] bg-amber-800"></div>
-      </div>
-    </div> -->
-    <!-- End of Steper -->
+    <!-- End of Progressbar -->
+    
     <h1
       class="
         w-full
@@ -688,9 +623,7 @@ export default {
       const slidePage = document.querySelector(".slidepage");
       slidePage.style.marginLeft = `${pos}%`;
       progress_bar[current].isActive = true;
-      /* eval('isActive' + current + '= true'); */
       current += 1;
-      console.log(current);
     };
     const prevBtn = (pos) => {
       const slidePage = document.querySelector(".slidepage");
@@ -698,8 +631,6 @@ export default {
 
       current -= 1;
       progress_bar[current].isActive = false;
-      /* eval('isActive' + current + '= false'); */
-      console.log(current);
     };
 
     const addLecture = () => {
@@ -744,7 +675,10 @@ export default {
         img: img.value,
       };
 
+      progress_bar[current].isActive = true;
+
       store.createSchool(school).then(() => {
+        
         /* 초기화 */
         school_name.value = "";
         subtitle.value = ""; // 소제목
@@ -815,7 +749,7 @@ export default {
 .progress-bar .step .bullet:before,
 .progress-bar .step .bullet:after {
   position: absolute;
-  content: '';
+  content: "";
   bottom: 11px;
   right: -270px;
   height: 3px;
@@ -849,7 +783,7 @@ export default {
 .progress-bar .step .check {
   position: absolute;
   left: 50%;
-  top: 70%;
+  top: 72%;
   transform: translate(-50%, -50%);
   display: none;
 }
@@ -858,9 +792,6 @@ export default {
   color: #fff;
 }
 
-/*
-
- */
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -887,8 +818,8 @@ input {
 }
 
 .form .form-step {
-  width: 23%;
-  margin: 0 75px 0 0;
+  width: 25%;
+  margin: 0 0 0 0;
   transition: margin-left 0.3s ease-in-out;
 }
 
@@ -954,9 +885,20 @@ input {
 }
 
 @media (max-width: 768px) {
+  .progress-bar .step .bullet:before,
+  .progress-bar .step .bullet:after {
+    position: absolute;
+    content: "";
+    bottom: 11px;
+    right: -220px;
+    height: 3px;
+    width: 210px;
+    background: #3182ce;
+  }
+
   .form .form-step .field {
     width: 450px;
-    margin: 40px 0;
+    margin: 15px 0;
     position: relative;
   }
   .form .form-step .field .option_item {
@@ -979,14 +921,86 @@ input {
 
   .option_item .radio {
     position: absolute;
-    top: 3px;
-    left: 0px;
+    top: 7px;
+    left: 3px;
     z-index: 1;
     opacity: 0;
   }
 }
 
 @media (max-width: 540px) {
+  .container .progress-bar .step {
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  .progress-bar .step p.active {
+    color: #d43f8d;
+  }
+  .progress-bar .step .bullet {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    transition: 0.2s;
+  }
+
+  .progress-bar .step .bullet.active {
+    border-color: #d43f8d;
+    background: #d43f8d;
+  }
+  .progress-bar .step:last-child .bullet:before,
+  .progress-bar .step:last-child .bullet:after {
+    display: none;
+  }
+
+  .progress-bar .step .bullet:before,
+  .progress-bar .step .bullet:after {
+    position: absolute;
+    content: "";
+    bottom: 11px;
+    right: -90px;
+    height: 3px;
+    width: 85px;
+    background: #3182ce;
+  }
+  .progress-bar .step .bullet.active:after {
+    background: #d43f8d;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+  }
+
+  @keyframes animate {
+    100% {
+      transform: scaleX(1);
+    }
+  }
+
+  .progress-bar .step .bullet span {
+    font-weight: 500;
+    line-height: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .progress-bar .step .bullet.active span {
+    display: none;
+  }
+
+  .progress-bar .step .check {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  .progress-bar .step .check.active {
+    display: block;
+    color: #fff;
+  }
+
   .form .form-step {
     width: 22%;
     margin: 0 45px 0 0;
@@ -994,7 +1008,7 @@ input {
   }
   .form .form-step .field {
     width: 330px;
-    margin: 20px 0;
+    margin: 10px 0;
     position: relative;
   }
 
