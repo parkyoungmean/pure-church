@@ -25,12 +25,12 @@
         <div class="md:max-w-md text-sm md:text-md">
           <div class="flex items-center text-xs md:text-sm md:pt-9">
             <span class="text-gray-900">순전한 학교&nbsp;</span>
-            <span> / {{ currentSchool.title }} </span>
+            <span> / {{ currentSchool.name }} </span>
           </div>
           <!-- Title -->
           <div class="pt-5 md:pt-10">
             <h1 class="text-2xl md:text-4xl font-bold tracking-wide">
-              {{ currentSchool.title }}
+              {{ currentSchool.name }}
             </h1>
           </div>
           <!-- Simple Statics -->

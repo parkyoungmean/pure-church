@@ -265,6 +265,8 @@ export const useSchoolStore = defineStore("school", {
 
           this.schools.unshift(school);
           this.currentSchool = school;
+          
+          alert("새 학교 등록 성공!");
         });
       } catch (error) {
         alert("새 학교 등록이 실패하였습니다.ㅜㅜ");

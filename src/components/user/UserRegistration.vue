@@ -253,7 +253,7 @@ export default {
       }
       if (validationNumber(user.phoneNumber)) {
         store.createUser(user).then(() => {
-          alert("새 학생 등록 성공!");
+          
           /* 초기화하기 */
           initUser();
 

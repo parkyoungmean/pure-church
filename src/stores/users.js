@@ -88,6 +88,8 @@ export const useUserStore = defineStore("user", {
 
             this.users.unshift(user);
             this.currentUser = user;
+
+            alert("새 학생 등록 성공!");
           });
       } catch (error) {
         alert("새 학생 등록이 실패하였습니다ㅜㅜ");

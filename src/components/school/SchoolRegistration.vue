@@ -22,8 +22,29 @@
   <!-- End of Close Button -->
   <!-- SCHOOL REGISTER -->
   <div class="container mx-auto">
+    <!-- progressbar -->
+    <div class="progress-bar flex my-5 text-sm md:text-lg">
+      <div class="step" v-for="(step, index) in progress_bar" :key="index">
+        <p
+          class="text-blue-600 mb-2 md:mb-4"
+          :class="{ active: step.isActive }"
+        >
+          {{ step.name }}
+        </p>
+        <div
+          class="bullet border-2 border-blue-600 rounded-full"
+          :class="{ active: step.isActive }"
+        >
+          <span class="absolute left-2.5 text-center text-blue-600">{{ index + 1 }}</span>
+        </div>
+        <div
+          class="check fas fa-check"
+          :class="{ active: step.isActive }"
+        ></div>
+      </div>
+    </div>
     <!-- Steper -->
-    <div class="relative w-full mb-20 px-5">
+    <!-- <div class="relative w-full mb-20 px-5">
       <div class="w-full flex justify-between px-4 py-4">
         <button
           class="
@@ -89,7 +110,7 @@
       <div class="w-full px-8 -mt-8">
         <div class="w-full h-[1px] bg-amber-800"></div>
       </div>
-    </div>
+    </div> -->
     <!-- End of Steper -->
     <h1
       class="
@@ -460,7 +481,7 @@
 </template>
 
 <script>
-import { ref } from "vue-demi";
+import { ref, reactive } from "vue-demi";
 import { useSchoolStore } from "../../stores/schools";
 import { useRouter } from "vue-router";
 import { getCurrentBreakpoint } from "../../common/common";
@@ -474,6 +495,27 @@ export default {
     const lectures = ref([]);
     const lecture_title = ref("");
     const img = ref("");
+
+    /* Progress-bar */
+    let current = 0;
+
+    const progress_bar = reactive([
+      {
+        id: 0,
+        name: "기본정보",
+        isActive: false,
+      },
+      {
+        id: 1,
+        name: "쿼리큘럼",
+        isActive: false,
+      },
+      {
+        id: 2,
+        name: "이미지",
+        isActive: false,
+      },
+    ]);
 
     /* school colors */
     const school_colors = [
@@ -645,10 +687,19 @@ export default {
     const nextBtn = (pos) => {
       const slidePage = document.querySelector(".slidepage");
       slidePage.style.marginLeft = `${pos}%`;
+      progress_bar[current].isActive = true;
+      /* eval('isActive' + current + '= true'); */
+      current += 1;
+      console.log(current);
     };
     const prevBtn = (pos) => {
       const slidePage = document.querySelector(".slidepage");
       slidePage.style.marginLeft = `${pos}%`;
+
+      current -= 1;
+      progress_bar[current].isActive = false;
+      /* eval('isActive' + current + '= false'); */
+      console.log(current);
     };
 
     const addLecture = () => {
@@ -694,8 +745,6 @@ export default {
       };
 
       store.createSchool(school).then(() => {
-        alert("새 학교 등록 성공!");
-
         /* 초기화 */
         school_name.value = "";
         subtitle.value = ""; // 소제목
@@ -714,6 +763,10 @@ export default {
     };
 
     return {
+      /* progress-bar */
+      current,
+      progress_bar,
+      /* form */
       school_colors, // 대표 색상
       school_name,
       subtitle,
@@ -733,6 +786,81 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container .progress-bar .step {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.progress-bar .step p.active {
+  color: #d43f8d;
+}
+.progress-bar .step .bullet {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.progress-bar .step .bullet.active {
+  border-color: #d43f8d;
+  background: #d43f8d;
+}
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after {
+  display: none;
+}
+
+.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after {
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -270px;
+  height: 3px;
+  width: 260px;
+  background: #3182ce;
+}
+.progress-bar .step .bullet.active:after {
+  background: #d43f8d;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+
+@keyframes animate {
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.progress-bar .step .bullet span {
+  font-weight: 500;
+  line-height: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.progress-bar .step .bullet.active span {
+  display: none;
+}
+
+.progress-bar .step .check {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.progress-bar .step .check.active {
+  display: block;
+  color: #fff;
+}
+
+/*
+
+ */
 label {
   display: block;
   margin-bottom: 0.5rem;
