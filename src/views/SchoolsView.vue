@@ -222,11 +222,11 @@
 
 <script>
 /* eslint-disable */
-import { computed, onMounted } from "vue-demi";
+import { computed, onMounted } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useSchoolStore } from "../stores/schools";
 import SchoolDetail from "../components/school/SchoolDetail.vue";
 import SchoolRegistration from "@/components/school/SchoolRegistration.vue";
-import { useSchoolStore } from "../stores/schools";
 import { getCurrentBreakpoint } from "../common/common";
 
 export default {
@@ -240,23 +240,32 @@ export default {
 
     const router = useRouter();
 
+    const getSchools = computed(() => {
+      console.log('위치: SchoolsView/getSchools');
+      return store.getSchools;
+    });
+
     const schools = computed(() => {
       return store.schools;
     });
 
-    if (store.schools != "undefined" && store.schools != null) {
+    const currentSchool = computed(() => {
+      return store.getCurrentSchool;
+    });
+    
+    onMounted(() => {
+      console.log('위치: SchoolsView/fetchSchools');
+      store.fetchSchools();
+    });
+
+/*     if (store.schools != "undefined" && store.schools != null) {
       store.currentSchool = store.schools[0];
-    }
+    } */
 
     const schoolDetailOpen = (id) => {
       console.log(id);
-
-      if (store.schools != "undefined" && store.schools != null) {
-        const index = store.schools.findIndex((element) => element.id === id);
-        store.currentSchool = store.schools[index];
-        console.log(store.currentSchool);
-        /* store.selectedSchool(id); */
-      }
+      
+      store.selectedSchool(id);
 
       /* If Mobile screen */
       if (getCurrentBreakpoint().value < 769) {
@@ -282,10 +291,6 @@ export default {
       store.schoolMode(mode);
     };
 
-    const currentSchool = computed(() => {
-      console.log(store.getCurrentSchool);
-      return store.getCurrentSchool;
-    });
 
     return {
       schools,

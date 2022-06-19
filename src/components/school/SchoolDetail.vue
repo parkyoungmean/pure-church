@@ -142,10 +142,13 @@
         </div>
         <!-- Content -->
         <!-- <img :src="schools[1].img" alt=""> -->
-        <p
+        <!-- <p
           v-html="currentSchool.curriculum"
-          class="leading-relaxed pt-8 pr-5 md:pr-10 text-sm md:text-md"
-        ></p>
+          class="leading-relaxed pt-8 pr-5 md:pl-10 text-sm md:text-md"
+        ></p> -->
+        <p v-for="(recture, index) in currentSchool.curriculum" :key="index" class="leading-relaxed pt-1 pr-5 md:pr-10 text-sm md:text-md">
+          <span> {{ index + 1 }}강 {{ recture.title }} </span>
+        </p>
         <div
           :class="`absolute w-[440px] h-[250px] bg-gradient-to-r from-transparent ${currentSchool.color.textGradientColor} top-5 md:top-24 right-0`"
         ></div>
@@ -182,12 +185,17 @@ export default {
     const store = useSchoolStore();
 
     const currentSchool = computed(() => {
-      return store.getCurrentSchool;
+      
+      if (store.schools.length !=0) {
+        console.log('위치: SchoolDetail/currentSchool');
+        return store.getCurrentSchool;
+      }
     });
 
     const schoolSeries = computed(() => {
       return store.getSchoolSeries;
     });
+
     return {
       currentSchool,
       schoolSeries,
