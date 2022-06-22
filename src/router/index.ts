@@ -95,6 +95,17 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/schooledit',
+    name: 'schooledit',
+    component: () => import(/* webpackChunkName: "users" */ '../components/school/SchoolEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
+  {
     path: '/notices/slide',
     name: 'slidenotice',
     component: () => import(/* webpackChunkName: "schoolsRegistration" */ '../components/common/CustomContent.vue'),

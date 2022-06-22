@@ -246,7 +246,7 @@ export default {
 
       if (validationNumber(currentUser.value.phoneNumber)) {
         store.updateUser(currentUser.value).then(() => {
-          alert("학생 정보 수정 성공!");
+          
 
           if (getCurrentBreakpoint().value < 768) {
             router.go(-1);

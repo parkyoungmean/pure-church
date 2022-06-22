@@ -146,7 +146,11 @@
           v-html="currentSchool.curriculum"
           class="leading-relaxed pt-8 pr-5 md:pl-10 text-sm md:text-md"
         ></p> -->
-        <p v-for="(recture, index) in currentSchool.curriculum" :key="index" class="leading-relaxed pt-1 pr-5 md:pr-10 text-sm md:text-md">
+        <p
+          v-for="(recture, index) in currentSchool.curriculum"
+          :key="index"
+          class="leading-relaxed pt-1 pr-5 md:pr-10 text-sm md:text-md"
+        >
           <span> {{ index + 1 }}강 {{ recture.title }} </span>
         </p>
         <div
@@ -155,10 +159,66 @@
       </div>
       <!-- End of Right -->
     </div>
+    <!-- Update & Delete Button -->
+    <div class="flex justify-end space-x-2 mt-2 mr-5 md:mr-10">
+      <button
+        @click="schoolEditOpen"
+        class="
+          inline-flex
+          justify-center
+          px-4
+          py-2
+          text-sm
+          font-medium
+          text-amber-900
+          bg-blue-100
+          border border-transparent
+          rounded-md
+          hover:bg-blue-200
+          focus:outline-none
+          focus-visible:ring-2
+          focus-visible:ring-offset-2
+          focus-visible:ring-blue-500
+        "
+      >
+        수정
+      </button>
+      <button
+        class="
+          inline-flex
+          justify-center
+          px-4
+          py-2
+          text-sm
+          font-medium
+          text-red-900
+          bg-blue-100
+          border border-transparent
+          rounded-md
+          hover:bg-blue-200
+          focus:outline-none
+          focus-visible:ring-2
+          focus-visible:ring-offset-2
+          focus-visible:ring-blue-500
+        "
+      >
+        삭제
+      </button>
+    </div>
+    <!-- End of Update & Delete Button -->
     <!-- SCHOOL SERIES -->
-    <div class="pt-14 px-7">
+    <div class="pt-10 md:pt-14 px-7">
       <h2 class="text-2xl font-medium">학교 모음</h2>
-      <div class="md:flex justify-between xxs:px-10 xs:px-25 sm:px-48 md:px-6 md:py-6 md:pr-5 md:space-x-4">
+      <div
+        class="
+          md:flex
+          justify-between
+          xxs:px-10
+          xs:px-25
+          sm:px-48
+          md:px-6 md:py-6 md:pr-5 md:space-x-4
+        "
+      >
         <SchoolSeries
           v-for="(school, index) in schoolSeries"
           :key="index"
@@ -176,6 +236,8 @@
 import { computed } from "@vue/runtime-core";
 import { useSchoolStore } from "../../stores/schools";
 import SchoolSeries from "../../components/school/SchoolSeries.vue";
+import { useRouter } from "vue-router";
+import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
   components: {
@@ -183,14 +245,28 @@ export default {
   },
   setup() {
     const store = useSchoolStore();
+    const router = useRouter();
 
     const currentSchool = computed(() => {
-      
-      if (store.schools.length !=0) {
-        console.log('위치: SchoolDetail/currentSchool');
+      if (store.schools.length != 0) {
         return store.getCurrentSchool;
       }
     });
+
+    /* Update School Infomation */
+    const schoolEditOpen = () => {
+      /* If Mobile screen */
+      if (getCurrentBreakpoint().value < 769) {
+        router.push("/schooledit");
+        schoolMode("update");
+      } else {
+        schoolMode("update");
+      }
+    };
+
+    const schoolMode = (mode) => {
+      store.schoolMode(mode);
+    };
 
     const schoolSeries = computed(() => {
       return store.getSchoolSeries;
@@ -198,6 +274,7 @@ export default {
 
     return {
       currentSchool,
+      schoolEditOpen,
       schoolSeries,
     };
   },

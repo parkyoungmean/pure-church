@@ -163,8 +163,10 @@ export const useUserStore = defineStore("user", {
             const index = this.users.findIndex(
               (element) => element.id === payload.id
             );
-            this.users[index] = payload;
-            this.currentsUser = payload;
+            this.users[index] = user;
+            this.currentUser = user;
+
+            alert("학생 정보 수정 성공!");
           });
       } catch (error) {
         alert("학생 정보의 수정이 실패하였습니다ㅜㅜ");

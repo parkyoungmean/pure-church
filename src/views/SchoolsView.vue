@@ -212,6 +212,11 @@
               <SchoolRegistration />
             </div>
             <!-- END OF SCHOOL REGISTER -->
+            <!-- SCHOOL EDIT -->
+            <div v-else-if="school_mode === 'update'" class="pt-10 pb-12">
+              <SchoolEdit />
+            </div>
+            <!-- END OF SCHOOL EDIT -->
           </section>
           <!-- END OF RIGHT CONTENT SECTION -->
         </div>
@@ -227,12 +232,14 @@ import { useRouter } from "vue-router";
 import { useSchoolStore } from "../stores/schools";
 import SchoolDetail from "../components/school/SchoolDetail.vue";
 import SchoolRegistration from "@/components/school/SchoolRegistration.vue";
+import SchoolEdit from "@/components/school/SchoolEdit.vue";
 import { getCurrentBreakpoint } from "../common/common";
 
 export default {
   components: {
     SchoolDetail,
     SchoolRegistration,
+    SchoolEdit,
   },
   setup() {
     /* Pinia */
