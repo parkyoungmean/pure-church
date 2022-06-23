@@ -253,6 +253,7 @@ export const useSchoolStore = defineStore("school", {
             const index = this.schools.findIndex(
               (element) => element.id === payload.id
             );
+            
             this.schools[index] = school;
             this.currentSchool = school;
 
@@ -261,6 +262,41 @@ export const useSchoolStore = defineStore("school", {
       } catch (error) {
         alert("학교 정보의 수정이 실패하였습니다ㅜㅜ");
         console.error("School's Update 에러:", error);
+      }
+    },
+    /* Delete */
+    async deleteSchool(payload) {
+      try {
+        await axios.post('https://pure-api.herokuapp.com/school/deleteSchool', {
+        /* await axios
+          .post("http://localhost:4000/school/deleteSchool", { */
+            id: payload.id,
+          })
+          .then((res) => {
+            console.log("data:", res.data);
+            
+            const index = this.schools.findIndex(
+              (element) => element.id === payload.id
+            );
+            console.log('인덱스?', index);
+            this.schools.splice(index, 1);
+            console.log(this.schools.length);
+
+            if (this.schools.length === 0) {
+              this.currentSchool = []
+            } else if (this.schools.length-1 < index) {
+              this.currentSchool = this.schools[index-1];
+            } else {
+              this.currentSchool = this.schools[index];
+            }
+            
+            
+            console.log("학교의 정보가 삭제되었습니다.");
+            alert("학교 정보 삭제 성공!");
+          });
+      } catch (error) {
+        alert("학교 정보의 삭제가 실패하였습니다ㅜㅜ");
+        console.error("School's Delete 에러:", error);
       }
     },
   },

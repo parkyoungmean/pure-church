@@ -218,7 +218,6 @@
           <h4 v-if="currentSchool.curriculum.length !== 0">강의 목록</h4>
           <div v-for="(lecture, index) in currentSchool.curriculum" :key="index" class="">
             <div class="relative mt-5">
-              <!-- <input type="checkbox" v-model="lecture.active" class="hidden peer"> -->
               <label
                 class="
                   flex flex-col

@@ -184,6 +184,7 @@
         수정
       </button>
       <button
+        @click="deleteSchool"
         class="
           inline-flex
           justify-center
@@ -264,6 +265,24 @@ export default {
       }
     };
 
+    /* Delete School information */
+    const deleteSchool = () => {
+      if (confirm("정말 삭제합니까?")) {
+        /* alert("ok"); */
+
+        store.deleteSchool(currentSchool.value).then(() => {
+          if (getCurrentBreakpoint().value < 768) {
+            router.go(-1);
+          } else {
+            schoolMode("read");
+            router.go(-1);
+          }
+        });
+      } else {
+        alert("취소되었습니다.");
+      }
+    };
+
     const schoolMode = (mode) => {
       store.schoolMode(mode);
     };
@@ -275,6 +294,7 @@ export default {
     return {
       currentSchool,
       schoolEditOpen,
+      deleteSchool,
       schoolSeries,
     };
   },
