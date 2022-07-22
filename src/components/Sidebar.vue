@@ -39,7 +39,7 @@
                                             </router-link>
                                         </li>
                                         <li>
-                                            <router-link to="notices" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
+                                            <router-link to="/notices" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2">notifications</span>
                                                 <span class="relative group-hover:text-blue-800">공지사항</span>
                                             </router-link>
