@@ -1,6 +1,6 @@
 <template>
   <div class="relative flex justify-center items-center gap-5">
-      <button @click="open = !open" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
+      <button type="button" @click="open = !open" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
           <p class="px-4 dark:text-white">
               {{ selected.length > 5 ? selected.substring(0, 3) + "..." : selected }}
           </p>

@@ -74,7 +74,7 @@
                 </section>
                 <!-- Background Image -->
                 <img
-                    :src="`https://pbs.twimg.com/media/EJ8BpMMX0AAotgb?format=jpg&name=large`"
+                    :src="bgImg"
                     alt=""
                     class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
                 />
@@ -85,12 +85,13 @@
       <!-- END OF NAV -->
       <!-- RIGHT CONTROLLER -->
       <aside class="h-screen w-[300px] flex flex-col bg-white border-l border-gray-200">
+        <form ref="form" @submit.prevent="onSubmit">
           <div class="flex h-18 items-center gap-x-4 border-b border-gray-200 px-6">
-              <button  @click="$router.go(-1)" class="flex items-center justify-center gap-x-2 rounded-xl bg-red-500 px-4 py-2 text-sm leading-6 text-white">
+              <button  @click="$router.go(-1)" type="button" class="flex items-center justify-center gap-x-2 rounded-xl bg-red-500 px-4 py-2 text-sm leading-6 text-white">
                 <i class="material-icons-outlined stroke-current text-white text-xl">cancel</i>
                 <span class="text-sm font-semibold leading-6">취소</span>
               </button>
-              <button class="flex items-center justify-center gap-x-2 rounded-xl bg-blue-500 px-4 py-2 text-sm leading-6 text-white">
+              <button type="submit" class="flex items-center justify-center gap-x-2 rounded-xl bg-blue-500 px-4 py-2 text-sm leading-6 text-white">
                 <i class="material-icons-outlined stroke-current text-white text-xl">publish</i>
                 <span class="text-sm font-semibold leading-6">확인</span>
               </button>
@@ -231,6 +232,7 @@
                     </div>
                 </details>
           </div>
+        </form>
       </aside>
       <!-- END OF RIGHT CONTROLLER -->
   </div>
@@ -238,6 +240,8 @@
 
 <script>
 import { ref, reactive } from "vue-demi";
+import { useNoticeStore } from "../../stores/notices";
+import { useRouter } from "vue-router";
 import Dropdown from "../../components/common/Dropdown.vue";
 
 export default {
@@ -245,6 +249,11 @@ export default {
       Dropdown
   },
   setup() {
+
+    const store = useNoticeStore();
+    const router = useRouter();
+
+    const bgImg = ref("https://pbs.twimg.com/media/EJ8BpMMX0AAotgb?format=jpg&name=large");                                // 배경 이미지
     const title = ref("");                                // 제목
     const subtitle = ref("");                             // 소제목
     const description = ref("");                          // 세부 내용
@@ -386,7 +395,41 @@ export default {
         descriptionTextColor.value = param;
     }
 
+    /* 슬라이드 광고 전송하기(create) */
+    const onSubmit = () => {
+        if (bgImg === "") {
+            alert("배경 이미지가 필수적으로 필요합니다.")
+        }
+
+        const publicity = {
+            img: bgImg.value,
+            title: title.value || '',
+            subtitle: subtitle.value || '',
+            description: description.value || '',
+            /* 글자 크기 */
+            size: {
+                titleTextSize: titleTextSize.value,
+                subtitleTextSize: subtitleTextSize.value,
+                descriptionTextSize: descriptionTextSize.value,
+            },
+            /* 글자 색상 */
+            color: {
+                titleTextColor: titleTextColor.value,
+                subtitleTextColor: subtitleTextColor.value,
+                descriptionTextColor: descriptionTextColor.value,
+            },
+            condition: "publicity",
+        }
+
+        console.log(publicity);
+
+        store.createPublicity(publicity).then(() => {
+            router.go(-1);
+        });
+    }
+
     return {
+        bgImg,
         title,
         subtitle,
         description,
@@ -404,6 +447,7 @@ export default {
         descriptionTextColor,
         updateDescriptionSizeChange,
         updateDescriptionColorChange,
+        onSubmit,
     };
   },
 };
