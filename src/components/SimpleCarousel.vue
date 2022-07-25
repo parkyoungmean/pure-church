@@ -28,15 +28,18 @@
       style="height: 100vh; padding-top: 67px"
     >
       <div class="title" data-swiper-parallax="-200">
-        <p v-html="slide.title" :class="`${slide.color.titleColor}`"></p>
-        <br /><br />
-        <div class="subtitle w-full">
+        <h1 :class="`${slide.size.titleTextSize} ${slide.color.titleTextColor}`" class="font-bold leading-[1.4]">
+          {{ slide.title }}
+        </h1>
+        <div class="subtitle w-full mt-4">
           <p
-            v-html="slide.subtitle"
-            :class="`${slide.color.subtitleColor}`"
-          ></p>
-          <br />
-          <p v-html="slide.description"></p>
+            :class="`${slide.size.subtitleTextSize} ${slide.color.subtitleTextColor}`" class="font-bold leading-loose"
+          >
+          {{ slide.subtitle }}
+          </p>
+          <p :class="`${slide.size.descriptionTextSize} ${slide.color.descriptionTextColor}`" class="leading-8 mt-4">
+            {{ slide.description }}
+          </p>
           <div
             v-if="slide.subcontent"
             class="
@@ -70,18 +73,18 @@
       <!-- 브라우저 화면 크기일 경우 -->
       <img
         v-if="!isMobile"
-        :src="`${slide.src}.jpg`"
+        :src="`${slide.img}`"
         alt=""
         class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
-        :class="slide.src == '' ? 'hidden' : ''"
+        :class="slide.img == '' ? 'hidden' : ''"
       />
       <!-- 모바일 화면 크기일 경우 -->
       <img
         v-else
-        :src="`${slide.mobile_src}.jpg`"
+        :src="`${slide.mobile_img}`"
         alt=""
         class="object-center object-cover w-full lg:h-full min-h-screen"
-        :class="slide.mobile_src == '' ? 'hidden' : ''"
+        :class="slide.mobile_img == '' ? 'hidden' : ''"
       />
     </swiper-slide>
   </swiper>
@@ -167,11 +170,11 @@ export default {
   z-index: 1;
   top: 30%;
   left: 20%;
-  color: white;
+  /* color: white; */
   .subtitle {
     font-size: 27px;
     position: absolute;
-    color: white;
+    /* color: white; */
   }
 }
 @media (max-width: 1280px) {
@@ -181,11 +184,11 @@ export default {
     z-index: 1;
     top: 30%;
     left: 20%;
-    color: white;
+    /* color: white; */
     .subtitle {
       font-size: 22px;
       position: absolute;
-      color: white;
+      /* color: white; */
     }
   }
 }
@@ -196,11 +199,11 @@ export default {
     z-index: 1;
     /* top: 30%; */
     left: 10%;
-    color: white;
+    /* color: white; */
     .subtitle {
       font-size: 17px;
       position: absolute;
-      color: white;
+      /* color: white; */
     }
   }
 }
@@ -211,12 +214,16 @@ export default {
     z-index: 1;
     /* top: 30%; */
     left: 10%;
-    color: white;
+    /* color: white; */
     .subtitle {
       font-size: 12px;
       position: absolute;
-      color: white;
+      /* color: white; */
     }
   }
+}
+
+.title, .subtitle, .description {
+    white-space: pre-line;
 }
 </style>

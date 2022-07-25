@@ -155,8 +155,8 @@
 
 <script>
 /* eslint-disable */
-
-import { reactive, toRefs } from "vue";
+import { computed, onMounted, reactive, toRefs } from "vue";
+import { useNoticeStore } from "../stores/notices"
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleList from "@/components/SimpleList.vue";
@@ -220,192 +220,19 @@ export default {
     const state = reactive({
       count: 0,
     });
-    /* slides for Home */
-    let slides = [
-      {
-        id: 0,
-        title: "",
-        subtitle: "",
-        description: "",
-        src: "https://imgur.com/2LodOZ7",
-        mobile_src: "https://imgur.com/2LodOZ7",
-        color: {
-          titleColor: "text-rose-300",
-          subtitleColor: "text-white",
-        },
-      },
-      {
-        id: 1,
-        title: "♡ 순전한 교회 미국 단기 선교 ♡",
-        subtitle:
-          "선교기간: 2022년 6월 6일(월) ~ 6월 17일(금) <br> 선교지: 미국 샌프란시스코 리버모어 지역",
-        description:
-          "선교팀: 장원혁 담임목사님, 박운진, 김철수, 조선영, 임상화",
-        src: "https://imgur.com/vjvKkr9",
-        mobile_src: "https://imgur.com/lon1xMe",
-        color: {
-          titleColor: "text-rose-300",
-          subtitleColor: "text-white",
-        },
-      },
-      {
-        id: 2,
-        title: "♡ 순전한 교회 미국 단기 선교 기도편지 ♡",
-        subtitle:
-          "1. 장거리 비행과 긴 시간 운전하고 이동하는 모든 미국 여정에서 몸이 상하거나 지치지 않으며 안전하도록 <br><br> 2. 팀원 모두가 성령충만으로 하나되며 거룩한 긴장감으로 하나님이 맡기신 일을 민첩하게 잘 감당하도록 <br><br> 3. 미국에서 선교팀을 가이드하고 사랑학교를 진행할 장소선정 및 학생을 모집하여 섬기는 호유정 자매님의 수고를 하나님께서 위로하고 격려하실 뿐 아니라 선교기간 동안 가정과 사업을 지켜주시도록",
-        description: "",
-        src: "https://imgur.com/1ZvX7wT",
-        mobile_src: "https://imgur.com/8O03G8y",
-        color: {
-          titleColor: "text-rose-300",
-          subtitleColor: "text-white",
-        },
-        subcontent: {
-          title: "기도 편지 보기",
-          htmlContent: `
-          <!-- MODAL -->
-            <div
-              class="
-                fixed
-                inset-0
-                x-10
-                overflow-y-auto
-                h-screen
-                w-screen
-                items-center
-                justify-center
-                bg-gray-700/60
-                px-3
-                py-30
-                z-30
-                mt-30
-              "
-            >
-              <div class="w-full rounded-md bg-white p-2 shadow-md">
-                <!-- Close Button -->
-                <div class="flex justify-end">
-                  <a href="/" class="text-blue-400
-                    top-5
-                    right-0
-                    h-7
-                    w-7
-                    text-2xl
-                    font-semibold
-                    justify-center
-                    items-center
-                    focus:outline-none"> <i class="fas fa-times"></i> 
-                  </a>
-                </div>
-                <div class="md:flex block">
-                  <img
-                    src="https://imgur.com/qPjUNHV.jpg"
-                    alt=""
-                    class="bg-cover bg-center bg-no-repeat w-full min-h-screen"
-                  />
-                  <img
-                    src="https://imgur.com/u1nJMq1.jpg"
-                    alt=""
-                    class="bg-cover bg-center bg-no-repeat w-full min-h-screen"
-                  />
-                </div>
-              </div>
-            </div>
-          <!-- END OF MODAL -->
-          `,
-        },
-      },
-      {
-        id: 3,
-        title: "♡ 순전한 교회 미국 단기 선교 기도편지 ♡",
-        subtitle:
-          "4. 사랑학교의 모든 준비와 진행이 순조롭게 하시며 예배와 강의, 기도사역과 조모임을 통해 학생들에게 하나님 아버지의 사랑이 흘러갈 수 있도록 <br><br> 5. 선교기간 동안 팀원들이 교회에서 맡고 있던 영역의 빈자리가 도움의 손길과 주의 은혜로 채워지고 각 가정이 하나님의 품 안에 안전하게 보호되도록 <br><br> 6.장원혁 담임목사님이 영육간의 강건함으로 모든 일정을 넉넉히 감당하며 매 순간 성령님께 민감하여 하나님이 원하시는 첫 미국선교의 그림이 무엇인지 선명하게 볼 수 있도록",
-        description: "",
-        src: "https://imgur.com/N1UaFAZ",
-        mobile_src: "https://imgur.com/9X05rvC",
-        color: {
-          titleColor: "text-rose-300",
-          subtitleColor: "text-gray-200",
-        },
-        subcontent: {
-          title: "기도 편지 보기",
-          htmlContent: `
-          <!-- MODAL -->
-            <div
-              class="
-                fixed
-                inset-0
-                x-10
-                overflow-y-auto
-                h-screen
-                w-screen
-                items-center
-                justify-center
-                bg-gray-700/60
-                px-3
-                py-10
-                z-30
-              "
-            >
-              <div class="w-full rounded-md bg-white p-2 shadow-md">
-                <!-- Close Button -->
-                <div class="flex justify-end">
-                  <a href="/" class="text-blue-400
-                    top-5
-                    right-0
-                    h-7
-                    w-7
-                    text-2xl
-                    font-semibold
-                    justify-center
-                    items-center
-                    focus:outline-none"> <i class="fas fa-times"></i> 
-                  </a>
-                </div>
-                <div class="md:flex block">
-                  <img
-                    src="https://imgur.com/qPjUNHV.jpg"
-                    alt=""
-                    class="bg-cover bg-center bg-no-repeat w-full min-h-screen"
-                  />
-                  <img
-                    src="https://imgur.com/u1nJMq1.jpg"
-                    alt=""
-                    class="bg-cover bg-center bg-no-repeat w-full min-h-screen"
-                  />
-                </div>
-              </div>
-            </div>
-          <!-- END OF MODAL -->
-          `,
-        },
-      },
-      {
-        id: 4,
-        title: "",
-        subtitle: "",
-        description: "",
-        src: "https://imgur.com/XRcLyuT",
-        mobile_src: "https://imgur.com/XRcLyuT",
-        color: {
-          titleColor: "text-rose-300",
-          subtitleColor: "text-white",
-        },
-      },
-      /* {
-        id: 4,
-        title: "온라인 치유학교 5기를 모집합니다.",
-        subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
-        description: "신청마감: 3월 21일 월요일 오후 10시",
-        src: "bg-1",
-      }, */
-      /* {
-        id: 5,
-        title: "온라인 카르학교 3기를 모집합니다.",
-        subtitle: "일시: 2022년 3월 28일 ~ 2022년 5월 9일",
-        description: "신청마감: 3월 21일 월요일 오후 10시",
-        src: "bg-2",
-      }, */
-    ];
+   
+    /* Pinia */
+    const store = useNoticeStore();
+
+    const slides = computed(() => {
+      console.log('슬라이드:', store.publicitys);
+      return store.publicitys;
+    })
+
+    onMounted(() => {
+      store.fetchPublicitys();
+    })
+
     /* notices for Notices Section */
     let primaryNotices = [
       {

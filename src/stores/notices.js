@@ -52,6 +52,50 @@ export const useNoticeStore = defineStore("notice", {
                 alert("새 슬라이드 광고 등록이 실패하였습니다.ㅜㅜ");
                 console.error("New Slide Publicity's Create 에러:", error);
             }
-        }
+        },
+        /* read Slide Publicitys */
+        async fetchPublicitys() {
+            try {
+                const data = await axios.get('https://pure-api.herokuapp.com/publicity')
+                /* const data = await axios.get("http://localhost:4000/publicity/") */
+
+                console.log(data.data);
+
+                let publicitysArray = [];
+
+                data.data.forEach((v) => {
+                    let publicity = v;
+
+                    /* img 뒤에 .jpg를 붙일지 여부 결정 */
+                    if (publicity.Img.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                        console.log('없다');
+                    } else {
+                      console.log('있다');
+                      publicity.Img = `${publicity.Img}.jpg`;
+                    }
+
+                    publicitysArray.push({
+                        id: publicity.id,
+                        img: publicity.Img,
+                        title: publicity.Title,
+                        subtitle: publicity.Subtitle,
+                        description: publicity.Content,
+                        color: JSON.parse(publicity.Color),
+                        size: JSON.parse(publicity.Size),
+                        condition: publicity.Condition,
+                        belong: publicity.Belong,
+                        author: publicity.Author,
+                        createdAt: publicity.CreatedAt,
+                        convertedAt: dayjs(publicity.CreatedAt).format("YYYY년 MM월 DD일"),
+                        updatedAt: publicity.UpdatedAt,
+                        status: publicity.Status,
+                    });
+                });
+                this.publicitys = publicitysArray;
+
+            } catch (error) {
+                console.error(error);
+            }
+        },
     }
 })

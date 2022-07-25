@@ -356,12 +356,12 @@ export default {
       {
         id: 11,
         text: "핑크",
-        value: "text-pink-600",
+        value: "text-pink-500",
       },
       {
         id: 12,
         text: "장미",
-        value: "text-rose-600",
+        value: "text-rose-300",
       },
     ]
     
