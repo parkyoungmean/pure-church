@@ -7,6 +7,10 @@ import "dayjs/locale/ko";
 
 dayjs.locale("ko"); // global로 한국어 locale 사용
 
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_API_URL,
+});
+
 export const useSchoolStore = defineStore("school", {
   state: () => ({
     school_mode: "none",
@@ -103,9 +107,7 @@ export const useSchoolStore = defineStore("school", {
     async createSchool(payload) {
       console.log("위치: createSchools");
       try {
-        await axios
-          .post("https://pure-api.herokuapp.com/school/createSchool", {
-            /* await axios.post("http://localhost:4000/school/createSchool", { */
+        await await instance.post("school/createSchool", {
             name: payload.name,
             subtitle: payload.subtitle,
             color: {
@@ -164,8 +166,7 @@ export const useSchoolStore = defineStore("school", {
     /* Read */
     async fetchSchools() {
       try {
-        const data = await axios.get('https://pure-api.herokuapp.com/school')
-        /* const data = await axios.get("http://localhost:4000/school/"); */
+        const data = await instance("school");
         console.log(data.data);
 
         let schoolsArray = [];
@@ -199,9 +200,7 @@ export const useSchoolStore = defineStore("school", {
     /* Updade */
     async updateSchool(payload) {
       try {
-        await axios.post('https://pure-api.herokuapp.com/school/updateSchool', {
-        /* await axios
-          .post("http://localhost:4000/school/updateSchool", { */
+        await instance.post("school/updateSchool", {
             id: payload.id,
             name: payload.name,
             subtitle: payload.subtitle,
@@ -267,9 +266,7 @@ export const useSchoolStore = defineStore("school", {
     /* Delete */
     async deleteSchool(payload) {
       try {
-        await axios.post('https://pure-api.herokuapp.com/school/deleteSchool', {
-        /* await axios
-          .post("http://localhost:4000/school/deleteSchool", { */
+        await instance.post("school/deleteSchool", {
             id: payload.id,
           })
           .then((res) => {

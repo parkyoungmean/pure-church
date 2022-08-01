@@ -156,7 +156,7 @@
 <script>
 /* eslint-disable */
 import { computed, onMounted, reactive, toRefs } from "vue";
-import { useNoticeStore } from "../stores/notices"
+import { useNoticeStore } from "../stores/notices";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleList from "@/components/SimpleList.vue";
@@ -217,9 +217,6 @@ export default {
     SimpleCarousel,
   },
   setup() {
-    const state = reactive({
-      count: 0,
-    });
    
     /* Pinia */
     const store = useNoticeStore();
@@ -442,7 +439,6 @@ export default {
     ];
 
     return {
-      ...toRefs(state),
       schools,
       slides,
       primaryNotices,

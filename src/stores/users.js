@@ -7,6 +7,10 @@ import "dayjs/locale/ko";
 
 dayjs.locale("ko"); // global로 한국어 locale 사용
 
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_API_URL,
+});
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
@@ -54,10 +58,7 @@ export const useUserStore = defineStore("user", {
     /* Create */
     async createUser(payload) {
       try {
-        await axios
-          .post("https://pure-api.herokuapp.com/createUser", {
-        /* await axios
-          .post("http://localhost:4000/createUser", { */
+        await instance.post("createUser", {
             email: payload.email,
             name: payload.name,
             phoneNumber: payload.phoneNumber,
@@ -99,8 +100,7 @@ export const useUserStore = defineStore("user", {
     /* Read */
     async fetchUsers() {
       try {
-        const data = await axios.get("https://pure-api.herokuapp.com/users");
-        /* const data = await axios.get("http://localhost:4000/users"); */
+        const data = await instance("users");
 
         let usersArray = [];
 
@@ -130,9 +130,7 @@ export const useUserStore = defineStore("user", {
     /* Update */
     async updateUser(payload) {
       try {
-        await axios.post('https://pure-api.herokuapp.com/updateUser', {
-        /* await axios
-          .post("http://localhost:4000/updateUser", { */
+        await instance.post("updateUser", {
             id: payload.id,
             email: payload.email,
             name: payload.name,
@@ -176,9 +174,7 @@ export const useUserStore = defineStore("user", {
     /* Delete */
     async deleteUser(payload) {
       try {
-        await axios.post('https://pure-api.herokuapp.com/deleteUser', {
-        /* await axios
-          .post("http://localhost:4000/deleteUser", { */
+        await instance.post("deleteUser", {
             id: payload.id,
           })
           .then((res) => {

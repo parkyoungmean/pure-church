@@ -7,6 +7,10 @@ import "dayjs/locale/ko";
 
 dayjs.locale("ko"); // global로 한국어 locale 사용
 
+const instance = axios.create({
+    baseURL: process.env.VUE_APP_API_URL,
+});
+
 export const useNoticeStore = defineStore("notice", {
     state: () => ({
         publicitys: [],
@@ -23,14 +27,14 @@ export const useNoticeStore = defineStore("notice", {
                 payload.createdAt = dayjs();
                 payload.updatedAt = "1000-01-01T00:00:00.000Z";
 
-                await axios.post("https://pure-api.herokuapp.com/publicity/createPublicity", payload)
-                /* await axios.post("http://localhost:4000/publicity/createPublicity", payload) */
+                /* await axios.post("https://pure-api.herokuapp.com/publicity/createPublicity", payload) */
+                await instance.post("publicity/createPublicity", payload)
                 .then((res) => {
                     console.log("new Publicity:", res.data);
 
                     let publicity = {
                         id: res.data.id,
-                        img: payload.bgImg,
+                        img: JSON.stringify(payload.bgImg),
                         title: payload.title,
                         subtitle: payload.subtitle,
                         description: payload.description,
@@ -56,8 +60,8 @@ export const useNoticeStore = defineStore("notice", {
         /* read Slide Publicitys */
         async fetchPublicitys() {
             try {
-                const data = await axios.get('https://pure-api.herokuapp.com/publicity')
-                /* const data = await axios.get("http://localhost:4000/publicity/") */
+                /* const data = await axios.get('https://pure-api.herokuapp.com/publicity') */
+                const data = await instance("publicity")
 
                 console.log(data.data);
 
