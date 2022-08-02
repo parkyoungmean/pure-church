@@ -27,14 +27,13 @@ export const useNoticeStore = defineStore("notice", {
                 payload.createdAt = dayjs();
                 payload.updatedAt = "1000-01-01T00:00:00.000Z";
 
-                /* await axios.post("https://pure-api.herokuapp.com/publicity/createPublicity", payload) */
                 await instance.post("publicity/createPublicity", payload)
                 .then((res) => {
                     console.log("new Publicity:", res.data);
 
                     let publicity = {
                         id: res.data.id,
-                        img: JSON.stringify(payload.bgImg),
+                        img: payload.img.link,
                         title: payload.title,
                         subtitle: payload.subtitle,
                         description: payload.description,
@@ -60,7 +59,6 @@ export const useNoticeStore = defineStore("notice", {
         /* read Slide Publicitys */
         async fetchPublicitys() {
             try {
-                /* const data = await axios.get('https://pure-api.herokuapp.com/publicity') */
                 const data = await instance("publicity")
 
                 console.log(data.data);
@@ -70,12 +68,14 @@ export const useNoticeStore = defineStore("notice", {
                 data.data.forEach((v) => {
                     let publicity = v;
 
+                    publicity.Img = JSON.parse(publicity.Img);
+                    
                     /* img 뒤에 .jpg를 붙일지 여부 결정 */
-                    if (publicity.Img.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                    if (publicity.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
                         console.log('없다');
                     } else {
                       console.log('있다');
-                      publicity.Img = `${publicity.Img}.jpg`;
+                      publicity.Img.link = `${publicity.Img.link}.jpg`;
                     }
 
                     publicitysArray.push({

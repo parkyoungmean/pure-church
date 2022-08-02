@@ -71,6 +71,7 @@
                         </button>
                         <button class="rounded-full border border-gray-200 px-8 py-5 font-semibold text-blue-600">자세히 보기</button>
                     </div>
+                    {{ currentImage }}
                 </section>
                 <!-- Background Image -->
                 <img
@@ -274,8 +275,9 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue-demi";
+import { ref, reactive, computed } from "vue-demi";
 import { useNoticeStore } from "../../stores/notices";
+import { useImageStore } from "../../stores/images";
 import { useRouter } from "vue-router";
 import Dropdown from "../../components/common/Dropdown.vue";
 
@@ -286,6 +288,7 @@ export default {
   setup() {
 
     const store = useNoticeStore();
+    const imgStore = useImageStore();
     const router = useRouter();
 
     const right = ref("text");
@@ -437,24 +440,34 @@ export default {
 
     /* Right - Image */
     const changeImageFile = (e) => {
-        console.log(e.target.files[0]);
         tempImg.value = URL.createObjectURL(e.target.files[0]);
-        bgImg.value = URL.createObjectURL(e.target.files[0]);
-        
+        bgImg.value = e.target.files[0];
     }
 
+    const currentImage = computed(() => {
+      return imgStore.getCurrentImage;
+    });
+
     /* 슬라이드 광고 전송하기(create) */
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (bgImg.value === "") {
             alert("배경 이미지가 필수적으로 필요합니다.")
         }
 
-        console.log(bgImg.value);
+        
+        /* upload Image */
+        let img = [];
+        
+        await imgStore.uploadImage(bgImg.value)
+        .then(() => {
+            img = imgStore.currentImage;
+        })
+        
+        console.log('현재이미지:', JSON.stringify(img.data));
+        console.log('현재이미지의 주소:', img.data.link);
 
-
-        const formdata = new FormData();
         const publicity = {
-            img: JSON.stringify(bgImg.value),
+            img: JSON.stringify(img.data),
             title: title.value || '',
             subtitle: subtitle.value || '',
             description: description.value || '',
@@ -503,6 +516,7 @@ export default {
         onSubmit,
         right,
         changeImageFile,
+        currentImage,
     };
   },
 };

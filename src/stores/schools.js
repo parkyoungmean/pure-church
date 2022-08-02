@@ -74,11 +74,9 @@ export const useSchoolStore = defineStore("school", {
   }),
   getters: {
     getSchools(state) {
-      console.log("위치: getters/getSchools");
       return state.schools;
     },
     getCurrentSchool(state) {
-      console.log("위치: getters/getCurrentSchool");
       return state.currentSchool;
     },
     getSchoolSeries(state) {

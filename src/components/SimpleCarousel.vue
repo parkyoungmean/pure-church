@@ -73,7 +73,7 @@
       <!-- 브라우저 화면 크기일 경우 -->
       <img
         v-if="!isMobile"
-        :src="`${slide.img}`"
+        :src="`${slide.img.link}`"
         alt=""
         class="bg-center bg-cover bg-no-repeat w-full lg:h-full min-h-screen"
         :class="slide.img == '' ? 'hidden' : ''"
