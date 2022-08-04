@@ -40,7 +40,6 @@ export const useImageStore = defineStore("image", {
                     console.log('이미지 업로드 data 결과:', data.data);
                     this.currentImage = data.data;
                 })
-
             } catch (error) {
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  

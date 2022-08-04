@@ -156,7 +156,7 @@
 <script>
 /* eslint-disable */
 import { computed, onMounted, reactive, toRefs } from "vue";
-import { useNoticeStore } from "../stores/notices";
+import { usePublicityStore } from "../stores/publicities";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SimpleList from "@/components/SimpleList.vue";
@@ -219,15 +219,15 @@ export default {
   setup() {
    
     /* Pinia */
-    const store = useNoticeStore();
+    const store = usePublicityStore();
 
     const slides = computed(() => {
-      console.log('슬라이드:', store.publicitys);
-      return store.publicitys;
+      console.log('슬라이드:', store.publicities);
+      return store.publicities;
     })
 
     onMounted(() => {
-      store.fetchPublicitys();
+      store.fetchPublicities();
     })
 
     /* notices for Notices Section */

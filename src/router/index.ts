@@ -139,7 +139,30 @@ const routes: Array<RouteRecordRaw> = [
       store.show_sidebar = false;
       next();
     }
-  },     
+  },
+  /* 광고 */
+  {
+    path: '/publicities',
+    name: 'publicities',
+    component: () => import(/* webpackChunkName: "publicities" */ '../views/PublicitiesView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
+  },
+  {
+    path: '/publicityregistration',
+    name: 'publicityregistration',
+    component: () => import(/* webpackChunkName: "publicityRegistration" */ '../components/publicity/PublicityRegistration.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

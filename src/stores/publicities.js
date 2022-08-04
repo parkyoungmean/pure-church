@@ -11,18 +11,18 @@ const instance = axios.create({
     baseURL: process.env.VUE_APP_API_URL,
 });
 
-export const useNoticeStore = defineStore("notice", {
+export const usePublicityStore = defineStore("publicity", {
     state: () => ({
-        publicitys: [],
+        publicities: [],
     }),
     getters: {
-        getNotices(state) {
-            return state.publicitys;
+        getPublicities(state) {
+            return state.publicities;
         },
     },
     actions: {
         /* create Slide Publicity */
-        async createNotice(payload) {
+        async createPublicity(payload) {
             try {
                 payload.createdAt = dayjs();
                 payload.updatedAt = "1000-01-01T00:00:00.000Z";
@@ -31,24 +31,25 @@ export const useNoticeStore = defineStore("notice", {
                 .then((res) => {
                     console.log("new Publicity:", res.data);
 
-                    let publicity = {
+                    /* let publicity = {
                         id: res.data.id,
-                        img: payload.img.link,
+                        img: payload.img,
                         title: payload.title,
                         subtitle: payload.subtitle,
                         description: payload.description,
-                        /* 글자 크기 */
+                        
                         size: payload.size,
-                        /* 글자 색상 */
+                        
                         color: payload.color,
                         condition: payload.condition,
+                        belong: "전체",
                         author: res.data.author,
                         createdAt: res.data.created_time,
                         convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
                         updatedAt: payload.updatedAt,
                     }
 
-                    this.publicitys.unshift(publicity);
+                    this.publicities.unshift(publicity); */
                     alert("새 슬라이드 광고 등록 성공!");
                 })
             } catch (error) {
@@ -56,14 +57,14 @@ export const useNoticeStore = defineStore("notice", {
                 console.error("New Slide Publicity's Create 에러:", error);
             }
         },
-        /* read Slide Publicitys */
-        async fetchNotices() {
+        /* read Slide Publicities */
+        async fetchPublicities() {
             try {
                 const data = await instance("publicity")
 
                 console.log(data.data);
 
-                let publicitysArray = [];
+                let publicitiesArray = [];
 
                 data.data.forEach((v) => {
                     let publicity = v;
@@ -72,13 +73,11 @@ export const useNoticeStore = defineStore("notice", {
                     
                     /* img 뒤에 .jpg를 붙일지 여부 결정 */
                     if (publicity.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
-                        console.log('없다');
                     } else {
-                      console.log('있다');
                       publicity.Img.link = `${publicity.Img.link}.jpg`;
                     }
 
-                    publicitysArray.push({
+                    publicitiesArray.push({
                         id: publicity.id,
                         img: publicity.Img,
                         title: publicity.Title,
@@ -95,7 +94,7 @@ export const useNoticeStore = defineStore("notice", {
                         status: publicity.Status,
                     });
                 });
-                this.publicitys = publicitysArray;
+                this.publicities = publicitiesArray;
 
             } catch (error) {
                 console.error(error);
