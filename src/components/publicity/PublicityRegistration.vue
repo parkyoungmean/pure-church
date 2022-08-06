@@ -40,11 +40,11 @@
               <div class="h-full w-px bg-gray-200"></div>
               <!-- Device Screen -->
               <div class="flex items-center gap-x-3">
-                <button class="flex items-center justify-center gap-x-2 rounded-xl bg-gray-100 p-2">
+                <button type="button" @click="toggleScreen('desktop')" class="flex items-center justify-center gap-x-2 rounded-xl bg-gray-100 p-2">
                     <i class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-3xl">desktop_windows</i>
                     <span class="text-sm font-semibold leading-6">데스크탑 화면</span>
                 </button>
-                <button class="flex items-center justify-center gap-x-2 rounded-xl bg-gray-100 p-2">
+                <button type="button" @click="toggleScreen('mobile')" class="flex items-center justify-center gap-x-2 rounded-xl bg-gray-100 p-2">
                     <i class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-3xl">smartphone</i>
                     <span class="text-sm font-semibold leading-6">모바일 화면</span>
                 </button>
@@ -52,7 +52,7 @@
               <div class="h-full w-px bg-gray-200"></div>  
           </header>
           <!-- WORKSPACE -->
-          <main class="flex-1 overflow-y-scroll px-12">
+          <main v-show="screen==='desktop'" class="flex-1 overflow-y-scroll px-12">
               <div class="relative my-12 bg-white">
                 <section class="absolute py-16 px-12 ">
                     <h1 class="title max-w-3xl font-bold leading-[1.4]" :class="`${titleTextSize} ${titleTextColor}`">
@@ -83,6 +83,39 @@
               </div>
           </main>
           <!-- END OF WORKSPACE -->
+          <!-- MOBILE WORKSPACE -->
+          <main v-show="screen==='mobile'" class="flex-1 overflow-y-scroll px-12">
+              <!-- 412, 915 galaxy s20 ultra -->
+              <div class="relative my-12 bg-white m-auto w-[412px] h-[912px] max-h-[912px]">
+                <section class="absolute py-16 px-12 ">
+                    <h1 class="title max-w-3xl font-bold leading-[1.4]" :class="`${mobile_titleTextSize} ${mobile_titleTextColor}`">
+                        {{ title }}
+                    </h1>
+                    <p class="subtitle mt-4 font-bold leading-loose" :class="`${mobile_subtitleTextSize} ${mobile_subtitleTextColor}`">
+                        {{ subtitle }}
+                    </p>
+                    <p class="description mt-4 leading-7" :class="`${mobile_descriptionTextSize} ${mobile_descriptionTextColor}`">
+                        {{ description }}
+                    </p>
+                    <!-- Button -->
+                    <div v-show="false" class="flex items-center gap-4 pt-8">
+                        <button class="rounded-full bg-blue-600 px-8 py-5 font-semibold text-white">
+                            기도 참여하기
+                        </button>
+                        <button class="rounded-full border border-gray-200 px-8 py-5 font-semibold text-blue-600">자세히 보기</button>
+                    </div>
+                </section>
+                <!-- Background Image -->
+                <img
+                    v-if="mobile_tempImg!=''"
+                    :src="mobile_tempImg"
+                    alt=""
+                    class="bg-center bg-cover bg-no-repeat w-full lg:h-full"
+                />
+                <div v-else class="min-h-screen"></div>
+              </div>
+          </main>
+          <!-- END OF MOBILE WORKSPACE -->
       </div>
       <!-- END OF NAV -->
       <!-- RIGHT CONTROLLER -->
@@ -101,141 +134,154 @@
           <div v-show="right==='text'">
             <!-- Title Input Area -->
             <div>
-                    <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-                            <span class="text-sm font-semibold capitalize group-open:text-red-50">제  목</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                fill-rull="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                                />
-                            </svg>
-                        </summary>
-                        <!-- Title Input -->
-                        <div class="px-6 pt-4 pb-2">
-                            <textarea type="text" :value="title" @input="title = $event.target.value" class="border border-gray-400 rounded-md h-12 w-full"/>
+                <details class="group">
+                    <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+                        <span class="text-sm font-semibold capitalize group-open:text-red-50">제  목</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                            fill-rull="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                            />
+                        </svg>
+                    </summary>
+                    <!-- Title Input -->
+                    <div class="px-6 pt-4 pb-2">
+                        <textarea type="text" :value="title" @input="title = $event.target.value" class="border border-gray-400 rounded-md h-12 w-full"/>
+                    </div>
+                    <!-- Title Text Size & Color -->
+                    <div class="border-b border-gray-200 px-6 pb-4">
+                        <div v-show="screen==='desktop'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateTitleSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateTitleColorChange" />
                         </div>
-                        <!-- Title Text Size & Color -->
-                        <div class="border-b border-gray-200 px-6 pb-4">
-                            <div class="flex items-center justify-between">
-                                <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateTitleSizeChange" />
-                                <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateTitleColorChange" />
-                            </div>
+                        <div v-show="screen==='mobile'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateMobileTitleSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateMobileTitleColorChange" />
                         </div>
-                    </details>
+                    </div>
+                </details>
             </div>
             <!-- Subtitle Input Area -->
             <div>
-                    <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-                            <span class="text-sm font-semibold capitalize group-open:text-red-50">소제목</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                fill-rull="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                                />
-                            </svg>
-                        </summary>
-                        <!-- Subtitle Input -->
-                        <div class="px-6 pt-4 pb-2">
-                            <textarea type="text" :value="subtitle" @input="subtitle = $event.target.value" class="border border-gray-400 rounded-md h-32 w-full"/>
+                <details class="group">
+                    <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+                        <span class="text-sm font-semibold capitalize group-open:text-red-50">소제목</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                            fill-rull="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                            />
+                        </svg>
+                    </summary>
+                    <!-- Subtitle Input -->
+                    <div class="px-6 pt-4 pb-2">
+                        <textarea type="text" :value="subtitle" @input="subtitle = $event.target.value" class="border border-gray-400 rounded-md h-32 w-full"/>
+                    </div>
+                    <!-- Subtitle Text Size & Color -->
+                    <div class="border-b border-gray-200 px-6 pb-4">
+                        <div v-show="screen==='desktop'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateSubtitleSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateSubtitleColorChange" />
                         </div>
-                        <!-- Subtitle Text Size & Color -->
-                        <div class="border-b border-gray-200 px-6 pb-4">
-                            <div class="flex items-center justify-between">
-                                <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateSubtitleSizeChange" />
-                                <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateSubtitleColorChange" />
-                            </div>
+                        <div v-show="screen==='mobile'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateMobileSubtitleSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateMobileSubtitleColorChange" />
                         </div>
-                    </details>
+                    </div>
+                </details>
             </div>
             <!-- Description Input Area -->
             <div>
-                    <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-                            <span class="text-sm font-semibold capitalize group-open:text-red-50">내  용</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                fill-rull="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                                />
-                            </svg>
-                        </summary>
-                        <!-- Description Input -->
-                        <div class="px-6 pt-4 pb-2">
-                            <textarea type="text" :value="description" @input="description = $event.target.value" class="border border-gray-400 rounded-md h-32 w-full"/>
+                <details class="group">
+                    <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+                        <span class="text-sm font-semibold capitalize group-open:text-red-50">내  용</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                            fill-rull="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                            />
+                        </svg>
+                    </summary>
+                    <!-- Description Input -->
+                    <div class="px-6 pt-4 pb-2">
+                        <textarea type="text" :value="description" @input="description = $event.target.value" class="border border-gray-400 rounded-md h-32 w-full"/>
+                    </div>
+                    <!-- Description Text Size & Color -->
+                    <div class="border-b border-gray-200 px-6 pb-4">
+                        <div v-show="screen==='desktop'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateDescriptionSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateDescriptionColorChange" />
                         </div>
-                        <!-- Description Text Size & Color -->
-                        <div class="border-b border-gray-200 px-6 pb-4">
-                            <div class="flex items-center justify-between">
-                                <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateDescriptionSizeChange" />
-                                <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateDescriptionColorChange" />
-                            </div>
+                        <div v-show="screen==='mobile'" class="flex items-center justify-between">
+                            <Dropdown :items="selectFontSizes" :selected="'글자 크기'" @on-change="updateMobileDescriptionSizeChange" />
+                            <Dropdown :items="selectFontColors" :selected="'글자색'" @on-change="updateMobileDescriptionColorChange" />
                         </div>
-                    </details>
+                    </div>
+                </details>
             </div>
             <!-- Align Area -->
             <div>
-                    <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-                            <span class="text-sm font-semibold capitalize group-open:text-red-50">배  치</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                fill-rull="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                                />
-                            </svg>
-                        </summary>
-                        <!-- Title Align -->
-                        <div class="border-b border-gray-200 px-6 py-4">
-                            <div class="flex items-center justify-between">
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_bottom</i>
-                                </button>
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_center</i>
-                                </button>
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_left</i>
-                                </button>
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_right</i>
-                                </button>
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_top</i>
-                                </button>
-                                <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
-                                    <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_center</i>
-                                </button>
-                            </div>
+                <details class="group">
+                    <summary class="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+                        <span class="text-sm font-semibold capitalize group-open:text-red-50">배  치</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-7 w-7 text-gray-400 cursor-pointer list-none transition-transform group-open:rotate-90"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                            fill-rull="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                            />
+                        </svg>
+                    </summary>
+                    <!-- Title Align -->
+                    <div class="border-b border-gray-200 px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_bottom</i>
+                            </button>
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_center</i>
+                            </button>
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_left</i>
+                            </button>
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_horizontal_right</i>
+                            </button>
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_top</i>
+                            </button>
+                            <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
+                                <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_center</i>
+                            </button>
                         </div>
-                    </details>
+                    </div>
+                </details>
             </div>
           </div>
+          <!-- UPLOAD IMAGE -->
           <div v-show="right==='image'" class="md:flex">
             <div class="w-full">
                 <!-- Header -->
@@ -259,16 +305,22 @@
                                     <span class="block text-md md:text-xl text-blue-400 font-normal">파일 찾아보기</span>
                                 </div>
                             </div>
-                            <input @change="changeImageFile" name="file" type="file" class="w-full h-full opacity-0">
+                            <input v-show="screen==='desktop'" @change="changeImageFile" name="file" type="file" class="w-full h-full opacity-0">
+                            <input v-show="screen==='mobile'" @change="changeMobileImageFile" name="file" type="file" class="w-full h-full opacity-0">
                         </div>
-                        <div class="flex justify-between items-center text-gray-400 mt-2">
-                            <span>파일 이름: </span>
-                            <button class="bg-gray-200 p-1.5 text-xs rounded-sm cursor-pointer">초기화</button>
+                        <div v-show="screen==='desktop'" class="flex justify-between items-center text-gray-400 mt-2">
+                            <span>파일 이름: {{ tempImgName.length > 14 ? tempImgName.substring(0, 15) + "..." : tempImgName }} </span>
+                            <button type="button" @click="tempImg=''; tempImgName=''; bgImg='';" class="p-1.5 text-xs rounded-sm cursor-pointer" :class="[tempImg.length!==0 ? 'bg-blue-300 text-white' : 'bg-gray-200']">초기화</button>
+                        </div>
+                        <div v-show="screen==='mobile'" class="flex justify-between items-center text-gray-400 mt-2">
+                            <span>파일 이름: {{ mobile_tempImgName.length > 14 ? mobile_tempImgName.substring(0, 15) + "..." : mobile_tempImgName }} </span>
+                            <button type="button" @click="mobile_tempImg=''; mobile_tempImgName=''; mobile_bgImg='';" class="bg-gray-200 p-1.5 text-xs rounded-sm cursor-pointer" :class="mobile_tempImg.length!==0 ? 'bg-blue-300 text-white' : 'bg-gray-200'">초기화</button>
                         </div>
                     </div>
                 </div>
             </div>
           </div>
+           <!-- END OF UPLOAD IMAGE -->
         </form>
       </aside>
       <!-- END OF RIGHT CONTROLLER -->
@@ -276,7 +328,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from "vue-demi";
+import { ref, computed } from "vue-demi";
 import { usePublicityStore } from "../../stores/publicities";
 import { useImageStore } from "../../stores/images";
 import { useRouter } from "vue-router";
@@ -295,7 +347,8 @@ export default {
     const right = ref("text");
 
     /* Right - Text */
-    const tempImg = ref("");                   // 임시 이미지
+    const tempImg = ref("");                              // 임시 이미지
+    const tempImgName = ref("");                              // 임시 이미지
     const bgImg = ref("");                                // 배경 이미지
     const title = ref("");                                // 제목
     const subtitle = ref("");                             // 소제목
@@ -306,7 +359,19 @@ export default {
     const subtitleTextColor = ref("text-black");          // 소제목 글자 색상
     const descriptionTextSize = ref("text-sm");           // 세부내용 글자 크기
     const descriptionTextColor = ref("text-black");       // 세부내용 글자 색상
-
+    /* Mobile */
+    const mobile_tempImg = ref("");                              // 모바일_임시 이미지
+    const mobile_tempImgName = ref("");                              // 모바일_임시 이미지
+    const mobile_bgImg = ref("");                                // 모바일_배경 이미지
+    const mobile_titleTextSize = ref("text-sm");                 // 모바일_제목 글자 크기
+    const mobile_titleTextColor = ref("text-black");             // 모바일_제목 글자 색상
+    const mobile_subtitleTextSize = ref("text-sm");              // 모바일_소제목 글자 크기
+    const mobile_subtitleTextColor = ref("text-black");          // 모바일_소제목 글자 색상
+    const mobile_descriptionTextSize = ref("text-sm");           // 모바일_세부내용 글자 크기
+    const mobile_descriptionTextColor = ref("text-black");       // 모바일_세부내용 글자 색상
+    
+    /* Screen Size */
+    const screen = ref("desktop");
 
     const selectFontSizes = [
       {
@@ -410,40 +475,69 @@ export default {
     ]
     
     const updateTitleSizeChange = (param) =>  {
-        /* console.log(param) */ 
         titleTextSize.value = param;
     }
 
-    const updateTitleColorChange = (param) =>  {
-        /* console.log(param) */ 
+    const updateTitleColorChange = (param) =>  { 
         titleTextColor.value = param;
     }
 
-    const updateSubtitleSizeChange = (param) =>  {
-        /* console.log(param) */ 
+    const updateSubtitleSizeChange = (param) =>  { 
         subtitleTextSize.value = param;
     }
 
-    const updateSubtitleColorChange = (param) =>  {
-        /* console.log(param) */ 
+    const updateSubtitleColorChange = (param) =>  { 
         subtitleTextColor.value = param;
     }
 
-    const updateDescriptionSizeChange = (param) =>  {
-        /* console.log(param) */ 
+    const updateDescriptionSizeChange = (param) =>  { 
         descriptionTextSize.value = param;
     }
 
-    const updateDescriptionColorChange = (param) =>  {
-        /* console.log(param) */ 
+    const updateDescriptionColorChange = (param) =>  { 
         descriptionTextColor.value = param;
+    }
+    
+    /* Mobile */
+    const updateMobileTitleSizeChange = (param) =>  { 
+        mobile_titleTextSize.value = param;
+    }
+
+    const updateMobileTitleColorChange = (param) =>  { 
+        mobile_titleTextColor.value = param;
+    }
+
+    const updateMobileSubtitleSizeChange = (param) =>  { 
+        mobile_subtitleTextSize.value = param;
+    }
+
+    const updateMobileSubtitleColorChange = (param) =>  { 
+        mobile_subtitleTextColor.value = param;
+    }
+
+    const updateMobileDescriptionSizeChange = (param) =>  { 
+        mobile_descriptionTextSize.value = param;
+    }
+
+    const updateMobileDescriptionColorChange = (param) =>  { 
+        mobile_descriptionTextColor.value = param;
     }
 
     /* Right - Image */
     const changeImageFile = (e) => {
         tempImg.value = URL.createObjectURL(e.target.files[0]);
+        tempImgName.value = e.target.files[0].name;
         bgImg.value = e.target.files[0];
     }
+    const changeMobileImageFile = (e) => {
+        mobile_tempImg.value = URL.createObjectURL(e.target.files[0]);
+        mobile_tempImgName.value = e.target.files[0].name;
+        mobile_bgImg.value = e.target.files[0];
+    }
+
+    const toggleScreen = (flag) => {
+        screen.value = flag;
+    };
 
     const currentImage = computed(() => {
       return imgStore.getCurrentImage;
@@ -458,17 +552,33 @@ export default {
         
         /* upload Image */
         let img = [];
+        let mobileImg = [];
 
         await imgStore.uploadImage(bgImg.value)
         .then(() => {
             img = imgStore.currentImage;
         })
+
+        /* 모바일 배경 이미지가 존재하는지 검사 */
+        if (mobile_bgImg.value!=='') {
+            await imgStore.uploadMobileImage(mobile_bgImg.value)
+            .then(() => {
+                mobileImg = imgStore.currentMobileImage;
+            }) 
+        } else {
+            mobileImg = img;
+        }
         
-        console.log('현재이미지:', JSON.stringify(img.data));
-        console.log('현재이미지의 주소:', img.data.link);
+        /* 
+        console.log('현재 이미지:', JSON.stringify(img));
+        console.log('현재 이미지의 주소:', img.link);
+        console.log('현재 모바일 이미지:', JSON.stringify(mobileImg));
+        console.log('현재 모바일 이미지의 주소:', mobileImg.link);
+        */
 
         const publicity = {
-            img: JSON.stringify(img.data),
+            img: JSON.stringify(img),
+            mobileImg: JSON.stringify(mobileImg),
             title: title.value || '',
             subtitle: subtitle.value || '',
             description: description.value || '',
@@ -477,12 +587,18 @@ export default {
                 titleTextSize: titleTextSize.value,
                 subtitleTextSize: subtitleTextSize.value,
                 descriptionTextSize: descriptionTextSize.value,
+                mobile_titleTextSize: mobile_titleTextSize.value,
+                mobile_subtitleTextSize: mobile_subtitleTextSize.value,
+                mobile_descriptionTextSize: mobile_descriptionTextSize.value,
             },
             /* 글자 색상 */
             color: {
                 titleTextColor: titleTextColor.value,
                 subtitleTextColor: subtitleTextColor.value,
                 descriptionTextColor: descriptionTextColor.value,
+                mobile_titleTextColor: mobile_titleTextColor.value,
+                mobile_subtitleTextColor: mobile_subtitleTextColor.value,
+                mobile_descriptionTextColor: mobile_descriptionTextColor.value,
             },
             condition: "publicity",
         }
@@ -495,16 +611,15 @@ export default {
     }
 
     return {
-        tempImg,
-        bgImg,
+        /* TEXT */
         title,
         subtitle,
         description,
-        titleTextSize,
         selectFontSizes,
-        updateTitleSizeChange,
-        titleTextColor,
         selectFontColors,
+        titleTextSize,
+        titleTextColor,
+        updateTitleSizeChange,
         updateTitleColorChange,
         subtitleTextSize,
         subtitleTextColor,
@@ -514,10 +629,34 @@ export default {
         descriptionTextColor,
         updateDescriptionSizeChange,
         updateDescriptionColorChange,
+        /* Mobile */
+        mobile_titleTextSize,
+        mobile_titleTextColor,
+        updateMobileTitleSizeChange,
+        updateMobileTitleColorChange,
+        mobile_subtitleTextSize,
+        mobile_subtitleTextColor,
+        updateMobileSubtitleSizeChange,
+        updateMobileSubtitleColorChange,
+        mobile_descriptionTextSize,
+        mobile_descriptionTextColor,
+        updateMobileDescriptionSizeChange,
+        updateMobileDescriptionColorChange,
         onSubmit,
         right,
+        /* IMAGE */
+        tempImg,
+        tempImgName,
+        bgImg,
         changeImageFile,
+        mobile_tempImg,
+        mobile_tempImgName,
+        mobile_bgImg,
+        changeMobileImageFile,
         currentImage,
+        /* Screen Size */
+        toggleScreen,
+        screen,
     };
   },
 };

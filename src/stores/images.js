@@ -11,7 +11,7 @@ export const useImageStore = defineStore("image", {
     state: () => ({
         images: null,
         currentImage: [],
-
+        currentMobileImage: [],
     }),
     getters: {
         getImages(state) {
@@ -37,12 +37,35 @@ export const useImageStore = defineStore("image", {
                     }
                 })
                 .then((data) =>  {
-                    console.log('이미지 업로드 data 결과:', data.data);
-                    this.currentImage = data.data;
+                    console.log('이미지 업로드 data 결과:', data.data.data);
+                    this.currentImage = data.data.data;
                 })
             } catch (error) {
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  
+            }
+        },
+        /* upload Mobile Image */
+        async uploadMobileImage(image) {
+            try {
+                console.log('mobile_image:', image);
+
+                const formData = new FormData();
+                formData.append('image', image);
+
+                await axios.post(`https://api.imgur.com/3/image`, formData, {
+                    headers: {
+                        Authorization: `Client-ID ${process.env.VUE_APP_IMGUR_ID}`,
+                        Accept: "application/json",
+                    }
+                })
+                .then((data) =>  {
+                    console.log('모바일 이미지 업로드 data 결과:', data.data.data);
+                    this.currentMobileImage = data.data.data;
+                })
+            } catch (error) {
+                alert("모바일 이미지 업로드가 실패하였습니다.ㅜㅜ");
+                console.error("New Mobile Image Upload 에러:", error);  
             }
         }
     }

@@ -31,25 +31,6 @@ export const usePublicityStore = defineStore("publicity", {
                 .then((res) => {
                     console.log("new Publicity:", res.data);
 
-                    /* let publicity = {
-                        id: res.data.id,
-                        img: payload.img,
-                        title: payload.title,
-                        subtitle: payload.subtitle,
-                        description: payload.description,
-                        
-                        size: payload.size,
-                        
-                        color: payload.color,
-                        condition: payload.condition,
-                        belong: "전체",
-                        author: res.data.author,
-                        createdAt: res.data.created_time,
-                        convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
-                        updatedAt: payload.updatedAt,
-                    }
-
-                    this.publicities.unshift(publicity); */
                     alert("새 슬라이드 광고 등록 성공!");
                 })
             } catch (error) {
@@ -77,9 +58,20 @@ export const usePublicityStore = defineStore("publicity", {
                       publicity.Img.link = `${publicity.Img.link}.jpg`;
                     }
 
+                    if (publicity.MobileImg) {
+                        publicity.MobileImg = JSON.parse(publicity.MobileImg);
+                    
+                        /* img 뒤에 .jpg를 붙일지 여부 결정 */
+                        if (publicity.MobileImg.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                        } else {
+                        publicity.MobileImg.link = `${publicity.MobileImg.link}.jpg`;
+                        }
+                    }
+
                     publicitiesArray.push({
                         id: publicity.id,
                         img: publicity.Img,
+                        mobileImg: publicity.MobileImg,
                         title: publicity.Title,
                         subtitle: publicity.Subtitle,
                         description: publicity.Content,

@@ -27,7 +27,8 @@
       :key="index"
       style="height: 100vh; padding-top: 67px"
     >
-      <div class="title" data-swiper-parallax="-200">
+      <!-- 브라우저 화면 크기 일 경우 -->
+      <div v-if="!isMobile" class="title" data-swiper-parallax="-200">
         <h1 :class="`${slide.size.titleTextSize} ${slide.color.titleTextColor}`" class="font-bold leading-[1.4]">
           {{ slide.title }}
         </h1>
@@ -38,6 +39,50 @@
           {{ slide.subtitle }}
           </p>
           <p :class="`${slide.size.descriptionTextSize} ${slide.color.descriptionTextColor}`" class="leading-8 mt-4">
+            {{ slide.description }}
+          </p>
+          <div
+            v-if="slide.subcontent"
+            class="
+              flex
+              w-28
+              md:w-40
+              items-center
+              text-xs
+              md:text-lg
+              p-1
+              md:p-1.5
+              rounded-3xl
+              bg-epic-blue
+              space-x-1
+              mr-1
+              md:mr-2
+              text-center
+            "
+          >
+            <router-link
+              :to="{
+                name: 'slidenotice',
+                params: { htmlContent: slide.subcontent.htmlContent },
+              }"
+              >{{ slide.subcontent.title }}</router-link
+            >
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+      <!-- 모바일 화면 크기 일 경우 -->
+      <div v-else class="title" data-swiper-parallax="-200">
+        <h1 :class="`${slide.size.mobile_titleTextSize} ${slide.color.mobile_titleTextColor}`" class="font-bold leading-[1.4]">
+          {{ slide.title }}
+        </h1>
+        <div class="subtitle w-full mt-4">
+          <p
+            :class="`${slide.size.mobile_subtitleTextSize} ${slide.color.mobile_subtitleTextColor}`" class="font-bold leading-loose"
+          >
+          {{ slide.subtitle }}
+          </p>
+          <p :class="`${slide.size.mobile_descriptionTextSize} ${slide.color.mobile_descriptionTextColor}`" class="leading-8 mt-4">
             {{ slide.description }}
           </p>
           <div
@@ -81,10 +126,10 @@
       <!-- 모바일 화면 크기일 경우 -->
       <img
         v-else
-        :src="`${slide.mobile_img}`"
+        :src="`${slide.mobileImg.link}`"
         alt=""
         class="object-center object-cover w-full lg:h-full min-h-screen"
-        :class="slide.mobile_img == '' ? 'hidden' : ''"
+        :class="slide.mobileImg == '' ? 'hidden' : ''"
       />
     </swiper-slide>
   </swiper>
@@ -194,14 +239,14 @@ export default {
 }
 @media (max-width: 768px) {
   .title {
-    font-size: 35px;
+    /* font-size: 35px; */
     position: absolute;
     z-index: 1;
     /* top: 30%; */
     left: 10%;
     /* color: white; */
     .subtitle {
-      font-size: 17px;
+      /* font-size: 17px; */
       position: absolute;
       /* color: white; */
     }
@@ -209,14 +254,14 @@ export default {
 }
 @media (max-width: 540px) {
   .title {
-    font-size: 25px;
+    /* font-size: 25px; */
     position: absolute;
     z-index: 1;
     /* top: 30%; */
     left: 10%;
     /* color: white; */
     .subtitle {
-      font-size: 12px;
+      /* font-size: 12px; */
       position: absolute;
       /* color: white; */
     }
