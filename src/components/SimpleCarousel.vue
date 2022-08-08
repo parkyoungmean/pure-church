@@ -28,11 +28,11 @@
       style="height: 100vh; padding-top: 67px"
     >
       <!-- 브라우저 화면 크기 일 경우 -->
-      <div v-if="!isMobile" class="title" data-swiper-parallax="-200">
-        <h1 :class="`${slide.size.titleTextSize} ${slide.color.titleTextColor}`" class="font-bold leading-[1.4]">
+      <div v-if="!isMobile" class="title" data-swiper-parallax="-200" :style="{ top: `${slide.position.y + 70}` + 'px', left: `${slide.position.x + 120}` + 'px' }">
+        <h1 :class="`${slide.size.titleTextSize} ${slide.color.titleTextColor}`" class="font-bold w-[1000px]  leading-[1.4]">
           {{ slide.title }}
         </h1>
-        <div class="subtitle w-full mt-4">
+        <div class="subtitle mt-4">
           <p
             :class="`${slide.size.subtitleTextSize} ${slide.color.subtitleTextColor}`" class="font-bold leading-loose"
           >

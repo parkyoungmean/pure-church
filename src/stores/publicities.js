@@ -75,6 +75,7 @@ export const usePublicityStore = defineStore("publicity", {
                         title: publicity.Title,
                         subtitle: publicity.Subtitle,
                         description: publicity.Content,
+                        position: JSON.parse(publicity.Position),
                         color: JSON.parse(publicity.Color),
                         size: JSON.parse(publicity.Size),
                         condition: publicity.Condition,

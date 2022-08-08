@@ -54,7 +54,7 @@
           <!-- WORKSPACE -->
           <main v-show="screen==='desktop'" class="flex-1 overflow-y-scroll px-12">
               <div class="relative my-12 bg-white">
-                <section class="absolute py-16 px-12 ">
+                <section class="absolute" :style="{ top: yPos + 'px', left: xPos + 'px' }">
                     <h1 class="title max-w-3xl font-bold leading-[1.4]" :class="`${titleTextSize} ${titleTextColor}`">
                         {{ title }}
                     </h1>
@@ -256,7 +256,7 @@
                         </svg>
                     </summary>
                     <!-- Title Align -->
-                    <div class="border-b border-gray-200 px-6 py-4">
+                    <!-- <div class="border-b border-gray-200 px-6 py-4">
                         <div class="flex items-center justify-between">
                             <button class="rounded-lg border border-gray-200 p-2 hover:bg-gray-100">
                                 <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_bottom</i>
@@ -277,6 +277,32 @@
                                 <i type="button" class="material-icons-outlined stroke-current text-gray-400 hover:bg-gray-100 text-xl">align_vertical_center</i>
                             </button>
                         </div>
+                    </div> -->
+                    <div v-show="screen==='desktop'" class="flex justify-between items-center text-gray-400 mt-2 p-4">
+                        <span>위치: X: {{ xPos }} Y: {{ yPos }} </span>
+                        <button type="button" @click="xPos = 0; yPos = 0;" class="p-1.5 text-xs rounded-sm cursor-pointer bg-blue-400 text-white">초기화</button>
+                    </div>
+                    <div class="move border-b border-gray-200 px-6 py-4">
+                        <li @click="moveY(-10)">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="left:50px;" class="h-8 md:h-9 w-8 md:w-9 rounded-full bg-gray-300 px-4 py-4 text-white" fill="" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                            </svg>
+                        </li><br>
+                        <li @click="moveX(-10)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 md:h-9 w-8 md:w-9 rounded-full bg-gray-300 px-4 py-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                            </svg>
+                        </li>
+                        <li @click="moveX(10)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 md:h-9 w-8 md:w-9 rounded-full bg-gray-300 px-4 py-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </li><br>
+                        <li @click="moveY(10)">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="left:50px;" class="h-8 md:h-9 w-8 md:w-9 rounded-full bg-gray-300 px-4 py-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+                            </svg>
+                        </li>
                     </div>
                 </details>
             </div>
@@ -348,7 +374,7 @@ export default {
 
     /* Right - Text */
     const tempImg = ref("");                              // 임시 이미지
-    const tempImgName = ref("");                              // 임시 이미지
+    const tempImgName = ref("");                          // 임시 이미지 이름
     const bgImg = ref("");                                // 배경 이미지
     const title = ref("");                                // 제목
     const subtitle = ref("");                             // 소제목
@@ -361,7 +387,7 @@ export default {
     const descriptionTextColor = ref("text-black");       // 세부내용 글자 색상
     /* Mobile */
     const mobile_tempImg = ref("");                              // 모바일_임시 이미지
-    const mobile_tempImgName = ref("");                              // 모바일_임시 이미지
+    const mobile_tempImgName = ref("");                          // 모바일_임시 이미지 이름
     const mobile_bgImg = ref("");                                // 모바일_배경 이미지
     const mobile_titleTextSize = ref("text-sm");                 // 모바일_제목 글자 크기
     const mobile_titleTextColor = ref("text-black");             // 모바일_제목 글자 색상
@@ -370,6 +396,9 @@ export default {
     const mobile_descriptionTextSize = ref("text-sm");           // 모바일_세부내용 글자 크기
     const mobile_descriptionTextColor = ref("text-black");       // 모바일_세부내용 글자 색상
     
+    const xPos = ref(0);
+    const yPos = ref(0);
+
     /* Screen Size */
     const screen = ref("desktop");
 
@@ -529,6 +558,8 @@ export default {
         tempImgName.value = e.target.files[0].name;
         bgImg.value = e.target.files[0];
     }
+    
+    /* Right - Mobile Image */
     const changeMobileImageFile = (e) => {
         mobile_tempImg.value = URL.createObjectURL(e.target.files[0]);
         mobile_tempImgName.value = e.target.files[0].name;
@@ -549,7 +580,6 @@ export default {
             alert("배경 이미지가 필수적으로 필요합니다.")
         }
 
-        
         /* upload Image */
         let img = [];
         let mobileImg = [];
@@ -568,13 +598,6 @@ export default {
         } else {
             mobileImg = img;
         }
-        
-        /* 
-        console.log('현재 이미지:', JSON.stringify(img));
-        console.log('현재 이미지의 주소:', img.link);
-        console.log('현재 모바일 이미지:', JSON.stringify(mobileImg));
-        console.log('현재 모바일 이미지의 주소:', mobileImg.link);
-        */
 
         const publicity = {
             img: JSON.stringify(img),
@@ -582,6 +605,11 @@ export default {
             title: title.value || '',
             subtitle: subtitle.value || '',
             description: description.value || '',
+            /* 위치 */
+            position: {
+                x: xPos.value,
+                y: yPos.value,
+            },
             /* 글자 크기 */
             size: {
                 titleTextSize: titleTextSize.value,
@@ -610,6 +638,13 @@ export default {
         });
     }
 
+    const moveX = (x) => {
+        xPos.value = xPos.value + x;
+    }
+
+    const moveY = (y) => {
+        yPos.value = yPos.value + y;
+    }
     return {
         /* TEXT */
         title,
@@ -657,6 +692,11 @@ export default {
         /* Screen Size */
         toggleScreen,
         screen,
+        /* move */
+        xPos,
+        yPos,
+        moveX,
+        moveY,
     };
   },
 };
@@ -665,5 +705,30 @@ export default {
 <style lang="scss" scoped>
 .title, .subtitle, .description {
     white-space: pre-line;
+}
+
+.move {
+    padding-left: 20px;
+    margin-bottom: 0px;
+    margin-top:10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.239);
+    height: 64px;
+}
+li {
+    list-style: none;
+    height: auto;
+    display: inline-block;
+    margin-left: 40px;
+    margin-top: 6px;
+}
+.move li svg{
+    position: relative;
+    display: inline;
+    padding: 4px;
+    transition-duration: .4s;
+    margin-left: 26px;
+}
+.move li svg:active{
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 </style>
