@@ -163,6 +163,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/publicityedit',
+    name: 'publicityedit',
+    component: () => import(/* webpackChunkName: "publicities" */ '../components/publicity/PublicityEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

@@ -14,13 +14,22 @@ const instance = axios.create({
 export const usePublicityStore = defineStore("publicity", {
     state: () => ({
         publicities: [],
+        currentPublicity: [],
     }),
     getters: {
         getPublicities(state) {
             return state.publicities;
         },
+        getCurrentPublicity(state) {
+            return state.currentPublicity;
+        },
     },
     actions: {
+        /* select Current School */
+        async selectedPublicity(payload) {
+            const index = this.publicities.findIndex((element) => element.id === payload);
+            this.currentPublicity = this.publicities[index];
+        },
         /* create Slide Publicity */
         async createPublicity(payload) {
             try {
@@ -91,6 +100,23 @@ export const usePublicityStore = defineStore("publicity", {
 
             } catch (error) {
                 console.error(error);
+            }
+        },
+        
+        /* udpate Slide Publicity */
+        async updatePublicity(payload) {
+            try {
+                payload.updatedAt = dayjs();
+
+                await instance.post("publicity/updatePublicity", payload)
+                .then((res) => {
+                    console.log("Publicity:", res.data);
+
+                    alert("슬라이드 광고 내용 수정 성공!");
+                })
+            } catch (error) {
+                alert("슬라이드 광고 내용 수정이 실패하였습니다.ㅜㅜ");
+                console.error("Slide Publicity's Update 에러:", error);
             }
         },
     }

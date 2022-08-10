@@ -50,6 +50,7 @@
                         <!-- Update & Delete Button -->
                         <div class="flex justify-end space-x-2 xl:space-x-2.5 mr-5 -mt-10 xl:-mt-20 md:mr-10 xl:mr-10">
                             <button
+                                @click="editPublicityForm(publicity.id)"
                                 class="
                                 inline-flex
                                 justify-center
@@ -120,6 +121,7 @@
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePublicityStore } from "../stores/publicities";
+import { getCurrentBreakpoint } from "../common/common";
 
 export default {
     setup () {
@@ -139,12 +141,34 @@ export default {
 
         /* Create Publicity */
         const addPublicityForm = () => {
-        router.push("/publicityregistration");
+
+            /* If Mobile screen */
+            if (getCurrentBreakpoint().value < 769) {
+                alert('광고 추가하기는 데스크탑 화면에서만 가능합니다.');
+                return;
+            } else {
+                router.push("/publicityregistration");
+            }
+            
+        };
+
+        /* Update Publicity */
+        const editPublicityForm = (id) => {
+
+            /* If Mobile screen */
+            if (getCurrentBreakpoint().value < 769) {
+                alert('광고 수정 기능은 데스크탑 화면에서만 가능합니다.');
+                return;
+            } else {
+                store.selectedPublicity(id);
+                router.push("/publicityedit");
+            }
         };
 
         return {
             publicities,
             addPublicityForm,
+            editPublicityForm,
         }
     }
 }
