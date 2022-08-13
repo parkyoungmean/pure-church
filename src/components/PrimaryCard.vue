@@ -2,37 +2,46 @@
   <div
     class="
       relative
+      3xl:h-72
       h-52
       bg-blue-500
       xs:h-auto xs:square
       p-4
-      lg:p-6
+      lg:p-5
       rounded-2.5xl
       bg-norepeat bg-cover
       overflow-hidden
     "
     :class="index === 3 ? 'md:col-start-2' : ''"
-    :style="`background-image:url('${content.img}');`"
+    :style="`background-image:url('${content.img}.jpg');`"
   >
     <h3
-      class="text-lg md:text-xl lg:text-3xl font-semibold max-w-xxs text-white"
+      class="text-lg md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-2.5xl font-semibold max-w-xxs text-white"
     >
-      {{ content.title }}
+      {{ content.name }}
     </h3>
-    <span
+    <!-- Button: 더 보기 -->
+    <div
       class="
-        px-2
-        py-0.5
-        absolute
-        font-medium
-        right-5
-        bottom-5
-        rounded-lg
-        bg-gray-900/50
-        text-xxs text-white
+      px-2.5
+      py-0.5
+      space-x-1.5
+      absolute
+      font-bold
+      right-5
+      bottom-5
+      rounded-lg
+      bg-gray-900/50
+      text-xxs 
+      text-white
       "
-      >더 보기>></span
     >
+      <button
+        @click="fnEventEmit"
+        >더 보기</button
+      >
+      <i class="fas fa-arrow-right"></i>
+    </div>
   </div>
 </template>
 
@@ -50,8 +59,16 @@ export default {
       required: true,
     },
   },
-  setup() {
-    return {};
+  setup(props, context) {
+    
+    const fnEventEmit = () => {
+
+      context.emit('open');
+    };
+    
+    return {
+      fnEventEmit,
+    };
   },
 };
 </script>

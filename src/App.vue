@@ -44,7 +44,7 @@
   <!-- END OF MODAL -->
   <div class="app h-screen">
     <!-- Navbar for Guest -->
-    <SimpleNavbar v-show="is_login ? false : true" class="z-20" />
+    <SimpleNavbar v-show="is_login || hide_nav ? false : true" class="z-20" />
     <!-- Sidebar for User -->
     <Sidebar v-show="is_login ? true : false" :class="show_sidebar ? '' : 'hidden'" />
     <router-view />
@@ -53,12 +53,12 @@
 
 <script>
 /* eslint-disable */
-import SimpleNavbar from "./components/SimpleNavbar.vue";
-import SimpleHome from "./components/SimpleHome.vue";
-import Sidebar from "./components/Sidebar.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
+import SimpleNavbar from "./components/SimpleNavbar.vue";
+import SimpleHome from "./components/SimpleHome.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 export default {
   components: {
@@ -82,6 +82,7 @@ export default {
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
       show_sidebar: computed(() => store.show_sidebar),
+      hide_nav: computed(() => store.hide_nav),
       toggleModal,
     };
   },

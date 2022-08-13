@@ -6,7 +6,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Simplehome',
     /* component: HomeView */
-    component: () => import(/* webpackChunkName: "simplehome" */ '../components/SimpleHome.vue')
+    component: () => import(/* webpackChunkName: "simplehome" */ '../components/SimpleHome.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.hide_nav = false;
+      next();
+    }
   },
   {
     path: '/userhome',
@@ -72,6 +78,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 학교세부 */
   {
     path: '/schooldetail',
     name: 'schooldetail',
@@ -80,6 +87,7 @@ const routes: Array<RouteRecordRaw> = [
       // ...
       const store = useUserStore();
       store.show_sidebar = false;
+      store.hide_nav = true;
       next();
     }
   },

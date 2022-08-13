@@ -1,5 +1,5 @@
 <template>
-  <div class="containter mx-auto px-6 md:px-12 lg:px-8">
+  <div class="containter mx-auto px-6 md:px-12 lg:px-8 pb-16 lg:pb-20">
     <div class="mb-12 space-y-4 text-center">
       <h1 class="text-4xl font-bold text-gray-900 md:text-5xl">
         섬기시는 분들
@@ -44,8 +44,9 @@
       </swiper-slide>
     </swiper>
     <!-- End of Sub pastor Team -->
+    <!-- 
     <div class="py-20 grid gap-28 mt-20 md:gap-12 md:grid-cols-3">
-      <!-- First Director Leader -->
+      
       <div
         v-for="leader in leaders"
         :key="leader.id"
@@ -89,7 +90,7 @@
           >학교 가기</a
         >
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

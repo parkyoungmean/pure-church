@@ -17,53 +17,12 @@
     </div>
     <ServiceTeam />
   </section>
+
   <!-- pure school section -->
-  <section id="school" class="grid place-items-center min-h-screen">
-    <!-- Responsive Grid Layout -->
-    <div
-      class="
-        p-4
-        py-20
-        max-w-5xl
-        grid
-        gap-4
-        xs:grid-cols-2 xs:p-8
-        md:grid-cols-4
-      "
-    >
-      <h1
-        class="
-          text-4xl
-          font-extrabold
-          xs:pt-16 xs:col-span-2 xs:grid xs:gap-4 xs:grid-cols-2
-          md:col-span-3 md:text-5xl md:grid-cols-3
-        "
-      >
-        <span class="md-span-2">순전한 학교</span>
-      </h1>
-      <p
-        class="
-          xs:row-start-2 xs:col-start-2 xs:self-center
-          md:col-start-1 md:col-span-2 md:pr-12 md:text-lg
-        "
-      >
-        순전한 학교는 능력있는 중보기도, 치유학교, 복음학교, 사역자 학교, 친밀한
-        학교의 커리큘럼으로 구성됩니다.
-      </p>
-      <PrimaryCard
-        v-for="(card, index) in schools"
-        :key="index"
-        :content="card"
-        :index="index"
-      />
-      <p class="self-center md:text-lg md:col-span-2 md:text-center md:px-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tenetur
-        temporibus nihil perspiciatis iure ducimus repellendus maiores. Beatae
-        quia corrupti consequatur modi est, nam, voluptatum natus voluptatibus
-        inventore minima sed.
-      </p>
-    </div>
+  <section id="school" class="min-h-screen">
+    <SchoolList />
   </section>
+  
   <!-- notices & donation -->
   <section id="notices" class="min-h-screen bg-green-100">
     <div class="w-full min-h-screen font-sans text-gray-900">
@@ -159,61 +118,22 @@ import { computed, onMounted, reactive, toRefs } from "vue";
 import { usePublicityStore } from "../stores/publicities";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
+import SchoolList from "@/components/simplehome/SchoolList.vue";
 import SimpleList from "@/components/SimpleList.vue";
 import SimplePosts from "@/components/SimplePosts.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
-import PrimaryCard from "@/components/PrimaryCard.vue";
+
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
 
-
-const schools = [
-  {
-    title: "복음학교",
-    subtitle: "복음으로 하나됨",
-    img: "https://i.imgur.com/UyimOMY.jpg",
-    color: "amber",
-  },
-  {
-    title: "치유(The Day)학교",
-    subtitle: "하나님 나라의 회복과 능력",
-    img: "https://i.imgur.com/xUc8v0t.jpg",
-    color: "orange",
-  },
-  {
-    title: "친밀감(Kar)학교",
-    subtitle: "두드리다, 머물다, 회복하다",
-    img: "https://i.imgur.com/C52zbsi.jpg",
-    color: "rose",
-  },
-  {
-    title: "능력의 기도(BAP)학교",
-    subtitle: "참된 영적 전쟁과 승리",
-    img: "https://i.imgur.com/dPErD5s.jpg",
-    color: "fuchsia",
-  },
-
-  {
-    title: "사랑학교",
-    subtitle: "사랑은 오래참고 온유하며",
-    img: "https://i.imgur.com/XTEusLc.jpg",
-    color: "pink",
-  },
-  {
-    title: "사역자학교",
-    subtitle: "충성되이 여겨 내게 직분을 맡기심이니",
-    img: "https://i.imgur.com/LRbjgMF.jpg",
-    color: "blue",
-  },
-];
 
 export default {
   components: {
     ProfileCard,
     ServiceTeam,
+    SchoolList,
     SimpleList,
     SimplePosts,
     SimpleGallery,
-    PrimaryCard,
     SimpleCarousel,
   },
   setup() {
@@ -439,7 +359,6 @@ export default {
     ];
 
     return {
-      schools,
       slides,
       primaryNotices,
       notices,

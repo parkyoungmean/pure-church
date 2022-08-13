@@ -14,6 +14,7 @@ const instance = axios.create({
 export const useUserStore = defineStore("user", {
   state: () => ({
     open_modal: false,
+    hide_nav: false,
     show_sidebar: true,
     user_mode: "read",
     users: [],

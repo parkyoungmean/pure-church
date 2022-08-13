@@ -1,6 +1,27 @@
 <template>
-  <div>
-    <div class="flex justify-end px-6 pt-3 md:hidden">
+  <div class="2xl:max-w-[1640px] m-auto">
+    <!-- 비로그인일 경우 -->
+    <div v-show="is_login ? false : true" class="flex justify-end px-6 pt-3 z-30">
+      <button
+        @click="$router.go(-1)"
+        class="
+          text-blue-400
+          top-5
+          right-0
+          h-7
+          w-7
+          text-2xl
+          font-semibold
+          justify-center
+          itmes-center
+          focus:outline-none
+        "
+      >
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+    <!-- 로그인일 경우 -->
+    <div v-show="is_login ? true : false" class="flex justify-end px-6 pt-3 md:hidden">
       <button
         @click="$router.go(-1)"
         class="
@@ -160,7 +181,8 @@
       <!-- End of Right -->
     </div>
     <!-- Update & Delete Button -->
-    <div class="flex justify-end space-x-2 mt-2 mr-5 md:mr-10">
+    <div v-show="is_login ? true : false" class="flex justify-end space-x-2 mt-2 mr-5 md:mr-10">
+      <!-- Update Button -->
       <button
         @click="schoolEditOpen"
         class="
@@ -183,6 +205,7 @@
       >
         수정
       </button>
+      <!-- Delete Button -->
       <button
         @click="deleteSchool"
         class="
@@ -235,9 +258,10 @@
 <script>
 /* eslint-disable */
 import { computed } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { useSchoolStore } from "../../stores/schools";
 import SchoolSeries from "../../components/school/SchoolSeries.vue";
-import { useRouter } from "vue-router";
 import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
@@ -245,6 +269,11 @@ export default {
     SchoolSeries,
   },
   setup() {
+
+    /* Vuex */
+    const vuexStore = useStore();
+
+    /* Pinia */
     const store = useSchoolStore();
     const router = useRouter();
 
@@ -292,6 +321,7 @@ export default {
     });
 
     return {
+      is_login: computed(() => vuexStore.state.is_login),
       currentSchool,
       schoolEditOpen,
       deleteSchool,
