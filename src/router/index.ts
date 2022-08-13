@@ -20,7 +20,13 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (userhome.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "userhome" */ '../views/UserHomeView.vue')
+    component: () => import(/* webpackChunkName: "userhome" */ '../views/UserHomeView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
   },
   {
     path: '/users',
