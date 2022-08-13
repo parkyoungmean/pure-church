@@ -231,7 +231,7 @@
     </div>
     <!-- End of Update & Delete Button -->
     <!-- SCHOOL SERIES -->
-    <div class="pt-10 md:pt-14 px-7">
+    <div v-show="is_login ? true : false" class="pt-10 md:pt-14 px-7">
       <h2 class="text-2xl font-medium">학교 모음</h2>
       <div
         class="

@@ -1049,13 +1049,13 @@ export default {
       currentPublicity.value.size.mobile_subtitleTextSize
     ); // 모바일_소제목 글자 크기
     const mobile_subtitleTextColor = ref(
-      currentPublicity.value.color.mobile_subtitleTexColor
+      currentPublicity.value.color.mobile_subtitleTextColor
     ); // 모바일_소제목 글자 색상
     const mobile_descriptionTextSize = ref(
       currentPublicity.value.size.mobile_descriptionTextSize
     ); // 모바일_세부내용 글자 크기
     const mobile_descriptionTextColor = ref(
-      currentPublicity.value.color.descriptionTextColor
+      currentPublicity.value.color.mobile_descriptionTextColor
     ); // 모바일_세부내용 글자 색상
 
     const xPos = ref(currentPublicity.value.position.x);
