@@ -162,7 +162,7 @@
                         </div>
                       </div>
                       <img
-                        :src="`${school.img}.jpg`"
+                        :src="`${school.img.link}`"
                         alt=""
                         class="
                           absolute

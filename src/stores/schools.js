@@ -176,7 +176,7 @@ export const useSchoolStore = defineStore("school", {
             id: school.id,
             name: school.Name,
             subtitle: school.Subtitle,
-            img: school.Img,
+            img: JSON.parse(school.Img),
             description: school.Description,
             curriculum: JSON.parse(school.Curriculum),
             registration: school.Registration,
