@@ -13,7 +13,7 @@
       overflow-hidden
     "
     :class="index === 3 ? 'md:col-start-2' : ''"
-    :style="`background-image:url('${content.img}.jpg');`"
+    :style="`background-image:url('${content.img.link}');`"
   >
     <h3
       class="text-lg md:text-lg lg:text-xl 2xl:text-2xl 3xl:text-2.5xl font-semibold max-w-xxs text-white"
