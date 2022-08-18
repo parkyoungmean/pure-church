@@ -103,7 +103,6 @@ export const useSchoolStore = defineStore("school", {
     },
     /* Create */
     async createSchool(payload) {
-      console.log("위치: createSchools");
       try {
         await await instance.post("school/createSchool", {
             name: payload.name,
@@ -143,7 +142,7 @@ export const useSchoolStore = defineStore("school", {
               curriculum: payload.curriculum || [],
               registration: "0",
               graduate: "0",
-              img: payload.img || "https://imgur.com/KddmMij",
+              img: JSON.parse(payload.img) || "https://imgur.com/KddmMij",
               createdAt: res.data.created_time,
               convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
               updatedAt: "1000-01-01T00:00:00.000Z",
@@ -238,7 +237,7 @@ export const useSchoolStore = defineStore("school", {
               curriculum: payload.curriculum || [],
               registration: payload.registration,
               graduate: payload.graduate,
-              img: payload.img || "https://imgur.com/KddmMij",
+              img: JSON.parse(payload.img) || "https://imgur.com/KddmMij",
               createdAt: res.data.created_time,
               convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
               updatedAt: dayjs(),

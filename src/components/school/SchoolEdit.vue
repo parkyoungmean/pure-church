@@ -338,32 +338,33 @@
         <h1 class="text-center text-lg md:text-2xl font-extrabold">
           대표 이미지 업로드
         </h1>
-        <div class="field input-group">
-          <label for="imgurl">이미지 URL 주소</label>
-          <input
-            v-model="currentSchool.img"
-            type="text"
-            name="imgurl"
-            id="imgurl"
-            class="border border-gray-400"
-          />
+        <div class="field p-3">
+          <div class="mb-2">
+            <!-- Image Select -->
+            <div v-if="!tempImg || tempImg.length===0" class="relative h-60 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center hover:cursor-pointer">
+              <div class="absolute">
+                <div class="flex flex-col items-center justify-center mt-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="#D1D5DB" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="block text-xs md:text-lg text-gray-400 font-normal">이미지 파일을 드래그해주세요.</span>
+                  <span class="block text-xs md:text-lg text-gary-400 font-normal">혹은</span>
+                  <span class="block text-xs md:text-lg text-gary-400 font-normal">여기를 클릭해서 파일을 선택하세요.</span>
+                  <span class="block text-md md:text-xl text-blue-400 font-normal">파일 찾아보기</span>
+                </div>
+              </div>
+              <input @change="changeImageFile" type="file" class="w-full h-full opacity-0">
+            </div>
+            <!-- Image Preview -->
+            <img v-else :src="tempImg" alt="" class="block w-auto h-60 lg:h-96 p-5 mx-auto">
+            <!-- Image Info & Reset -->
+            <div v-if="img.length!==0" class="flex justify-between items-center text-gray-400 mt-2">
+              <span>파일 이름: {{ img.name==='' ? `${currentSchool.name}의 대표 이미지` : img.name.length > 19 ? img.name.substring(0, 20) + "..." : img.name }} </span>
+              <button @click="tempImg=[]; img=[];" type="button" class="p-1.5 text-xs rounded-sm cursor-pointer" :class="img.length!==0 ? 'bg-blue-300 text-white' : 'bg-gray-200'">초기화</button>
+            </div>
+          </div>
         </div>
-        <div class="field input-group">
-          <label for="imgdescription">이미지 설명</label>
-          <textarea
-            type="text"
-            name="imgdescription"
-            id="imgscription"
-            class="
-              w-full
-              h-32
-              p-2
-              outline-none
-              border border-gray-400
-              rounded-md
-            "
-          />
-        </div>
+        <!-- Prev & Submit Button -->
         <div class="field btn-group space-x-3 flex justify-between">
           <button
             @click="prevBtn(-25)"
@@ -416,11 +417,21 @@
 <script>
 import { ref, reactive , computed } from "vue-demi";
 import { useSchoolStore } from "../../stores/schools";
+import { useImageStore } from "../../stores/images";
 import { useRouter } from "vue-router";
 import { getCurrentBreakpoint } from "../../common/common";
 
 export default {
   setup() {
+    const router = useRouter();
+    const store = useSchoolStore();
+    const imgStore = useImageStore();
+
+    /* Image */
+    const tempImg = ref([]); // 임시 이미지
+    const img = ref([]); // 배경 이미지
+
+    /* curriculum */
     const lecture_title = ref("");
     
     /* Progress-bar */
@@ -604,9 +615,6 @@ export default {
       },
     ];
 
-    const router = useRouter();
-    const store = useSchoolStore();
-
     const currentSchool = computed(() => {
         return store.getCurrentSchool;
     })
@@ -620,7 +628,12 @@ export default {
       slidePage.style.marginLeft = `${pos}%`;
       progress_bar[current].isActive = true;
       current += 1;
+      if (pos === -50) {
+        tempImg.value = currentSchool.value.img.link;
+        img.value = currentSchool.value.img;
+      }
     };
+
     const prevBtn = (pos) => {
       const slidePage = document.querySelector(".slidepage");
       slidePage.style.marginLeft = `${pos}%`;
@@ -649,8 +662,14 @@ export default {
         currentSchool.value.curriculum = currentSchool.value.curriculum.filter((l) => l !== lecture);
     };
 
+    /* Image */
+    const changeImageFile = (e) => {
+      tempImg.value = URL.createObjectURL(e.target.files[0]);
+      img.value = e.target.files[0];
+    }
+
     /* 학교 정보 수정하기(update) */
-    const onSubmit = () => {
+    const onSubmit = async () => {
       if (
         currentSchool.value.name === "" ||
         currentSchool.value.subtitle === "" ||
@@ -662,6 +681,15 @@ export default {
       }
 
       progress_bar[current].isActive = true;
+
+      /* Upload Image */
+      let rimg = [];
+
+      await imgStore.uploadImage(img.value)
+      .then(() => {
+        rimg = imgStore.currentImage;
+        currentSchool.value.img = JSON.stringify(rimg);
+      })
 
       store.updateSchool(currentSchool.value).then(() => {
 
@@ -682,6 +710,9 @@ export default {
       /* form */
       school_colors, // 대표 색상
       lecture_title,
+      tempImg,
+      img,
+      changeImageFile,
       addLecture,
       removeLecture,
       nextBtn,
