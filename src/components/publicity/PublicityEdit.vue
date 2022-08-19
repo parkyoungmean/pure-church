@@ -1252,15 +1252,7 @@ export default {
       let mobileImg = [];
 
       /* 배경 이미지를 변경했으면 이미지를 업로드합니다. */
-<<<<<<< HEAD
-<<<<<<< HEAD
-      if (changeImage.value !== true) {
-=======
       if (changeImage.value === true) {
->>>>>>> 12th
-=======
-      if (changeImage.value === true) {
->>>>>>> 12th
         await imgStore.uploadImage(bgImg.value).then(() => {
           img = imgStore.currentImage;
         });
@@ -1269,15 +1261,8 @@ export default {
       }
 
       /* 모바일 배경 이미지가 존재하는지 검사 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-      if (changeMobileImage.value !== true) {
-=======
+
       if (changeMobileImage.value === true) {
->>>>>>> 12th
-=======
-      if (changeMobileImage.value === true) {
->>>>>>> 12th
         await imgStore.uploadMobileImage(mobile_bgImg.value).then(() => {
           mobileImg = imgStore.currentMobileImage;
         });
