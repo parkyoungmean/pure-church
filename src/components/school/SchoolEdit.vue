@@ -20,7 +20,7 @@
     </button>
   </div>
   <!-- End of Close Button -->
-  <!-- SCHOOL REGISTER -->
+  <!-- SCHOOL EDIT -->
   <div class="container mx-auto">
     <!-- Progressbar -->
     <div class="progress-bar flex my-5 text-sm md:text-lg">
@@ -64,7 +64,7 @@
       하는 폼입니다. <br />
       *표시는 필수 입력항목입니다.
     </h1>
-    <!-- School Registration Form -->
+    <!-- School Edit Form -->
     <form ref="form" @submit.prevent="onSubmit" class="form">
       <!-- One Step -->
       <div
@@ -360,7 +360,7 @@
             <!-- Image Info & Reset -->
             <div v-if="img.length!==0" class="flex justify-between items-center text-gray-400 mt-2">
               <span>파일 이름: {{ img.name==='' ? `${currentSchool.name}의 대표 이미지` : img.name.length > 19 ? img.name.substring(0, 20) + "..." : img.name }} </span>
-              <button @click="tempImg=[]; img=[];" type="button" class="p-1.5 text-xs rounded-sm cursor-pointer" :class="img.length!==0 ? 'bg-blue-300 text-white' : 'bg-gray-200'">초기화</button>
+              <button @click="tempImg=[]; img=[]; changeImage=false;" type="button" class="p-1.5 text-xs rounded-sm cursor-pointer" :class="img.length!==0 ? 'bg-blue-300 text-white' : 'bg-gray-200'">초기화</button>
             </div>
           </div>
         </div>
@@ -411,7 +411,7 @@
     </form>
     <!-- End of Input Form -->
   </div>
-  <!-- END OF SCHOOL REGISTER -->
+  <!-- END OF SCHOOL EDIT -->
 </template>
 
 <script>
@@ -430,6 +430,9 @@ export default {
     /* Image */
     const tempImg = ref([]); // 임시 이미지
     const img = ref([]); // 배경 이미지
+
+    /* 이미지 변경 여부 flag 변수 */
+    const changeImage = ref(false);
 
     /* curriculum */
     const lecture_title = ref("");
@@ -666,6 +669,7 @@ export default {
     const changeImageFile = (e) => {
       tempImg.value = URL.createObjectURL(e.target.files[0]);
       img.value = e.target.files[0];
+      changeImage.value = true;
     }
 
     /* 학교 정보 수정하기(update) */
@@ -682,14 +686,18 @@ export default {
 
       progress_bar[current].isActive = true;
 
-      /* Upload Image */
-      let rimg = [];
+      /* Upload Image - 대표 이미지에 변경사항이 있으면 */
+      if (changeImage.value === true) {
+        let rimg = [];
 
-      await imgStore.uploadImage(img.value)
-      .then(() => {
-        rimg = imgStore.currentImage;
-        currentSchool.value.img = JSON.stringify(rimg);
-      })
+        await imgStore.uploadImage(img.value)
+        .then(() => {
+          rimg = imgStore.currentImage;
+          currentSchool.value.img = JSON.stringify(rimg);
+        })
+      } else {
+        currentSchool.value.img = JSON.stringify(currentSchool.value.img);
+      }
 
       store.updateSchool(currentSchool.value).then(() => {
 
@@ -712,6 +720,7 @@ export default {
       lecture_title,
       tempImg,
       img,
+      changeImage,
       changeImageFile,
       addLecture,
       removeLecture,

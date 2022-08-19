@@ -940,6 +940,7 @@
                       tempImg = '';
                       tempImgName = '';
                       bgImg = '';
+                      changeImage = false;
                     "
                     class="p-1.5 text-xs rounded-sm cursor-pointer"
                     :class="[
@@ -969,6 +970,7 @@
                       mobile_tempImg = '';
                       mobile_tempImgName = '';
                       mobile_bgImg = '';
+                      changeMobileImage = false;
                     "
                     class="bg-gray-200 p-1.5 text-xs rounded-sm cursor-pointer"
                     :class="
@@ -1015,6 +1017,7 @@ export default {
 
     /* 이미지 변경 여부 flag 변수 */
     const changeImage = ref(false);
+    const changeMobileImage = ref(false);
 
     /* Right - Text */
     const tempImg = ref(currentPublicity.value.img.link); // 임시 이미지
@@ -1227,6 +1230,7 @@ export default {
       mobile_tempImg.value = URL.createObjectURL(e.target.files[0]);
       mobile_tempImgName.value = e.target.files[0].name;
       mobile_bgImg.value = e.target.files[0];
+      changeMobileImage.value = true;
     };
 
     const toggleScreen = (flag) => {
@@ -1248,21 +1252,36 @@ export default {
       let mobileImg = [];
 
       /* 배경 이미지를 변경했으면 이미지를 업로드합니다. */
-      if (changeImage) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+      if (changeImage.value !== true) {
+=======
+      if (changeImage.value === true) {
+>>>>>>> 12th
+=======
+      if (changeImage.value === true) {
+>>>>>>> 12th
         await imgStore.uploadImage(bgImg.value).then(() => {
           img = imgStore.currentImage;
         });
-
-        /* 모바일 배경 이미지가 존재하는지 검사 */
-        if (mobile_bgImg.value !== "") {
-          await imgStore.uploadMobileImage(mobile_bgImg.value).then(() => {
-            mobileImg = imgStore.currentMobileImage;
-          });
-        } else {
-          mobileImg = img;
-        }
       } else {
         img = currentPublicity.value.img;
+      }
+
+      /* 모바일 배경 이미지가 존재하는지 검사 */
+<<<<<<< HEAD
+<<<<<<< HEAD
+      if (changeMobileImage.value !== true) {
+=======
+      if (changeMobileImage.value === true) {
+>>>>>>> 12th
+=======
+      if (changeMobileImage.value === true) {
+>>>>>>> 12th
+        await imgStore.uploadMobileImage(mobile_bgImg.value).then(() => {
+          mobileImg = imgStore.currentMobileImage;
+        });
+      } else {
         mobileImg = currentPublicity.value.mobileImg;
       }
 
@@ -1361,6 +1380,8 @@ export default {
       mobile_bgImg,
       changeMobileImageFile,
       currentImage,
+      changeImage,
+      changeMobileImage,
       /* Screen Size */
       toggleScreen,
       screen,
