@@ -89,7 +89,7 @@
         </div>
         <!-- List -->
         <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="(notice, index) in notices" :key="index" @click="noticeDetailOpen(notice.id)" class="grid2-item pb-10 p-5" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'">
+          <div v-for="(notice, index) in notices" :key="index" @click="noticeDetailOpen(notice.id)" class="grid2-item p-5" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'">
             <div
               class="flex space-x-2 pb-5"
               :class="[
@@ -161,9 +161,31 @@
                 />
               </svg>
               [{{ notice.belong }}] {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 안내드립니다.' : notice.condition ==='information' ? '안내드립니다.' : '' }}
+              
             </div>
-            <h3 class="title font-extrabold pb-5"> {{ notice.title }} </h3>
+            <h3 class="title text-xl font-extrabold pb-5"> {{ notice.title }} </h3>
             <p class="content" > {{ notice.content.length > 22 ? notice.content.substr(0, 21) + '...' : notice.content }} </p>
+            <div class="flex justify-end px-6 pt-7 space-x-1 gap-1">
+              <svg
+              v-show="notice.img.length !== 0"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {{ notice.author }}
+            </div>
           </div>
         </div>
       </div>

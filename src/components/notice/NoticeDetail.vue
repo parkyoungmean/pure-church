@@ -1,9 +1,8 @@
 <template>
     <div class="2xl:max-w-[1640px] m-auto md:my-12">
         <div
-            class="w-full p-5 h-screen" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'"
+            class="w-full p-5 md:p-10 min-h-screen" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'"
             >
-            <!-- 비로그인일 경우 -->
             <div class="flex justify-end px-6 pt-3 z-30">
                 <button
                     @click="$router.go(-1)"
@@ -29,9 +28,9 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
             </div>
-            <!-- content -->
+            <!-- Content -->
             <div
-              class="flex space-x-2 pb-5"
+              class="flex space-x-2 py-1 md:pb-5 text-lg md:text-2xl md:gap-2"
               :class="[
                 notice.condition === 'emergency'
                   ? 'text-red-500'
@@ -40,10 +39,11 @@
                   : 'text-green-500',
               ]"
             >
+            <!-- Content: Icon -->
               <svg
                 v-show="notice.condition === 'emergency'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -58,7 +58,7 @@
               <svg
                 v-show="notice.condition === 'important'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -73,7 +73,7 @@
               <svg
                 v-show="notice.condition === 'standard'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -88,7 +88,7 @@
               <svg
                 v-show="notice.condition === 'information'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -100,11 +100,34 @@
                   d="M5 13l4 4L19 7"
                 />
               </svg>
+              <!-- Content: Introduce -->
               [{{ notice.belong }}] {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 안내드립니다.' : notice.condition ==='information' ? '안내드립니다.' : '' }}
             </div>
-            <div class="leading-relaxed pt-1 px-3 md:px-5 text-sm md:text-md">
-                <h1 class="title font-extrabold pb-5"> {{ notice.title }} </h1>
-                <span class="content" > {{ notice.content }} </span>
+            <!-- Content: Body -->
+            <div class="leading-relaxed pt-1 px-3 md:px-5 text-sm md:text-lg">
+                <h1 class="title font-extrabold text-xl lg:text-3xl"> {{ notice.title }} </h1>
+                <!-- AVARTA -->
+                <div class="flex py-3 md:py-5">
+                    <div class="flex flex-col items-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <!-- SIMPLE INTRODUCTION  -->
+                    <div class="flex flex-col gap-1 p-1">
+                        <h1 class="text-sm font-bold">{{ notice.author }}</h1>
+                        <p class="md:text-sm tracking-widest text-gray-400">
+                        {{ notice.convertedAt }}
+                        </p>
+                    </div>
+                </div>
+                <img
+                    v-if="notice.img.link"
+                    :src="`${notice.img.link}`"
+                    alt=""
+                    class="bg-center bg-cover bg-no-repeat w-full lg:h-full py-5 md:px-10"
+                />
+                <span class="content font-semibold" > {{ notice.content }} </span>
             </div>
         </div>
     </div>
