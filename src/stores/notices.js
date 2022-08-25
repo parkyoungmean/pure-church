@@ -13,34 +13,35 @@ const instance = axios.create({
 
 export const useNoticeStore = defineStore("notice", {
     state: () => ({
-        publicitys: [],
+        notices: [],
+        currentNotice: [],
     }),
     getters: {
         getNotices(state) {
-            return state.publicitys;
+            return state.notices;
         },
     },
     actions: {
-        /* create Slide Publicity */
+        /* select Current Notice */
+        async selectedNotice(payload) {
+            const index = this.notices.findIndex((element) => element.id === payload);
+            this.currentNotice = this.notices[index];
+        },
+        /* create Notice */
         async createNotice(payload) {
             try {
                 payload.createdAt = dayjs();
                 payload.updatedAt = "1000-01-01T00:00:00.000Z";
 
-                await instance.post("publicity/createPublicity", payload)
+                await instance.post("notice/createNotice", payload)
                 .then((res) => {
-                    console.log("new Publicity:", res.data);
+                    console.log("new notice:", res.data);
 
-                    let publicity = {
+                    let notice = {
                         id: res.data.id,
                         img: payload.img.link,
                         title: payload.title,
-                        subtitle: payload.subtitle,
-                        description: payload.description,
-                        /* 글자 크기 */
-                        size: payload.size,
-                        /* 글자 색상 */
-                        color: payload.color,
+                        content: payload.content,
                         condition: payload.condition,
                         author: res.data.author,
                         createdAt: res.data.created_time,
@@ -48,54 +49,51 @@ export const useNoticeStore = defineStore("notice", {
                         updatedAt: payload.updatedAt,
                     }
 
-                    this.publicitys.unshift(publicity);
-                    alert("새 슬라이드 광고 등록 성공!");
+                    this.notices.unshift(notice);
+                    alert("공지사항 등록 성공!");
                 })
             } catch (error) {
-                alert("새 슬라이드 광고 등록이 실패하였습니다.ㅜㅜ");
-                console.error("New Slide Publicity's Create 에러:", error);
+                alert("새 공지사항 등록이 실패하였습니다.ㅜㅜ");
+                console.error("New Notice's Create 에러:", error);
             }
         },
-        /* read Slide Publicitys */
+        /* read Notices */
         async fetchNotices() {
             try {
-                const data = await instance("publicity")
+                const data = await instance("notice")
 
                 console.log(data.data);
 
-                let publicitysArray = [];
+                let noticesArray = [];
 
                 data.data.forEach((v) => {
-                    let publicity = v;
+                    let notice = v;
 
-                    publicity.Img = JSON.parse(publicity.Img);
+                    notice.Img = JSON.parse(notice.Image);
                     
                     /* img 뒤에 .jpg를 붙일지 여부 결정 */
-                    if (publicity.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                    if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
                         console.log('없다');
                     } else {
                       console.log('있다');
-                      publicity.Img.link = `${publicity.Img.link}.jpg`;
+                      notice.Img.link = `${notice.Img.link}.jpg`;
                     }
 
-                    publicitysArray.push({
-                        id: publicity.id,
-                        img: publicity.Img,
-                        title: publicity.Title,
-                        subtitle: publicity.Subtitle,
-                        description: publicity.Content,
-                        color: JSON.parse(publicity.Color),
-                        size: JSON.parse(publicity.Size),
-                        condition: publicity.Condition,
-                        belong: publicity.Belong,
-                        author: publicity.Author,
-                        createdAt: publicity.CreatedAt,
-                        convertedAt: dayjs(publicity.CreatedAt).format("YYYY년 MM월 DD일"),
-                        updatedAt: publicity.UpdatedAt,
-                        status: publicity.Status,
+                    noticesArray.push({
+                        id: notice.id,
+                        img: notice.Img,
+                        title: notice.Title,
+                        content: notice.Content,
+                        condition: notice.Condition,
+                        belong: notice.Belong,
+                        author: notice.Author,
+                        createdAt: notice.CreatedAt,
+                        convertedAt: dayjs(notice.CreatedAt).format("YYYY년 MM월 DD일"),
+                        updatedAt: notice.UpdatedAt,
+                        status: notice.Status,
                     });
                 });
-                this.publicitys = publicitysArray;
+                this.notices = noticesArray;
 
             } catch (error) {
                 console.error(error);

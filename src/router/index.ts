@@ -131,10 +131,23 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 공지사항 세부 */
+  {
+    path: '/noticedetail',
+    name: 'noticedetail',
+    component: () => import(/* webpackChunkName: "noticeDetail" */ '../components/notice/NoticeDetail.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      store.hide_nav = true;
+      next();
+    }
+  },
   {
     path: '/notices/slide',
     name: 'slidenotice',
-    component: () => import(/* webpackChunkName: "schoolsRegistration" */ '../components/common/CustomContent.vue'),
+    component: () => import(/* webpackChunkName: "notices/slide" */ '../components/common/CustomContent.vue'),
     props: true,
     beforeEnter: (to, from, next) => {
       // ...
