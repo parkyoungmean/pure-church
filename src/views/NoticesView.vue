@@ -53,6 +53,7 @@
             </div>
             <!-- Add Notice Button -->
             <div
+              @click="noticeFormOpen()"
               class="
                 button
                 flex
@@ -91,12 +92,14 @@
         <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="(notice, index) in notices" :key="index" @click="noticeDetailOpen(notice.id)" class="grid2-item p-5" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'">
             <div
-              class="flex space-x-2 pb-5"
+              class="flex gap-1 pb-5"
               :class="[
                 notice.condition === 'emergency'
                   ? 'text-red-500'
                   : notice.condition === 'important'
                   ? 'text-amber-500'
+                  : notice.condition === 'standard'
+                  ? 'text-green-500'
                   : 'text-green-500',
               ]"
             >
@@ -160,8 +163,7 @@
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              [{{ notice.belong }}] {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 안내드립니다.' : notice.condition ==='information' ? '안내드립니다.' : '' }}
-              
+              <span class="font-bold">[{{ notice.belong }}]</span> {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 공지드립니다.' : notice.condition ==='standard' ? '일반 공지드립니다.' : notice.condition === 'information' ? '정보 안내드립니다.' : '' }}
             </div>
             <h3 class="title text-xl font-extrabold pb-5"> {{ notice.title }} </h3>
             <p class="content" > {{ notice.content.length > 22 ? notice.content.substr(0, 21) + '...' : notice.content }} </p>
@@ -197,8 +199,12 @@
 import { ref, computed, onMounted } from "vue-demi";
 import { useRouter } from "vue-router";
 import { useNoticeStore } from "../stores/notices";
+import NoticeRegistration from "../components/notice/NoticeRegistration.vue";
 
 export default {
+  components: {
+    NoticeRegistration,
+  },
   setup() {
 
     const router = useRouter();
@@ -226,9 +232,15 @@ export default {
       router.push("/noticedetail");
     };
 
+    /* Create Notice Infomation */
+    const noticeFormOpen = () => {
+      router.push("/noticeregistration");
+    };
+
     return {
       notices,
       noticeDetailOpen,
+      noticeFormOpen,
       filter_name,
       filter_menu,
       toggleFilterMenu,

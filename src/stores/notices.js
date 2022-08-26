@@ -39,11 +39,12 @@ export const useNoticeStore = defineStore("notice", {
 
                     let notice = {
                         id: res.data.id,
-                        img: payload.img.link,
+                        img: JSON.parse(payload.img),
                         title: payload.title,
                         content: payload.content,
                         condition: payload.condition,
-                        author: res.data.author,
+                        belong: payload.belong,
+                        author: payload.author,
                         createdAt: res.data.created_time,
                         convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
                         updatedAt: payload.updatedAt,
@@ -69,15 +70,24 @@ export const useNoticeStore = defineStore("notice", {
                 data.data.forEach((v) => {
                     let notice = v;
 
+                    
+
                     notice.Img = JSON.parse(notice.Image);
                     
-                    /* img 뒤에 .jpg를 붙일지 여부 결정 */
-                    if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
-                        console.log('없다');
+                    if(Object.keys(notice.Img).length == 0){
+                        console.log('빈 객체다!');
                     } else {
-                      console.log('있다');
-                      notice.Img.link = `${notice.Img.link}.jpg`;
+                        console.log('객체다!');
+                        /* img 뒤에 .jpg를 붙일지 여부 결정 */
+                        if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                            console.log('없다');
+                        } else {
+                        console.log('있다');
+                        notice.Img.link = `${notice.Img.link}.jpg`;
+                        }
                     }
+
+                    
 
                     noticesArray.push({
                         id: notice.id,

@@ -30,7 +30,7 @@
             </div>
             <!-- Content -->
             <div
-              class="flex space-x-2 py-1 md:pb-5 text-lg md:text-2xl md:gap-2"
+              class="flex gap-1 py-6 md:pb-5 text-lg md:text-2xl"
               :class="[
                 notice.condition === 'emergency'
                   ? 'text-red-500'
@@ -43,7 +43,7 @@
               <svg
                 v-show="notice.condition === 'emergency'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
+                class="w-7 h-7 md:h-8 md:w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -58,7 +58,7 @@
               <svg
                 v-show="notice.condition === 'important'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
+                class="w-7 h-7 md:h-8 md:w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -73,7 +73,7 @@
               <svg
                 v-show="notice.condition === 'standard'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
+                class="w-7 h-7 md:h-8 md:w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -88,7 +88,7 @@
               <svg
                 v-show="notice.condition === 'information'"
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-7 h-7 md:h-8 md:w-8 mr-2 md:mr-3"
+                class="w-7 h-7 md:h-8 md:w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -101,7 +101,7 @@
                 />
               </svg>
               <!-- Content: Introduce -->
-              [{{ notice.belong }}] {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 안내드립니다.' : notice.condition ==='information' ? '안내드립니다.' : '' }}
+              <span class="font-bold">[{{ notice.belong }}]</span> {{ notice.condition === 'emergency' ? '긴급 공지드립니다.' : notice.condition ==='important' ? '중요 공지드립니다.' : notice.condition ==='standard' ? '일반 공지드립니다.' : notice.condition === 'information' ? '정보 안내드립니다.' : '' }}
             </div>
             <!-- Content: Body -->
             <div class="leading-relaxed pt-1 px-3 md:px-5 text-sm md:text-lg">
@@ -122,12 +122,12 @@
                     </div>
                 </div>
                 <img
-                    v-if="notice.img.link"
+                    v-if="notice.img.length !== 0"
                     :src="`${notice.img.link}`"
                     alt=""
                     class="bg-center bg-cover bg-no-repeat w-full lg:h-full py-5 md:px-10"
                 />
-                <span class="content font-semibold" > {{ notice.content }} </span>
+                <div class="content font-semibold md:text-xl mt-5 md:mt-12" > {{ notice.content }} </div>
             </div>
         </div>
     </div>
