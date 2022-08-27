@@ -14,11 +14,15 @@ const instance = axios.create({
 export const useNoticeStore = defineStore("notice", {
     state: () => ({
         notices: [],
+        primaryNotices: [],
         currentNotice: [],
     }),
     getters: {
         getNotices(state) {
             return state.notices;
+        },
+        getPrimaryNotices(state) {
+            return state.primaryNotices;
         },
     },
     actions: {
@@ -39,6 +43,7 @@ export const useNoticeStore = defineStore("notice", {
 
                     let notice = {
                         id: res.data.id,
+                        primary: payload.primary,
                         img: JSON.parse(payload.img),
                         title: payload.title,
                         content: payload.content,
@@ -70,7 +75,53 @@ export const useNoticeStore = defineStore("notice", {
                 data.data.forEach((v) => {
                     let notice = v;
 
+                    notice.Img = JSON.parse(notice.Image);
                     
+                    if(Object.keys(notice.Img).length == 0){
+                        console.log('빈 객체다!');
+                    } else {
+                        console.log('객체다!');
+                        /* img 뒤에 .jpg를 붙일지 여부 결정 */
+                        if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
+                            console.log('없다');
+                        } else {
+                        console.log('있다');
+                        notice.Img.link = `${notice.Img.link}.jpg`;
+                        }
+                    }
+
+                    noticesArray.push({
+                        id: notice.id,
+                        primary: notice.Primary,
+                        img: notice.Img,
+                        title: notice.Title,
+                        content: notice.Content,
+                        condition: notice.Condition,
+                        belong: notice.Belong,
+                        author: notice.Author,
+                        createdAt: notice.CreatedAt,
+                        convertedAt: dayjs(notice.CreatedAt).format("YYYY년 MM월 DD일"),
+                        updatedAt: notice.UpdatedAt,
+                        status: notice.Status,
+                    });
+                });
+                this.notices = noticesArray;
+
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        /* read PrimaryNotices */
+        async fetchPrimaryNotices() {
+            try {
+                const data = await instance("notice/getPrimaryNotices")
+
+                console.log(data.data);
+
+                let noticesArray = [];
+
+                data.data.forEach((v) => {
+                    let notice = v;
 
                     notice.Img = JSON.parse(notice.Image);
                     
@@ -87,10 +138,9 @@ export const useNoticeStore = defineStore("notice", {
                         }
                     }
 
-                    
-
                     noticesArray.push({
                         id: notice.id,
+                        primary: notice.Primary,
                         img: notice.Img,
                         title: notice.Title,
                         content: notice.Content,
@@ -103,7 +153,7 @@ export const useNoticeStore = defineStore("notice", {
                         status: notice.Status,
                     });
                 });
-                this.notices = noticesArray;
+                this.primaryNotices = noticesArray;
 
             } catch (error) {
                 console.error(error);

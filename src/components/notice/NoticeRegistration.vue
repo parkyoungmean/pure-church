@@ -160,7 +160,7 @@ export default {
             }
 
             const notice = {
-                isPrimary: isPrimary.value,
+                primary: isPrimary.value,
                 title: title.value,
                 content: content.value,
                 condition: condition.value,
