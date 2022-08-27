@@ -24,6 +24,9 @@ export const useNoticeStore = defineStore("notice", {
         getPrimaryNotices(state) {
             return state.primaryNotices;
         },
+        getCurrentNotice(state) {
+            return state.currentNotice;
+        },
     },
     actions: {
         /* select Current Notice */
@@ -67,8 +70,6 @@ export const useNoticeStore = defineStore("notice", {
         async fetchNotices() {
             try {
                 const data = await instance("notice")
-
-                console.log(data.data);
 
                 let noticesArray = [];
 
@@ -116,8 +117,6 @@ export const useNoticeStore = defineStore("notice", {
             try {
                 const data = await instance("notice/getPrimaryNotices")
 
-                console.log(data.data);
-
                 let noticesArray = [];
 
                 data.data.forEach((v) => {
@@ -157,6 +156,24 @@ export const useNoticeStore = defineStore("notice", {
 
             } catch (error) {
                 console.error(error);
+            }
+        },
+        /* update Notice */
+        async updateNotice(payload) {
+            try {
+                payload.updatedAt = dayjs();;
+
+                await instance.post("notice/updateNotice", payload)
+                .then((res) => {
+
+                    payload.img = JSON.parse(payload.img),
+                    this.currentNotice = payload;
+                    
+                    alert("공지사항 수정 성공!");
+                })
+            } catch (error) {
+                alert("공지사항 수정이 실패하였습니다.ㅜㅜ");
+                console.error("Notice's Update 에러:", error);
             }
         },
     }

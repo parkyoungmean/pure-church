@@ -1,9 +1,9 @@
 <template>
     <div class="2xl:max-w-[1640px] m-auto md:my-12">
         <div
-            class="w-full p-5 md:p-10 min-h-screen" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'"
+            class="w-full p-5 md:p-10 min-h-screen md:h-full" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'"
             >
-            <div class="flex justify-end px-6 pt-3 z-30">
+            <div class="flex justify-end pt-3 z-30">
                 <button
                     @click="$router.go(-1)"
                     class="
@@ -128,6 +128,77 @@
                     class="bg-center bg-cover bg-no-repeat w-full lg:h-full py-5 md:px-10"
                 />
                 <div class="content font-semibold md:text-xl mt-5 md:mt-12" > {{ notice.content }} </div>
+                <!-- Update & Delete Button -->
+                <div
+                  class="
+                    flex
+                    justify-end
+                    space-x-2
+                    xl:space-x-2.5
+                    mt-10
+                    xl:mt-20
+                  "
+                >
+                  <button
+                    @click="editNoticeForm"
+                    class="
+                      inline-flex
+                      justify-center
+                      px-2
+                      sm:px-2
+                      xl:px-4
+                      py-1
+                      sm:py-1
+                      xl:py-1.5
+                      text-sm
+                      sm:text-xs
+                      xl:text-lg
+                      font-bold
+                      xl:font-extrabold
+                      sm:font-medium
+                      text-white
+                      bg-epic-blue
+                      border border-transparent
+                      rounded-md
+                      hover:bg-blue-200
+                      focus:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-offset-2
+                      focus-visible:ring-blue-500
+                    "
+                  >
+                    수정
+                  </button>
+                  <button
+                    class="
+                      inline-flex
+                      justify-center
+                      px-2
+                      sm:px-2
+                      xl:px-4
+                      py-1
+                      sm:py-1
+                      xl:py-1.5
+                      text-sm
+                      sm:text-xs
+                      xl:text-lg
+                      font-bold
+                      sm:font-medium
+                      xl:font-extrabold
+                      text-white
+                      bg-red-600
+                      border border-transparent
+                      rounded-md
+                      hover:bg-blue-200
+                      focus:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-offset-2
+                      focus-visible:ring-blue-500
+                    "
+                  >
+                    삭제
+                  </button>
+                </div>
             </div>
         </div>
     </div>
@@ -135,10 +206,13 @@
 
 <script>
 import { computed } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
 import { useNoticeStore } from "../../stores/notices";
 
 export default {
     setup () {
+        const router = useRouter();
+        
         /* Pinia */
         const store = useNoticeStore();
 
@@ -148,8 +222,14 @@ export default {
             }
         });
 
+        /* Update Notice Infomation */
+        const editNoticeForm = () => {
+          router.push("/noticeedit");
+        };
+
         return {
             notice,
+            editNoticeForm,
         }
     }
 }

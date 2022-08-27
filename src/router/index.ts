@@ -167,6 +167,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/noticeedit',
+    name: 'noticeedit',
+    component: () => import(/* webpackChunkName: "noticeEdit */ '../components/notice/NoticeEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
   /* 광고 */
   {
     path: '/publicities',
@@ -193,7 +204,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/publicityedit',
     name: 'publicityedit',
-    component: () => import(/* webpackChunkName: "publicities" */ '../components/publicity/PublicityEdit.vue'),
+    component: () => import(/* webpackChunkName: "publicityEdit" */ '../components/publicity/PublicityEdit.vue'),
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();

@@ -23,7 +23,7 @@
   <!-- SCHOOL EDIT -->
   <div class="container mx-auto">
     <!-- Progressbar -->
-    <div class="progress-bar flex my-5 text-sm md:text-lg">
+    <div class="progress-bar flex text-sm md:text-lg">
       <div class="step" v-for="(step, index) in progress_bar" :key="index">
         <p
           class="text-blue-600 mb-2 md:mb-4"
@@ -50,12 +50,11 @@
       class="
         w-full
         px-10
-        mb-5
         text-xs
         md:text-lg
         font-bold
         upercase
-        mt-7
+        mt-2
         dark:text-white
       "
     >
@@ -217,7 +216,7 @@
         <section class="lecture-list field">
           <h4 v-if="currentSchool.curriculum.length !== 0">강의 목록</h4>
           <div v-for="(lecture, index) in currentSchool.curriculum" :key="index" class="">
-            <div class="relative mt-5">
+            <div class="relative mt-4">
               <label
                 class="
                   flex flex-col
@@ -838,7 +837,7 @@ input {
 
 .form .form-step .field {
   width: 550px;
-  margin: 20px 0;
+  margin: 10px 0;
   position: relative;
 }
 
