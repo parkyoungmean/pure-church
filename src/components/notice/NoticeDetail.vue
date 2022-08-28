@@ -170,6 +170,7 @@
                     수정
                   </button>
                   <button
+                    @click="deleteNotice(notice.id)"
                     class="
                       inline-flex
                       justify-center
@@ -199,6 +200,7 @@
                     삭제
                   </button>
                 </div>
+                <!-- End Of Update & Delete Button -->
             </div>
         </div>
     </div>
@@ -226,10 +228,23 @@ export default {
         const editNoticeForm = () => {
           router.push("/noticeedit");
         };
+        
+        /* Delete Notice Infomation */
+        const deleteNotice = (id) => {
+          if (confirm("정말 삭제합니까?")) {
+
+            store.deleteNotice(id).then(() => {
+              router.go(-1);
+            });
+          } else {
+            alert("취소되었습니다.");
+          }
+        };
 
         return {
             notice,
             editNoticeForm,
+            deleteNotice,
         }
     }
 }

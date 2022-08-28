@@ -34,6 +34,7 @@ export const useNoticeStore = defineStore("notice", {
             const index = this.notices.findIndex((element) => element.id === payload);
             this.currentNotice = this.notices[index];
         },
+
         /* create Notice */
         async createNotice(payload) {
             try {
@@ -66,6 +67,7 @@ export const useNoticeStore = defineStore("notice", {
                 console.error("New Notice's Create 에러:", error);
             }
         },
+
         /* read Notices */
         async fetchNotices() {
             try {
@@ -79,15 +81,13 @@ export const useNoticeStore = defineStore("notice", {
                     notice.Img = JSON.parse(notice.Image);
                     
                     if(Object.keys(notice.Img).length == 0){
-                        console.log('빈 객체다!');
+                        
                     } else {
-                        console.log('객체다!');
                         /* img 뒤에 .jpg를 붙일지 여부 결정 */
                         if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
-                            console.log('없다');
+                            
                         } else {
-                        console.log('있다');
-                        notice.Img.link = `${notice.Img.link}.jpg`;
+                            notice.Img.link = `${notice.Img.link}.jpg`;
                         }
                     }
 
@@ -112,6 +112,7 @@ export const useNoticeStore = defineStore("notice", {
                 console.error(error);
             }
         },
+
         /* read PrimaryNotices */
         async fetchPrimaryNotices() {
             try {
@@ -125,14 +126,13 @@ export const useNoticeStore = defineStore("notice", {
                     notice.Img = JSON.parse(notice.Image);
                     
                     if(Object.keys(notice.Img).length == 0){
-                        console.log('빈 객체다!');
+                        
                     } else {
-                        console.log('객체다!');
+                        
                         /* img 뒤에 .jpg를 붙일지 여부 결정 */
                         if (notice.Img.link.indexOf('imgur.com') ===-1) {  // 단어가 없으면
-                            console.log('없다');
+                            
                         } else {
-                        console.log('있다');
                         notice.Img.link = `${notice.Img.link}.jpg`;
                         }
                     }
@@ -158,6 +158,7 @@ export const useNoticeStore = defineStore("notice", {
                 console.error(error);
             }
         },
+
         /* update Notice */
         async updateNotice(payload) {
             try {
@@ -168,12 +169,31 @@ export const useNoticeStore = defineStore("notice", {
 
                     payload.img = JSON.parse(payload.img),
                     this.currentNotice = payload;
-                    
+
                     alert("공지사항 수정 성공!");
                 })
             } catch (error) {
                 alert("공지사항 수정이 실패하였습니다.ㅜㅜ");
                 console.error("Notice's Update 에러:", error);
+            }
+        },
+
+        /* Delete Slide Publicity */
+        async deleteNotice(payload) {
+            try {
+                await instance
+                    .post("notice/deleteNotice", {
+                        id: payload,
+                    })
+                    .then((res) => {
+                    console.log("data:", res.data);
+                    
+                    console.log("공지사항의 정보가 삭제되었습니다.");
+                    alert("공지사항 정보 삭제 성공!");
+                    });
+            } catch (error) {
+                alert("공지사항 정보 삭제가 실패하였습니다ㅜㅜ");
+                console.error("Notice's Delete 에러:", error);
             }
         },
     }

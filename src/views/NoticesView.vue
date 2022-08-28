@@ -157,7 +157,7 @@
               <!-- 브라우저 화면에서 표시됨 -->
               <h2 class="xxs:hidden md:block text-md"><span class="font-bold">[{{ pNotice.belong }}]</span> {{ pNotice.condition === 'emergency' ? '(긴급 공지)' : pNotice.condition ==='important' ? '(중요 공지)' : pNotice.condition ==='standard' ? '(일반 공지)' : pNotice.condition === 'information' ? '(정보 안내)' : '' }} {{ pNotice.title }}</h2>
               <!-- 모바일 화면에서 표시됨 -->
-              <h2 class="md:hidden xxs:block xxs:text-sm"><span class="font-bold">[{{ pNotice.belong }}]</span> {{ pNotice.condition === 'emergency' ? '(긴급 공지)' : pNotice.condition ==='important' ? '(중요 공지)' : pNotice.condition ==='standard' ? '(일반 공지)' : pNotice.condition === 'information' ? '(정보 안내)' : '' }} {{ pNotice.title.length > 19 ? pNotice.title.substr(0, 20) + '...' : pNotice.title }}</h2>
+              <h2 class="md:hidden xxs:block xxs:text-sm"><span class="font-bold">[{{ pNotice.belong }}]</span> {{ pNotice.condition === 'emergency' ? '(긴급 공지)' : pNotice.condition ==='important' ? '(중요 공지)' : pNotice.condition ==='standard' ? '(일반 공지)' : pNotice.condition === 'information' ? '(정보 안내)' : '' }} {{ pNotice.title.length > 13 ? pNotice.title.substr(0, 14) + '...' : pNotice.title }}</h2>
             </div>
             <!-- -> Button -->
             <svg
