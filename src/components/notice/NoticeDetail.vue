@@ -3,6 +3,7 @@
         <div
             class="w-full p-5 md:p-10 min-h-screen md:h-full" :class="notice.condition === 'emergency' ? 'bg-red-100' : notice.condition ==='important' ? 'bg-amber-100' : 'bg-green-100'"
             >
+            <!-- Back Button -->
             <div class="flex justify-end pt-3 z-30">
                 <button
                     @click="$router.go(-1)"
@@ -130,6 +131,7 @@
                 <div class="content font-semibold md:text-xl mt-5 md:mt-12" > {{ notice.content }} </div>
                 <!-- Update & Delete Button -->
                 <div
+                  v-show="is_login ? true : false"
                   class="
                     flex
                     justify-end
@@ -209,12 +211,16 @@
 <script>
 import { computed } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { useNoticeStore } from "../../stores/notices";
 
 export default {
     setup () {
         const router = useRouter();
         
+        /* Vuex */
+        const vuexStore = useStore();
+
         /* Pinia */
         const store = useNoticeStore();
 
@@ -245,6 +251,7 @@ export default {
             notice,
             editNoticeForm,
             deleteNotice,
+            is_login: computed(() => vuexStore.state.is_login),
         }
     }
 }

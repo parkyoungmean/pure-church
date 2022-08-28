@@ -24,7 +24,7 @@
   </section>
   
   <!-- notices & donation -->
-  <section id="notices" class="min-h-screen bg-green-100">
+  <section id="notices" class="min-h-screen">
     <div class="w-full min-h-screen font-sans text-gray-900">
       <main class="md:py-16 px-4 mx-auto max-w-5xl">
         <div>
@@ -36,18 +36,6 @@
           <p clas="pt-3 text-lg text-gray-700">
             공지, 후원, 게시글, 활동 사진을 모아 보여줍니다.
           </p>
-          <!-- Avatar -->
-          <!-- <div
-            class="inline-flex gap-x-2 items-center pt-2 text-sm text-gray-500"
-          >
-            <span>Created by pure church</span>
-            <img
-              src="https://i.imgur.com/8axyuNs.jpg"
-              alt=""
-              class="object-cover w-7 h-7 rounded-full"
-            />
-            <a href="#" class="hover:text-indigo-600"> 관리자 </a>
-          </div> -->
         </div>
         <!-- Tabs -->
         <div x-data="{ tab: 'notice' }" class="">
@@ -85,9 +73,10 @@
           <!-- End of Tab Menu -->
           <div class="">
             <div x-show="tab === 'notice'" class="">
-              <p>여기는 공지사항 탭입니다.</p>
+              <p>여기는 공지사항입니다.</p>
               <!-- SimpleList -->
-              <SimpleList :primaryNotices="primaryNotices" :notices="notices" />
+              <!-- <SimpleList :primaryNotices="primaryNotices" :notices="notices" /> -->
+              <NoticeCardList />
             </div>
             <div x-show="tab === 'bbs'" class="">
               <p class="text-cw-grey-900">여기는 자유게시판입니다.</p>
@@ -122,9 +111,9 @@ import SchoolList from "@/components/simplehome/SchoolList.vue";
 import SimpleList from "@/components/SimpleList.vue";
 import SimplePosts from "@/components/SimplePosts.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
-
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
 
+import NoticeCardList from "@/components/notice/NoticeCardList.vue";
 
 export default {
   components: {
@@ -135,6 +124,7 @@ export default {
     SimplePosts,
     SimpleGallery,
     SimpleCarousel,
+    NoticeCardList,
   },
   setup() {
    
@@ -149,102 +139,6 @@ export default {
     onMounted(() => {
       store.fetchPublicities();
     })
-
-    /* notices for Notices Section */
-    let primaryNotices = [
-      {
-        id: 4,
-        caption: "안내드립니다.",
-        title: "2022년 순전한 사역을 안내드립니다.",
-        img: "",
-        author: "",
-        tag: "전체",
-        type: "standard",
-        isPrimary: true,
-        content: "내용 준비중입니다.",
-      },
-      {
-        id: 5,
-        caption: "안내드립니다.",
-        title: "순전한 교회에 오시는 길을 안내드립니다.",
-        img: "",
-        author: "",
-        tag: "전체",
-        type: "standard",
-        isPrimary: true,
-        content: "내용 준비중입니다.",
-      },
-    ];
-    /* notices for Notices Section */
-    let notices = [
-      {
-        id: 0,
-        caption: "안내드립니다.",
-        title: "온라인 치유학교 5기를 모집합니다.",
-        img: "",
-        author: "",
-        tag: "치유학교",
-        type: "standard",
-        isPrimary: false,
-        content: "내용 준비중입니다.",
-      },
-      {
-        id: 1,
-        caption: "안내드립니다.",
-        title: "온라인 카르학교 3기를 모집합니다.",
-        img: "",
-        author: "",
-        tag: "카르학교",
-        type: "standard",
-        isPrimary: false,
-        content: "내용 준비중입니다.",
-      },
-      {
-        id: 2,
-        caption: "긴급 공지드립니다.",
-        title: "우크라이나 성도들을 위한 기도가 절실히 필요합니다.",
-        img: "",
-        author: "",
-        tag: "기도학교",
-        type: "emergency",
-        isPrimary: false,
-        content: "내용 준비중입니다.",
-      },
-      {
-        id: 3,
-        caption: "스텝 교육 일정 안내",
-        title: "ZOOM 소그룹 방법에 관한 교육 일정을 안내드립니다.",
-        img: "https://i.imgur.com/LRbjgMF.jpg",
-        author: "",
-        tag: "전체",
-        type: "important",
-        isPrimary: false,
-        content: "예배에 집중하는 학생들입니다.",
-        link: "#kar",
-      },
-      {
-        id: 4,
-        caption: "안내드립니다.",
-        title: "2022년 순전한 사역을 안내드립니다.",
-        img: "",
-        author: "",
-        tag: "전체",
-        type: "standard",
-        isPrimary: true,
-        content: "내용 준비중입니다.",
-      },
-      {
-        id: 5,
-        caption: "안내드립니다.",
-        title: "순전한 교회에 오시는 길을 안내드립니다.",
-        img: "",
-        author: "",
-        tag: "전체",
-        type: "standard",
-        isPrimary: false,
-        content: "내용 준비중입니다.",
-      },
-    ];
 
     /* posts for bbs */
     let posts = [
@@ -360,8 +254,6 @@ export default {
 
     return {
       slides,
-      primaryNotices,
-      notices,
       posts,
     };
   },
