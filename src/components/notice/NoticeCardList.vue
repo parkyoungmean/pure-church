@@ -54,6 +54,7 @@
 -->
             <!-- Add Notice Button -->
             <div
+              v-show="is_login ? true : false"
               @click="noticeFormOpen()"
               class="
                 button
@@ -91,7 +92,8 @@
         </div>
         <!-- Primary Notice List -->
         <div class="py-4 md:py-6 space-y-2">
-          <div v-for="(pNotice, index) in primaryNotices" :key="index" @click="noticeDetailOpen(pNotice.id)" class="w-full h-10 bg-[#FFBF00] text-white rounded-md flex justify-between items-center p-2">
+          <div v-for="(pNotice, index) in primaryNotices" :key="index" @click="noticeDetailOpen(pNotice.id)" class="w-full md:h-10
+        xxs:h-8 bg-[#FFBF00] text-white rounded-md shadow-md border border-gray-200 flex justify-between items-center p-2">
             <!-- Condition Icon -->
             <div class="flex space-x-2">
               <svg
@@ -202,6 +204,7 @@
                   : 'text-green-500',
               ]"
             >
+              <!-- Condition Icon -->
               <svg
                 v-show="notice.condition === 'emergency'"
                 xmlns="http://www.w3.org/2000/svg"
@@ -295,20 +298,24 @@
 <script>
 import { ref, computed, onMounted } from "vue-demi";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { useNoticeStore } from "../../stores/notices";
 
 export default {
     setup () {
         const router = useRouter();
+        
+        /* Vuex */
+        const vuexStore = useStore();
+
+        /* Pinia */
         const store = useNoticeStore();
 
         const notices = computed(() => {
-            console.log('공지사항:', store.notices);
             return store.notices;
         })
 
         const primaryNotices = computed(() => {
-            console.log('메인 공지사항:', store.primaryNotices);
             return store.primaryNotices;
         })
 
@@ -343,6 +350,7 @@ export default {
             filter_name,
             filter_menu,
             toggleFilterMenu,
+            is_login: computed(() => vuexStore.state.is_login),
         }
     }
 }

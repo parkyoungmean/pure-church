@@ -25,7 +25,7 @@
   
   <!-- notices & donation -->
   <section id="notices" class="min-h-screen">
-    <div class="w-full min-h-screen font-sans text-gray-900">
+    <div class="w-full min-h-screen font-sans bg-indigo-400/20 text-gray-900">
       <main class="md:py-16 px-4 mx-auto max-w-5xl">
         <div>
           <div>
@@ -74,9 +74,8 @@
           <div class="">
             <div x-show="tab === 'notice'" class="">
               <p>여기는 공지사항입니다.</p>
-              <!-- SimpleList -->
-              <!-- <SimpleList :primaryNotices="primaryNotices" :notices="notices" /> -->
-              <NoticeCardList />
+              <SimpleList class="block md:hidden" />
+              <NoticeCardList class="hidden md:block" />
             </div>
             <div x-show="tab === 'bbs'" class="">
               <p class="text-cw-grey-900">여기는 자유게시판입니다.</p>
@@ -108,7 +107,7 @@ import { usePublicityStore } from "../stores/publicities";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ServiceTeam from "@/components/ServiceTeam.vue";
 import SchoolList from "@/components/simplehome/SchoolList.vue";
-import SimpleList from "@/components/SimpleList.vue";
+import SimpleList from "@/components/simplehome/SimpleList.vue";
 import SimplePosts from "@/components/SimplePosts.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
