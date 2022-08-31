@@ -237,10 +237,7 @@
         class="
           md:flex
           justify-between
-          xxs:px-10
-          xs:px-25
-          sm:px-48
-          md:px-6 md:py-6 md:pr-5 md:space-x-4
+          md:py-6 md:space-x-4
         "
       >
         <SchoolSeries
@@ -248,6 +245,7 @@
           :key="index"
           :content="school"
           :color="currentSchool.color"
+          class="m-auto"
         />
       </div>
     </div>

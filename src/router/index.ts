@@ -212,6 +212,18 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 갤러리 */
+  {
+    path: '/gallery',
+    name: 'gallery',
+    component: () => import(/* webpackChunkName: "gallery" */ '../views/GalleryView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

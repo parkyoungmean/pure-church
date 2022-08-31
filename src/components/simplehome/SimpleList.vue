@@ -99,6 +99,7 @@
     <!-- End of Primary Notice List -->
     <!-- Notice List -->
     <div
+      @click="noticeDetailOpen(notice.id)"
       v-for="notice in notices"
       :key="notice.id"
       class="
@@ -217,7 +218,7 @@
         </div>
       </div>
     </div>
-    <!-- End of Normal Notice -->
+    <!-- End of Notice List -->
   </div>
 </template>
 

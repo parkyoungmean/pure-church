@@ -46,7 +46,6 @@
       </div>
     </div>
     <!-- End of Progressbar -->
-    
     <h1
       class="
         w-full
@@ -66,7 +65,7 @@
       *표시는 필수 입력항목입니다.
     </h1>
     <!-- School Registration Form -->
-    <form ref="form" @submit.prevent="onSubmit" class="form">
+    <form ref="form" @submit.prevent="onSubmit" class="form" name="schoolfr">
       <!-- One Step -->
       <div
         class="form-step form-step-active slidepage flex flex-col items-center"
@@ -191,6 +190,7 @@
             type="text"
             placeholder="강의제목을 입력하세요."
             v-model="lecture_title"
+            name="input_lecture"
           />
           <button
             @click="addLecture"
@@ -653,6 +653,8 @@ export default {
       });
 
       lecture_title.value = "";
+      
+      console.log(document.schoolfr.input_lecture);
     };
 
     const removeLecture = (lecture) => {

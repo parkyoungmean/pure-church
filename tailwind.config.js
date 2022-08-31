@@ -35,6 +35,7 @@ module.exports = {
       rose: colors.rose,
       fuchsia: colors.fuchsia,
       cyan: colors.cyan,
+      violet: colors.violet,
       /* 07. color of Rose Bud */
       "rose-bud-100": "#FEDCD4",
       "rose-bud-200": "#FCB1A0",

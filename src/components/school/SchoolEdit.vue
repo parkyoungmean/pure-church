@@ -64,7 +64,7 @@
       *표시는 필수 입력항목입니다.
     </h1>
     <!-- School Edit Form -->
-    <form ref="form" @submit.prevent="onSubmit" class="form">
+    <form ref="form" @submit.prevent="onSubmit" class="form" name="schoolfr">
       <!-- One Step -->
       <div
         class="form-step form-step-active slidepage flex flex-col items-center"
@@ -189,6 +189,7 @@
             type="text"
             placeholder="강의제목을 입력하세요."
             v-model="lecture_title"
+            name="input_lecture"
           />
           <button
             @click="addLecture"
@@ -247,7 +248,7 @@
                     {{ index + 1 }}강
                   </span>
                   <input
-                    class=""
+                    class="input-lecture"
                     style="border: none; background: transparent"
                     type="text"
                     v-model="lecture.title"
@@ -651,6 +652,7 @@ export default {
       ) {
         return;
       }
+
       currentSchool.value.curriculum.push({
         title: lecture_title.value,
         createdAt: new Date().getTime(),
@@ -658,6 +660,8 @@ export default {
       });
 
       lecture_title.value = "";
+
+      document.schoolfr.input_lecture.focus();
     };
 
     const removeLecture = (lecture) => {
