@@ -62,8 +62,7 @@
                 text-xs
                 md:text-lg
                 p-1
-                md:p-1
-                5
+                md:p-1.5
                 rounded-3xl
                 bg-purple-500
                 space-x-1

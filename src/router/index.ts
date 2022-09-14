@@ -224,6 +224,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/galleryregistration',
+    name: 'galleryregistration',
+    component: () => import(/* webpackChunkName: "galleryRegistration" */ '../components/gallery/GalleryRegistration.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

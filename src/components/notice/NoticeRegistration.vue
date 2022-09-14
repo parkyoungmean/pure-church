@@ -77,13 +77,13 @@
                                 <div v-if="!tempImg || tempImg.length===0" class="relative h-60 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center hover:cursor-pointer">
                                     <div class="absolute">
                                         <div class="flex flex-col items-center justify-center mt-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="#D1D5DB" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <span class="block text-xs md:text-lg text-gray-400 font-normal">이미지 파일을 드래그해주세요.</span>
-                                        <span class="block text-xs md:text-lg text-gary-400 font-normal">혹은</span>
-                                        <span class="block text-xs md:text-lg text-gary-400 font-normal">여기를 클릭해서 파일을 선택하세요.</span>
-                                        <span class="block text-md md:text-xl text-blue-400 font-normal">파일 찾아보기</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="#D1D5DB" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <span class="block text-xs md:text-lg text-gray-400 font-normal">이미지 파일을 드래그해주세요.</span>
+                                            <span class="block text-xs md:text-lg text-gary-400 font-normal">혹은</span>
+                                            <span class="block text-xs md:text-lg text-gary-400 font-normal">여기를 클릭해서 파일을 선택하세요.</span>
+                                            <span class="block text-md md:text-xl text-blue-400 font-normal">파일 찾아보기</span>
                                         </div>
                                     </div>
                                     <input @change="changeImageFile" type="file" class="w-full h-full opacity-0">
@@ -131,6 +131,7 @@ export default {
 
         /* Image Select */
         const changeImageFile = (e) => {
+            console.log(e.target.files[0]);
             tempImg.value = URL.createObjectURL(e.target.files[0]);
             img.value = e.target.files[0];
         }
