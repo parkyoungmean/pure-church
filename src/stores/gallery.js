@@ -21,7 +21,7 @@ export const useGalleryStore = defineStore("gallery", {
             return state.galleryImages;
         },
         getCurrentGallery(state) {
-            return state.currentGalleryImage;
+            return state.currentImage;
         },
     },
     actions: {

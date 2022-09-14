@@ -7,7 +7,7 @@
                       <!-- Logo -->
                       <div class="flex items-center justify-center relative z-20">
                           <router-link to="/userhome"><img src="../assets/logo/01.jpeg" alt="" class="w-12"></router-link>
-                          <p class="hidden md:block text-epic-blue font-bold">순전한 교회</p>
+                          <p class="md:block text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-epic-blue">순전한 교회</p>
                       </div>
                       <!-- End of Logo -->
                       <!-- Hamburgur Menu -->
