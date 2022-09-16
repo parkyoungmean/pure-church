@@ -14,6 +14,7 @@ const instance = axios.create({
 export const useGalleryStore = defineStore("gallery", {
     state: () => ({
         galleryImages: null,
+        currentGallery: null,
         currentImage: [],
     }),
     getters: {
@@ -25,6 +26,11 @@ export const useGalleryStore = defineStore("gallery", {
         },
     },
     actions: {
+        /* select Current Gallery */
+        async selectedGallery(payload) {
+            const index = this.galleryImages.findIndex((element) => element.id === payload);
+            this.currentGallery = this.galleryImages[index];
+        },
         /* create Gallery */
         async createGallery(payload) {
             try {

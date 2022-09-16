@@ -15,7 +15,7 @@
   >
     <!-- Logo -->
     <div class="cursor-pointer">
-      <router-link to="/" class=" flex items-center text-green-500 text-xl md:text-2xl mr-1 z-20">
+      <router-link to="/" class=" flex items-center text-green-500 text-md md:text-lg mr-1 z-20">
         <img src="../assets/logo/01.jpeg" class="w-[51px] h-[51px]" alt="" />
         <p class="md:block font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-epic-blue">순전한 교회</p>
       </router-link>

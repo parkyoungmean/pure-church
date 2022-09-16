@@ -235,6 +235,19 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 갤러리 세부 */
+  {
+    path: '/gallerydetail',
+    name: 'gallerydetail',
+    component: () => import(/* webpackChunkName: "galleryDetail" */ '../components/gallery/GalleryDetail.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      store.hide_nav = true;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({

@@ -32,8 +32,8 @@
                 </div>
                 <!-- Image List -->
                 <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 py-6">
-                    <div v-for="g in gallery" class="group">
-                        <div class="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
+                    <div v-for="g in gallery" :key="g.id" class="group">
+                        <div @click="galleryDetailOpen(g.id)" class="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
                             <img v-if="g.imgs.length!==0" :src="`${g.imgs[0].link}`" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
                             <img v-else src="https://bit.ly/placeholder-img" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
                         </div>
@@ -61,14 +61,19 @@ export default {
         const router = useRouter();
         const store = useGalleryStore();
 
-        const gallery = computed(() => {
-            console.log('갤러리', store.galleryImages);
+        const gallery = computed(() => {            
             return store.galleryImages;
         })
 
         onMounted(() => {
             store.fetchGallery();
         })
+
+        const galleryDetailOpen = (id) => {
+            console.log(id);
+            store.selectedGallery(id);
+            router.push("/gallerydetail");
+        };
 
         /* Create Gallery Infomation */
         const galleryFormOpen = () => {
@@ -78,6 +83,7 @@ export default {
         return {
             gallery,
             galleryFormOpen,
+            galleryDetailOpen,
         }
     }
 }
