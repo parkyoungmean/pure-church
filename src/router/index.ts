@@ -170,7 +170,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/noticeedit',
     name: 'noticeedit',
-    component: () => import(/* webpackChunkName: "noticeEdit */ '../components/notice/NoticeEdit.vue'),
+    component: () => import(/* webpackChunkName: "noticeEdit" */ '../components/notice/NoticeEdit.vue'),
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
