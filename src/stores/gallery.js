@@ -112,5 +112,23 @@ export const useGalleryStore = defineStore("gallery", {
                 console.error("Gallery's Update 에러:", error);
             }
         },
+        /* Delete Gallery */
+        async deleteGallery(payload) {
+            try {
+                await instance
+                    .post("gallery/deleteGallery", {
+                        id: payload,
+                    })
+                    .then((res) => {
+                    console.log("data:", res.data);
+                    
+                    console.log("갤러리가 삭제되었습니다.");
+                    alert("갤러리 삭제 성공!");
+                    });
+            } catch (error) {
+                alert("갤러리 삭제가 실패하였습니다ㅜㅜ");
+                console.error("Gallery's Delete 에러:", error);
+            }
+        },
     }
 })
