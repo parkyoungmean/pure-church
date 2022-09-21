@@ -1,4 +1,7 @@
 <template>
+  <!-- LOADING -->
+  <Loading v-if="isLoading" />
+  <!-- END OF LOADING -->
   <!-- MODAL -->
   <div
     v-if="open_modal"
@@ -56,15 +59,18 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
+import { useImageStore } from "./stores/images";
 import SimpleNavbar from "./components/SimpleNavbar.vue";
 import SimpleHome from "./components/SimpleHome.vue";
 import Sidebar from "./components/Sidebar.vue";
+import Loading from "./components/common/Loading.vue";
 
 export default {
   components: {
     SimpleNavbar,
     SimpleHome,
     Sidebar,
+    Loading,
   },
   setup() {
     /* Vuex */
@@ -72,6 +78,7 @@ export default {
 
     /* Pinia */
     const store = useUserStore();
+    const imgStore = useImageStore();
 
     const toggleModal = () => {
       store.toggleModal();
@@ -79,6 +86,7 @@ export default {
 
     return {
       is_login: computed(() => vuexStore.state.is_login),
+      isLoading: computed(() => imgStore.isLoading),
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
       show_sidebar: computed(() => store.show_sidebar),

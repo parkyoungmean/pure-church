@@ -9,6 +9,7 @@ dayjs.locale("ko"); // global로 한국어 locale 사용
 
 export const useImageStore = defineStore("image", {
     state: () => ({
+        isLoading: false,
         images: null,
         currentImage: [],
         currentMobileImage: [],
@@ -24,6 +25,16 @@ export const useImageStore = defineStore("image", {
         },
     },
     actions: {
+        /* Toggle Loader */
+        toggleLoading(dir = null) {
+            if (dir === true) {
+              state.isLoading = true
+            } else if (dir === false) {
+              state.isLoading = false
+            } else {
+              this.isLoading = !this.isLoading;
+            }
+        },
         /* upload Image */
         async uploadImage(image) {
             try {
@@ -73,6 +84,9 @@ export const useImageStore = defineStore("image", {
         /* upload Image */
         async uploadMultipleImages(image) {
             
+            /* 로딩 start */
+            this.toggleLoading();
+            
             try {
                 console.log('image:', image);
 
@@ -95,8 +109,13 @@ export const useImageStore = defineStore("image", {
                         this.currentImages02.push({ id, deletehash, link, size, type, width, height, datetime });
                     }
                     
+                    /* 로딩 end */
+                    this.toggleLoading();
                 })
             } catch (error) {
+                /* 로딩 end */
+                this.toggleLoading();
+                
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  
             }

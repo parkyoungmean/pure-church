@@ -22,7 +22,7 @@ export const useGalleryStore = defineStore("gallery", {
             return state.galleryImages;
         },
         getCurrentGallery(state) {
-            return state.currentImage;
+            return state.currentGallery;
         },
     },
     actions: {
@@ -94,6 +94,22 @@ export const useGalleryStore = defineStore("gallery", {
 
             } catch (error) {
                 console.error(error);
+            }
+        },
+        /* update Gallery */
+        async updateGallery(payload) {
+            try {
+                payload.updatedAt = dayjs();
+
+                await instance.post("gallery/updateGallery", payload)
+                .then((res) => {
+                    console.log("Gallery:", res.data);
+
+                    alert("갤러리 수정 성공!");
+                })
+            } catch (error) {
+                alert("새 갤러리 수정이 실패하였습니다.ㅜㅜ");
+                console.error("Gallery's Update 에러:", error);
             }
         },
     }

@@ -17,11 +17,11 @@
                 <input multiple @change="changeImageFile" type="file" class="w-full h-full opacity-0">
             </div>
         </div>
-        <!-- Image List -->
-        <div v-if="tempImgs.length !== 0" class="w-full flex items-center my-2 gap-x-2" :class="tempImgs.length > 20 ? 'bg-red-300/90 text-white' : ''">
-            <p class="font-medium text-xs md:text-lg">사진: {{ tempImgs.length }} 장 </p>
+        <!-- Image Info -->
+        <div v-if="tempImgs.length !== 0" class="w-full flex items-center my-2 gap-x-2" :class="newCnt > 20 ? 'bg-red-300/90 text-white' : ''">
+            <p class="font-medium text-xs md:text-lg">총: {{ tempImgs.length }} 장 / {{ newCnt }} </p>
             <svg
-                v-show="tempImgs.length > 20"
+                v-show="newCnt > 20"
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-4 w-4 md:h-6 md:w-6"
                 fill="none"
@@ -35,8 +35,9 @@
                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                 />
             </svg>
-            <span v-if="tempImgs.length > 20" class="text-white text-xs md:text-lg bg-red-300/90">사진 업로드 제한(20개)를 초과하였습니다!!! </span>
+            <span v-if="newCnt > 20" class="text-white text-xs md:text-lg bg-red-300/90">새로운 사진 업로드 제한(20장)를 초과하였습니다!!! </span>
         </div>
+        <!-- Image List -->
         <table v-if="tempImgs.length !== 0" class="w-full">
             <thead>
                 <tr class="text-xs md:text-sm font-medium text-gray-700 border-b border-gray-200">
@@ -46,16 +47,29 @@
                 </tr>
             </thead>
             <tbody v-for="(img, index) in tempImgs" :key="index" class="tex-xs md:text-sm">
-                <tr :class="img.invalidMessage ? 'bg-red-300/90 text-white' : 'bg-yellow-300/60'">
+                <!-- 새로운 이미지일 경우 -->
+                <tr v-if="img.name" :class="img.invalidMessage ? 'bg-red-300/90 text-white' : 'bg-yellow-300/60'">
                     <td class="md:py-1 text-xs md:text-sm text-center">
                         <!-- <img :src="" alt=""> -->
                         <span>{{img.name}}</span>
                     </td>
                     <td class="md:py-1 text-xs md:text-sm text-center">{{ img.type.split('/')[1] }}</td>
                     <td class="md:py-1 text-xs md:text-sm text-center">
-                        <i @click.prevent="tempImgs.splice(index, 1); imgs.splice(index, 1)" class="material-icons text-red-500">delete
+                        <i @click="removeItem(img)" class="material-icons text-red-500">delete
                         </i>
                     </td>                                        
+                </tr>
+                <!-- 기존의 이미지일 경우 -->
+                <tr v-else-if="img.link" :class="img.invalidMessage ? 'bg-red-300/90 text-white' : 'bg-yellow-300/60'">
+                    <td class="md:py-1 text-xs md:text-sm text-center">
+                        <!-- <img :src="" alt=""> -->
+                        <span>{{img.link}}</span>
+                    </td>
+                    <td class="md:py-1 text-xs md:text-sm text-center">{{ img.type.split('/')[1] }}</td>
+                    <td class="md:py-1 text-xs md:text-sm text-center">
+                        <i @click="removeItem(img)" class="material-icons text-red-500">delete
+                        </i>
+                    </td>
                 </tr>
                 <tr class="text-center">
                     <td colspan="4" class="text-xs md:text-sm py-1 text-red-400"><span v-if="img.invalidMessage">&nbsp; - {{ img.invalidMessage }} </span> </td>
@@ -76,6 +90,9 @@ export default {
       imgs: {
           type: Object,
       },
+      newCnt: {
+        type: Number,
+      },
     },
     setup (props, context) {
         
@@ -84,8 +101,13 @@ export default {
             context.emit('on-change', e);
         }
         
+        const removeItem = (img) => {
+            context.emit('on-remove', img);
+        };
+
         return {
-            changeImageFile
+            changeImageFile,
+            removeItem,
         }
     }
 }

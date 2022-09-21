@@ -25,7 +25,7 @@
                 <!-- End of Close Button -->
                 <!-- FORM -->
                 <div class="flex flex-col items-center justify-center">
-                    <h2 class="text-2xl font-semibold md:text-3xl p-2 md:p-5">갤러리 등록하기</h2>
+                    <h2 class="text-2xl font-semibold md:text-3xl p-2 md:p-5">갤러리 수정하기</h2>
                     <div class="bg-gray-200/60 md:w-2/5 p-6 rounded-lg shadow-md">
                         <form action="" @submit.prevent="onSubmit">
                             <!-- Belong Selecter -->
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { ref } from "vue-demi";
+import { ref, computed, onMounted } from "vue-demi";
 import { useRouter } from "vue-router";
 import { useGalleryStore } from "../../stores/gallery";
 import { useImageStore } from "../../stores/images";
@@ -84,31 +84,55 @@ export default {
         const store = useGalleryStore();
         const imgStore = useImageStore();
 
-        const title = ref("");                  // 제목
-        const category = ref("gallery");        // 카테고리 ex.갤러리, 주보 etc
-        const belong = ref("");                 // 소속 ex.전체, ~학교 etc
-        const author = ref("");                 // 저자 
-        const tempImgs = ref([]);               // 임시 이미지
-        const imgs = ref([]);                   // 이미지
+        const currentGallery = computed(() => {
+            return store.currentGallery;
+        });
+
+        const title = ref(currentGallery.value.title);                   // 제목
+        const category = ref(currentGallery.value.category);             // 카테고리 ex.갤러리, 주보 etc
+        const belong = ref(currentGallery.value.belong);                 // 소속 ex.전체, ~학교 etc
+        const author = ref(currentGallery.value.author);                 // 저자 
+        const tempImgs = ref([]);                                        // 임시 이미지
+        const imgs = ref([]);                                            // 이미지
         const newCnt = ref(0);
+
+        /* 기존의 이미지 파일을 tempImg와 imgs에 저장하여 사용합니다. */
+        onMounted(() => {
+            console.log(currentGallery.value);
+            tempImgs.value = currentGallery.value.imgs;
+            console.log('tempImgs:', tempImgs.value);
+
+            imgs.value = currentGallery.value.imgs;
+
+            console.log('imgs:', imgs.value);
+
+        });
 
         /* Images Select */
         const changeImageFile = (e) => {
+
             const files = e.target.files;
 
-            imgs.value = [...imgs.value, ...files ];
+            /* 새 업로드 이미지가 있을 경우에만 */
+            if (files.length > 0) {
 
-            newCnt.value = newCnt.value + files.length;
+                newCnt.value = newCnt.value + files.length;
 
-            tempImgs.value = [
-                ...tempImgs.value,
-                ..._.map(files, file => ({
-                    name: file.name,
-                    size: file.size,
-                    type: file.type,
-                    invalidMessage: validate(file)
-                }))
-            ]
+                imgs.value = [
+                    ...imgs.value, 
+                    ...files 
+                ];
+
+                tempImgs.value = [
+                    ...tempImgs.value,
+                    ..._.map(files, file => ({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        invalidMessage: validate(file)
+                    }))
+                ]
+            }
         }
 
         /* Validate Check */
@@ -116,22 +140,42 @@ export default {
             const MAX_SIZE = 10485760*1;                                        // 10MB
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             
-            if (file.size > MAX_SIZE) {
-                return `파일 업로드는 ${MAX_SIZE/1024/1024}MB를 초과할 수 없습니다.`;
-            }
+            /* 새로운 파일인 경우에만 유효성 검사를 합니다. */
+            if (file.name) {
+                if (file.size > MAX_SIZE) {
+                    return `파일 업로드는 ${MAX_SIZE/1024/1024}MB를 초과할 수 없습니다.`;
+                }
 
-            if (!allowedTypes.includes(file.type)) {
-                return "이미지 파일이 아닙니다.";
-            }
+                if (!allowedTypes.includes(file.type)) {
+                    return "이미지 파일이 아닙니다.";
+                }
 
-            return "";
+                return "";
+            }
         }
 
-        const removeItem = (index) => {
-            tempImgs.value.splice(index, 1);
-            imgs.value.splice(index, 1);
-            newCnt.value = newCnt.value - 1 ;
-            console.log('제거 후 newCnt:', newCnt.value);
+        const removeItem = (img) => {
+            let index = tempImgs.value.findIndex((item) => item===img);
+
+            /* 새롭게 업로드하는 이미지일 경우 */
+            if (index !== -1 && img.name) {
+
+                tempImgs.value.splice(index, 1);
+                imgs.value.splice(index, 1);
+                newCnt.value = newCnt.value - 1;
+
+            } else if (index !== -1 && img.link) {
+                
+                tempImgs.value.splice(index, 1);
+
+                var nindex = imgs.value.findIndex((item) => item===img);
+                
+                if (nindex !== -1) {
+                    imgs.value.splice(nindex, 1);
+                }
+            } else {
+                console.log('존재하지 않는 이미지입니다.', index);
+            }
         };
 
         const onSubmit = async () => {
@@ -141,39 +185,64 @@ export default {
                 return;
             }
 
-            if (newCnt.value === 0) {
+            if (newCnt.value + imgs.value.length === 0) {
                 alert("새로 업로드할 사진을 선택해주세요!")
                 return;
             } 
-
+            
             if (newCnt.value > 20) {
-                return "사진 업로드 제한선인 20개를 초과하였습니다!"
+                return "새로 업로드하는 사진 제한선인 20개를 초과하였습니다!"
+            }
+
+            if (imgs.value.length > 40) {
+                return "최종 사진 제한선인 40개를 초과하였습니다!"
             }
 
             /* Upload Image */
             for (const file of imgs.value) {
-                
-                if(validate(file) === "") {
-                    await imgStore.uploadMultipleImages(file)
-                    .then(() => {
+
+                /* file.name인 경우는 새로 업로드하는 파일이므로 이미지 업로드 로직을 실행합니다. */
+                if (file.name) {
+                    
+                    if(file && validate(file) === "") {
                         
-                    })
+                        await imgStore.uploadMultipleImages(file)
+                        .then(() => {
+                            
+                        })
+                    }
+                }
+
+                /* file.link인 경우는 기존에 업로드한 파일이므로 이미지 업로드 대상에서 제외하고 데이터만 저장합니다. */
+                if (file.link) {
+                    
+                    if (imgStore.currentImages01.length < 11) {
+                        imgStore.currentImages01.push(file);
+                    } else {
+                        imgStore.currentImages02.push(file);
+                    }
                 }
             }
 
             const gallery =  {
+                id: currentGallery.value.id,
                 title: title.value,
                 category: category.value,
                 belong: belong.value,
-                author: '관리자',
+                author: author.value,
                 imgs01: JSON.stringify(imgStore.currentImages01),
                 imgs02: JSON.stringify(imgStore.currentImages02),
+                createdAt: currentGallery.value.createdAt,
             }
 
-            console.log('새 갤러리는?', gallery);
+            /* 갤러리 글 로딩 start */
+            imgStore.toggleLoading();
 
-            store.createGallery(gallery).then(() => {
-                router.go(-1);
+            store.updateGallery(gallery).then(() => {
+                router.go(-2);
+
+                /* 갤러리 글 로딩 end */
+                imgStore.toggleLoading();
             })
         }
 

@@ -162,7 +162,7 @@ export const useNoticeStore = defineStore("notice", {
         /* update Notice */
         async updateNotice(payload) {
             try {
-                payload.updatedAt = dayjs();;
+                payload.updatedAt = dayjs();
 
                 await instance.post("notice/updateNotice", payload)
                 .then((res) => {

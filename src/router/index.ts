@@ -248,6 +248,18 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 갤러리 수정 */
+  {
+    path: '/galleryedit',
+    name: 'galleryedit',
+    component: () => import(/* webpackChunkName: "galleryEdit" */ '../components/gallery/GalleryEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
 ]
 
 const router = createRouter({
