@@ -3,6 +3,7 @@
         <!-- Add Gallery Button -->
         <div class="right flex justify-end items-center text-xs md:text-lg">
             <div
+            v-show="is_login ? true : false"
             @click="galleryFormOpen()"
             class="
                 button
@@ -44,11 +45,16 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { useGalleryStore } from "../../stores/gallery";
 
 export default {
     setup () {
         const router = useRouter();
+
+        /* Vuex */
+        const vuexStore = useStore();
+
         const store = useGalleryStore();
 
         const gallery = computed(() => {            
@@ -74,6 +80,7 @@ export default {
             gallery,
             galleryFormOpen,
             galleryDetailOpen,
+            is_login: computed(() => vuexStore.state.is_login),
         }
     }
 }

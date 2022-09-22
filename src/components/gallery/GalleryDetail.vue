@@ -28,7 +28,7 @@
                     <h1 class="text-white font-bold md:font-extrabold text-sm md:text-xl pt-1 lg:text-3xl"> {{ gallery.title }} </h1>
                 </div>
                 <!-- 더 보기 Button -->
-                <div @click="dropdownOpen" class="absolute right-10 pt-10 md:pt-12 text-2xl grid place-items-center rounded-full cursor-pointer text-white z-10">
+                <div @click="dropdownOpen" v-if="is_login ? true : false" class="absolute right-10 pt-10 md:pt-12 text-2xl grid place-items-center rounded-full cursor-pointer text-white z-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-10 md:h-10">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                     </svg>

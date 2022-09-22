@@ -25,7 +25,7 @@
   
   <!-- notices & donation -->
   <section id="notices" class="min-h-screen">
-    <div class="w-full min-h-screen font-sans bg-indigo-400/20 text-gray-900">
+    <div class="w-full min-h-screen font-sans bg-gradient-to-br from-purple-100 bg-indigo-400/80 text-gray-900">
       <main class="md:py-16 px-4 mx-auto max-w-5xl">
         <div>
           <div>
@@ -33,63 +33,66 @@
               공지 및 후원
             </h1>
           </div>
-          <p clas="pt-3 text-lg text-gray-700">
-            공지, 후원, 게시글, 활동 사진을 모아 보여줍니다.
-          </p>
         </div>
         <!-- Tabs -->
         <div x-data="{ tab: 'notice' }" class="">
           <!-- Tab Menu -->
-          <div class="flex gap-x-8 items-center pt-12">
+          <div class="md:gap-x-10 relative md:w-max mx-auto h-9 md:h-12 grid grid-cols-4 items-center px-[3px] rounded-full bg-gray-900/20 overflow-hidden shadow-2xl shadow-900/20">
+            <div class="absolute indicator h-8 md:h-11 my-auto top-0 bottom-0 -left-1 w-20 md:w-32 rounded-full bg-white shadow-md"></div>
             <a
+              @click="moveTabIndicator(0)"
               href=""
               x-on:click.prevent="tab = 'notice'"
-              class="text-sm md:text-lg font-medium"
+              class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-              공지사항
+              <span class="text-gray-800">공지사항</span>
             </a>
             <a
+              @click="moveTabIndicator(1)"
               href=""
               x-on:click.prevent="tab = 'bbs'"
-              class="text-sm md:text-lg font-indigo-500"
+              class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-              자유 게시판
+            <span class="text-gray-800">자유 게시판</span>
             </a>
             <a
+              @click="moveTabIndicator(2)"
               href=""
               x-on:click.prevent="tab = 'gallery'"
-              class="text-sm md:text-lg font-indigo-500"
+              class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-              활동 사진
+            <span class="text-gray-800 pl-2"> 활동사진</span>
             </a>
             <a
+              @click="moveTabIndicator(3)"
               href=""
               x-on:click.prevent="tab = 'donation'"
-              class="text-sm md:text-lg font-indigo-500"
+              class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-              후원 안내
+            <span class="text-gray-800 pl-2.5"> 후원 안내</span>
             </a>
           </div>
           <!-- End of Tab Menu -->
-          <div class="">
-            <div x-show="tab === 'notice'" class="">
-              <p>여기는 공지사항입니다.</p>
+          <div class="mt-4 md:mt-6 relative rounded-3xl md:bg-purple-50">
+            <div x-show="tab === 'notice'" class="tab-panel px-1 md:p-6 transition duration-300">
+              <h2 class="text-md md:text-xl font-semibold text-gray-800">❏ 공지사항</h2>
               <SimpleList class="block md:hidden" />
               <NoticeCardList class="hidden md:block" />
             </div>
-            <div x-show="tab === 'bbs'" class="">
-              <p class="text-cw-grey-900">여기는 자유게시판입니다.</p>
+            <div x-show="tab === 'bbs'" class="tab-panel px-1 md:p-6 transition duration-300">
+              <h2 class="text-md md:text-xl font-semibold text-gray-800">❏ 자유게시판</h2>
               <!-- Blogs -->
               <SimplePosts :posts="posts" />
               <!-- End of Blogs -->
             </div>
-            <div x-show="tab === 'gallery'" class="">
-              <p>여기는 활동사진입니다.</p>
+            <div x-show="tab === 'gallery'" class="tab-panel px-1 md:p-6 transition duration-300">
+              <h2 class="text-md md:text-xl font-semibold text-gray-800">❏ 활동사진</h2>
               <!-- Gallery -->
-              <SimpleGallery />
+              <ImageCardList />
+              <!-- <SimpleGallery /> -->
             </div>
-            <div x-show="tab === 'donation'" class="">
-              <p>여기는 후원 안내입니다.</p>
+            <div x-show="tab === 'donation'" class="tab-panel px-1 md:p-6 transition duration-300">
+              <h2 class="text-md md:text-xl font-semibold text-gray-800">❏ 후원안내</h2>
             </div>
           </div>
         </div>
@@ -111,8 +114,8 @@ import SimpleList from "@/components/simplehome/SimpleList.vue";
 import SimplePosts from "@/components/SimplePosts.vue";
 import SimpleGallery from "@/components/SimpleGallery.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
-
 import NoticeCardList from "@/components/notice/NoticeCardList.vue";
+import ImageCardList from "./gallery/ImageCardList.vue";
 
 export default {
   components: {
@@ -124,6 +127,7 @@ export default {
     SimpleGallery,
     SimpleCarousel,
     NoticeCardList,
+    ImageCardList,
   },
   setup() {
    
@@ -131,7 +135,6 @@ export default {
     const store = usePublicityStore();
 
     const slides = computed(() => {
-      console.log('슬라이드:', store.publicities);
       return store.publicities;
     })
 
@@ -251,9 +254,24 @@ export default {
       },
     ];
 
+    const moveTabIndicator = (pos) => {
+
+      const tabs = document.querySelectorAll(".tab")
+      const indicator = document.querySelector(".indicator")
+      const panels = document.querySelectorAll(".tab-panel")
+
+      indicator.style.width = tabs[0].getBoundingClientRect().width + 'px'
+      indicator.style.left = tabs[0].getBoundingClientRect().left - tabs[0].parentElement.getBoundingClientRect().left + 'px'
+
+
+      indicator.style.width = tabs[pos].getBoundingClientRect().width + 'px'
+      indicator.style.left = tabs[pos].getBoundingClientRect().left - tabs[pos].parentElement.getBoundingClientRect().left + 'px'
+    };
+    
     return {
       slides,
       posts,
+      moveTabIndicator,
     };
   },
 };

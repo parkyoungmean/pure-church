@@ -67,3 +67,8 @@
   background-color: rgba(31, 41, 55, var(--bg-opacity));
   border-radius: 0.25rem;
 }
+
+/* 심플 홈의 공지&후원 섹션의 탭 indicator의 움직임에 효과를 줍니다. */
+.indicator {
+  transition: left .4s;
+}
