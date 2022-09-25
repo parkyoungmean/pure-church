@@ -7,7 +7,7 @@
   </section>
 
   <section id="worship" class="min-h-screen bg-red-100">
-    <div class="grid grid-cols-12 gap-2">
+    <div class="grid grid-cols-12 gap-2 md:h-screen">
       <div class="col-span-12 xl:col-span-9 bg-[#70367c] rounded-r-[37px] flex gap-2 flex-col lg:flex-row md:divide-x-2">  
         <div class="flex-1 pt-10 md:pt-20 bg-white md:p-5">
           <div>
