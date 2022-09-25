@@ -6,6 +6,72 @@
     <SimpleCarousel :slides="slides" />
   </section>
 
+  <section id="worship" class="min-h-screen bg-red-100">
+    <div class="grid grid-cols-12 gap-2">
+      <div class="col-span-12 xl:col-span-9 bg-[#70367c] rounded-r-[37px] flex gap-2 flex-col lg:flex-row md:divide-x-2">  
+        <div class="flex-1 pt-10 md:pt-20 bg-white md:p-5">
+          <div>
+            <div>
+              <h1 class="text-center text-5xl font-bold text-gray-500 pb-2 md:pb-10">
+                예배 안내
+              </h1>
+            </div>
+          </div>
+          <!-- Main Content -->
+          <div class="flex flex-col gap-10 p-7">
+            <!-- Worships -->
+            <div class="xl:py-5">
+              <h3 class="text-3xl pb-2">
+                오늘의 예배 영상
+              </h3>
+              <CurrentWorships />
+            </div>
+            
+            <!-- End Of Worships -->
+            <div class="md:grid md:grid-cols-12 md:grid-rows-2 gap-10 space-y-15 md:space-y-0">
+              <!-- Placard -->
+              <div class="row-span-2 col-span-12 md:col-span-6">
+                <div class="space-y-7 w-full">
+                  <h3 class="text-3xl">
+                    전체 예배 보기
+                  </h3>
+                  <div class="flex flex-col space-y-4">
+                    <Placard v-for="(card, index) in placards" :key="index" :card="card" />
+                  </div>
+                </div>
+              </div>
+              <!-- End Of Placard -->
+              <!-- Bulletin  -->
+              <div class="row-span-2 col-span-12 md:col-span-6">
+                <!-- Service Time Header -->
+                <div class="flex justify-between items-center pb-3">
+                    <h2 class="text-3xl font-bold">오늘의 주보</h2>
+                    <button class="relative p-2 bg-white rounded-xl flex">
+                        <p>전체 보기</p>
+                        <span class="material-icons-outlined">
+                          keyboard_double_arrow_right
+                        </span>
+                    </button>
+                </div>
+                <!-- Image -->
+                <div class="relative h-96 xl:h-[500px] 2xl:h-[600px] w-72 md:w-full rounded-2.5xl p-10 bg-center bg-cover bg-no-repeat" :style="`background-image: url('https://imgur.com/ZXJoSNG.jpg')`">
+                  <span class="absolute px-1.5 py-0.5 md:px-2 md:py-2 left-5 top-5 rounded-lg bg-gray-900/50 text-lg text-white font-bold">2022.09.25</span>
+                </div> 
+              </div>
+              <!-- End Of Bulletin -->
+            </div>
+          </div>
+          <!-- End Of Main Content -->
+        </div>
+      </div>
+      <!-- Service Time -->
+      <div class="hidden xl:col-span-3 xl:block">
+        <Calendar class="p-10" />
+      </div>
+      <!-- End Of Service Time -->
+    </div>
+  </section>
+  
   <section id="introduce" class="min-h-screen bg-gray-100">
     <div class="pb-15 md:pb-25">
       <!-- <ProfileCard class="w-1/2" /> -->
@@ -20,7 +86,9 @@
 
   <!-- pure school section -->
   <section id="school" class="min-h-screen">
-    <SchoolList />
+    <div class="pt-20">
+      <SchoolList />
+    </div>
   </section>
   
   <!-- notices & donation -->
@@ -29,13 +97,13 @@
       <main class="md:py-16 px-4 mx-auto max-w-5xl">
         <div>
           <div>
-            <h1 class="text-center text-5xl font-bold text-gray-500 pt-8 pb-10">
+            <h1 class="text-center text-5xl font-bold text-gray-500 pt-20 pb-10">
               공지 및 후원
             </h1>
           </div>
         </div>
         <!-- Tabs -->
-        <div x-data="{ tab: 'notice' }" class="">
+        <div x-data="{ tab: 'notice' }">
           <!-- Tab Menu -->
           <div class="md:gap-x-10 relative md:w-max mx-auto h-9 md:h-12 grid grid-cols-4 items-center px-[3px] rounded-full bg-gray-900/20 overflow-hidden shadow-2xl shadow-900/20">
             <div class="absolute indicator h-8 md:h-11 my-auto top-0 bottom-0 -left-1 w-20 md:w-32 rounded-full bg-white shadow-md"></div>
@@ -45,7 +113,7 @@
               x-on:click.prevent="tab = 'notice'"
               class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-              <span class="text-gray-800">공지사항</span>
+              <span class="text-gray-800 pl-2">공지사항</span>
             </a>
             <a
               @click="moveTabIndicator(1)"
@@ -53,7 +121,7 @@
               x-on:click.prevent="tab = 'bbs'"
               class="text-xs md:text-lg font-medium relative block px-3 md:px-6 tab rounded-full"
             >
-            <span class="text-gray-800">자유 게시판</span>
+            <span class="text-gray-800 pl-2">자유 게시판</span>
             </a>
             <a
               @click="moveTabIndicator(2)"
@@ -116,6 +184,9 @@ import SimpleGallery from "@/components/SimpleGallery.vue";
 import SimpleCarousel from "@/components/SimpleCarousel.vue";
 import NoticeCardList from "@/components/notice/NoticeCardList.vue";
 import ImageCardList from "./gallery/ImageCardList.vue";
+import Calendar from "./common/Calendar.vue";
+import CurrentWorships from "./common/CurrentWorships.vue";
+import Placard from "./common/Placard.vue";
 
 export default {
   components: {
@@ -128,6 +199,9 @@ export default {
     SimpleCarousel,
     NoticeCardList,
     ImageCardList,
+    Calendar,
+    CurrentWorships,
+    Placard,
   },
   setup() {
    
@@ -254,6 +328,34 @@ export default {
       },
     ];
 
+    /* placards */
+    const placards = [
+      {
+        name: "주일예배",
+        description: "전교인의 주일 대예배",
+        color: "bg-rose-bud-600",
+        time: "AM 10:00-10:30",
+      },
+      {
+        name: "목요예배",
+        description: "임재 가운데 드리는 목요예배",
+        color: "bg-fuchsia-600",
+        time: "PM 8:00-9:30",
+      },
+      {
+        name: "프렌드 어린이 예배",
+        description: "다음 세대를 준비하는 주일 어린이 예배",
+        color: "bg-regent-st-blue-300",
+        time: "AM 10:00-10:30",
+      },
+      {
+        name: "특별행사",
+        description: "수련회, 부흥회 etc",
+        color: "bg-lavender-blue-300",
+        time: "",
+      }
+    ]
+
     const moveTabIndicator = (pos) => {
 
       const tabs = document.querySelectorAll(".tab")
@@ -271,6 +373,7 @@ export default {
     return {
       slides,
       posts,
+      placards,
       moveTabIndicator,
     };
   },

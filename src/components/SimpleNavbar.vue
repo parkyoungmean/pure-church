@@ -54,9 +54,10 @@
       <li
         v-for="link in links"
         :key="link.id"
-        class="left-0 md:mx-4 md:my-0 my-6"
+        class="left-0 md:mx-4 md:my-0 my-6 md:hover:pb-2 md:hover:border-b md:hover:border-green-600 transition-all duration-150"
       >
         <a
+          @click="open = !open"
           :href="link.link"
           class="text-xl text-gray-700 hover:text-green-500"
           >{{ link.name }}</a
@@ -95,10 +96,11 @@ export default {
 
     let links = [
       { id: 0, name: "홈", link: "#home" },
-      { id: 1, name: "사역 소개", link: "#introduce" },
-      { id: 2, name: "순전한 학교", link: "#school" },
-      { id: 3, name: "공지 및 후원", link: "#notices" },
-      { id: 4, name: "기타", link: "#etc" },
+      { id: 1, name: "예배 안내", link: "#worship" },
+      { id: 2, name: "사역 소개", link: "#introduce" },
+      { id: 3, name: "순전한 학교", link: "#school" },
+      { id: 4, name: "공지 및 후원", link: "#notices" },
+      { id: 5, name: "기타", link: "#etc" },
     ];
 
     function menuOpen() {

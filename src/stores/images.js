@@ -37,6 +37,10 @@ export const useImageStore = defineStore("image", {
         },
         /* upload Image */
         async uploadImage(image) {
+
+            /* 로딩 start */
+            this.toggleLoading();
+
             try {
                 console.log('image:', image);
 
@@ -52,14 +56,24 @@ export const useImageStore = defineStore("image", {
                 .then((data) =>  {
                     console.log('이미지 업로드 data 결과:', data.data.data);
                     this.currentImage = data.data.data;
+
+                    /* 로딩 end */
+                    this.toggleLoading();
                 })
             } catch (error) {
+                /* 로딩 end */
+                this.toggleLoading();
+                
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  
             }
         },
         /* upload Mobile Image */
         async uploadMobileImage(image) {
+            
+            /* 로딩 start */
+            this.toggleLoading();
+
             try {
                 console.log('mobile_image:', image);
 
@@ -75,8 +89,14 @@ export const useImageStore = defineStore("image", {
                 .then((data) =>  {
                     console.log('모바일 이미지 업로드 data 결과:', data.data.data);
                     this.currentMobileImage = data.data.data;
+
+                    /* 로딩 end */
+                    this.toggleLoading();
                 })
             } catch (error) {
+                /* 로딩 end */
+                this.toggleLoading();
+                
                 alert("모바일 이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Mobile Image Upload 에러:", error);  
             }
