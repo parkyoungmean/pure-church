@@ -72,6 +72,18 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 예배 */
+  {
+    path: '/worships',
+    name: 'worships',
+    component: () => import(/* webpackChunkName: "worships" */ '../views/WorshipsView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
+      next();
+    }
+  },
   /* 학교관리 */
   {
     path: '/schools',

@@ -3,8 +3,9 @@
         <div class="absolute top-0 left-0 w-2 h-full rounded-l-xl" :class="`${card.color}`"></div>
         <div class="flex-1">
             <h6 class="text-xl xl:text-2xl font-bold">{{ card.name }}</h6>
-            <p class="text-gray-500">{{ card.description }}</p>
-            <p class="text-gray-500">{{ card.time }}</p>
+            <p v-if="card.description" class="text-gray-500">{{ card.description }}</p>
+            <p v-if="card.location" class="text-gray-500">{{ card.location }} | {{ card.time }}</p>
+            <!-- <p class="text-gray-500"></p> -->
         </div>
         <button class="flex justify-center items-center w-8 h-8 md:w-9 md:h-9 border bg-epic-blue rounded-full">
             <span class="material-icons-outlined text-white font-bold rounded-full">

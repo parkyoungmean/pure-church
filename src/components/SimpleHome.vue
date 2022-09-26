@@ -7,7 +7,7 @@
   </section>
 
   <section id="worship" class="min-h-screen bg-red-100">
-    <div class="grid grid-cols-12 gap-2 md:h-screen">
+    <div class="grid grid-cols-12 gap-2">
       <div class="col-span-12 xl:col-span-9 bg-[#70367c] rounded-r-[37px] flex gap-2 flex-col lg:flex-row md:divide-x-2">  
         <div class="flex-1 pt-10 md:pt-20 bg-white md:p-5">
           <div>
@@ -26,7 +26,6 @@
               </h3>
               <CurrentWorships />
             </div>
-            
             <!-- End Of Worships -->
             <div class="md:grid md:grid-cols-12 md:grid-rows-2 gap-10 space-y-15 md:space-y-0">
               <!-- Placard -->
@@ -38,12 +37,14 @@
                   <div class="flex flex-col space-y-4">
                     <Placard v-for="(card, index) in placards" :key="index" :card="card" />
                   </div>
+                  <!-- 아침 예배 -->
+                  <p class="text-xl xl:text-2.5xl font-bold xl:py-5"> ※ 아침 예배 : 월~금 AM 6:40 (ZOOM 으로 진행합니다.) </p>
                 </div>
               </div>
               <!-- End Of Placard -->
               <!-- Bulletin  -->
               <div class="row-span-2 col-span-12 md:col-span-6">
-                <!-- Service Time Header -->
+                <!-- Bulletin Header -->
                 <div class="flex justify-between items-center pb-3">
                     <h2 class="text-3xl font-bold">오늘의 주보</h2>
                     <button class="relative p-2 bg-white rounded-xl flex">
@@ -53,10 +54,12 @@
                         </span>
                     </button>
                 </div>
-                <!-- Image -->
-                <div class="relative h-96 xl:h-[500px] 2xl:h-[600px] w-72 md:w-full rounded-2.5xl p-10 bg-center bg-cover bg-no-repeat" :style="`background-image: url('https://imgur.com/ZXJoSNG.jpg')`">
-                  <span class="absolute px-1.5 py-0.5 md:px-2 md:py-2 left-5 top-5 rounded-lg bg-gray-900/50 text-lg text-white font-bold">2022.09.25</span>
-                </div> 
+                <!-- End Of Bulletin Header -->
+                <!-- Bulletin Image -->
+                <div class="relative h-96 xl:h-[500px] 2xl:h-[600px] w-72 md:w-full rounded-2.5xl p-10 bg-center bg-cover bg-no-repeat" :style="`background-image: url('https://imgur.com/WYzIXZb.jpg')`">
+                  <span class="absolute px-1.5 py-0.5 md:px-2 md:py-2 left-5 top-5 rounded-lg bg-gray-900/80 text-lg text-white font-bold">2022.09.25</span>
+                </div>
+                <!-- End Of Bulletin Image -->
               </div>
               <!-- End Of Bulletin -->
             </div>
@@ -331,22 +334,39 @@ export default {
     /* placards */
     const placards = [
       {
-        name: "주일예배",
+        name: "주일 1부 예배",
+        location: "강남 성전",
         description: "전교인의 주일 대예배",
         color: "bg-rose-bud-600",
-        time: "AM 10:00-10:30",
+        time: "오전 9:30",
       },
       {
-        name: "목요예배",
-        description: "임재 가운데 드리는 목요예배",
-        color: "bg-fuchsia-600",
-        time: "PM 8:00-9:30",
+        name: "주일 2부 예배",
+        location: "도봉 성전 본당",
+        description: "전교인의 주일 대예배",
+        color: "bg-rose-bud-600",
+        time: "정오 12:00",
       },
       {
         name: "프렌드 어린이 예배",
+        location: "도봉 성전 본당",
         description: "다음 세대를 준비하는 주일 어린이 예배",
         color: "bg-regent-st-blue-300",
-        time: "AM 10:00-10:30",
+        time: "오전 9:50",
+      },
+      {
+        name: "청소년부 예배",
+        location: "도봉 성전 본당",
+        description: "다음 세대를 준비하는 주일 청소년 예배",
+        color: "bg-regent-st-blue-300",
+        time: "오전 10:00",
+      },
+      {
+        name: "목요예배",
+        location: "도봉 성전 본당",
+        description: "임재 가운데 드리는 목요예배",
+        color: "bg-fuchsia-600",
+        time: "저녁 8:00",
       },
       {
         name: "특별행사",

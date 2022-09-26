@@ -24,7 +24,13 @@
                                         <li>
                                             <router-link to="/userhome" class="pt-3 group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:bg-blue-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">home</span>
-                                                <span class="relative text-blue-800">나의 홈</span>
+                                                <span class="relative text-blue-800">홈</span>
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/worships" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
+                                                <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">church</span>
+                                                <span class="relative group-hover:text-blue-800">예배</span>
                                             </router-link>
                                         </li>
                                         <li>
