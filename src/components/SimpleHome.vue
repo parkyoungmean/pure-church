@@ -7,7 +7,7 @@
   </section>
 
   <section id="worship" class="min-h-screen bg-red-100">
-    <div class="grid grid-cols-12 gap-2">
+    <div class="grid grid-cols-12 gap-2 md:h-screen">
       <div class="col-span-12 xl:col-span-9 bg-[#70367c] rounded-r-[37px] flex gap-2 flex-col lg:flex-row md:divide-x-2">  
         <div class="flex-1 pt-10 md:pt-20 bg-white md:p-5">
           <div>
@@ -17,18 +17,22 @@
               </h1>
             </div>
           </div>
+          <div class="m-auto sm:w-full md:max-w-5xl xl:max-w-6xl 2xl:max-w-[1000px] 3xl:max-w-[1500px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1400px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
+          <WorshipIntroduction />
+        </div>
           <!-- Main Content -->
+          <!-- 
           <div class="flex flex-col gap-10 p-7">
-            <!-- Worships -->
+            
             <div class="xl:py-5">
               <h3 class="text-3xl pb-2">
                 오늘의 예배 영상
               </h3>
               <CurrentWorships />
             </div>
-            <!-- End Of Worships -->
+            
             <div class="md:grid md:grid-cols-12 md:grid-rows-2 gap-10 space-y-15 md:space-y-0">
-              <!-- Placard -->
+              
               <div class="row-span-2 col-span-12 md:col-span-6">
                 <div class="space-y-7 w-full">
                   <h3 class="text-3xl">
@@ -37,14 +41,13 @@
                   <div class="flex flex-col space-y-4">
                     <Placard v-for="(card, index) in placards" :key="index" :card="card" />
                   </div>
-                  <!-- 아침 예배 -->
+                  
                   <p class="text-xl xl:text-2.5xl font-bold xl:py-5"> ※ 아침 예배 : 월~금 AM 6:40 (ZOOM 으로 진행합니다.) </p>
                 </div>
               </div>
-              <!-- End Of Placard -->
-              <!-- Bulletin  -->
+              
               <div class="row-span-2 col-span-12 md:col-span-6">
-                <!-- Bulletin Header -->
+               
                 <div class="flex justify-between items-center pb-3">
                     <h2 class="text-3xl font-bold">오늘의 주보</h2>
                     <button class="relative p-2 bg-white rounded-xl flex">
@@ -54,16 +57,16 @@
                         </span>
                     </button>
                 </div>
-                <!-- End Of Bulletin Header -->
-                <!-- Bulletin Image -->
+                
                 <div class="relative h-96 xl:h-[500px] 2xl:h-[600px] w-72 md:w-full rounded-2.5xl p-10 bg-center bg-cover bg-no-repeat" :style="`background-image: url('https://imgur.com/WYzIXZb.jpg')`">
                   <span class="absolute px-1.5 py-0.5 md:px-2 md:py-2 left-5 top-5 rounded-lg bg-gray-900/80 text-lg text-white font-bold">2022.09.25</span>
                 </div>
-                <!-- End Of Bulletin Image -->
+               
               </div>
-              <!-- End Of Bulletin -->
+              
             </div>
-          </div>
+          </div> 
+          -->
           <!-- End Of Main Content -->
         </div>
       </div>
@@ -190,6 +193,7 @@ import ImageCardList from "./gallery/ImageCardList.vue";
 import Calendar from "./common/Calendar.vue";
 import CurrentWorships from "./common/CurrentWorships.vue";
 import Placard from "./common/Placard.vue";
+import WorshipIntroduction from "./worship/WorshipIntroduction.vue";
 
 export default {
   components: {
@@ -205,6 +209,7 @@ export default {
     Calendar,
     CurrentWorships,
     Placard,
+    WorshipIntroduction,
   },
   setup() {
    

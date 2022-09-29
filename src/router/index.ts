@@ -84,6 +84,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/worshipregistration',
+    name: 'worshipregistration',
+    component: () => import(/* webpackChunkName: "worshipRegistration" */ '../components/worship/WorshipRegistration.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
   /* 학교관리 */
   {
     path: '/schools',

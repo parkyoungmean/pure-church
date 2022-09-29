@@ -15,6 +15,11 @@ module.exports = {
       xl: "1280px",
       "2xl": "1536px",
       '3xl': '1600px',
+      '4xl': '1680px',            // Apple MacBook Pro 15-inch (Hi-Res screen)
+      '5xl': '1760px',            
+      '6xl': '1820px',            
+      '7xl': '1920px',            // Apple MacBook Pro 17-inch (Mid/Late 2007 - Late 2011)
+      '8xl': '2048px',            // Apple iPad Pro 9.7
     },
     colors: {
       transparent: "transparent",
