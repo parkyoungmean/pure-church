@@ -20,17 +20,6 @@
         </div>
         <!-- End Of Primary Worship -->
 
-        <p class="md:block hidden">md입니다</p>
-       <p class="xl:block hidden">xl입니다</p>
-       <p class="2xl:block hidden">2xl입니다</p>
-       <p class="3xl:block hidden">3xl입니다</p>
-       <p class="4xl:block hidden">4xl입니다</p>
-       <p class="5xl:block hidden">5xl입니다</p>
-       <p class="6xl:block hidden">6xl입니다</p>
-       <p class="7xl:block hidden">7xl입니다</p>
-       <p class="8xl:block hidden">8xl입니다</p>
-
-
        <!-- Secondary Worships -->
         <section class="secondary mx-auto w-full justify-center items-center md:mt-32">
             <h1 class="text-[2rem] md:text-[2.5rem] xl:text-[3rem] text-center">Pure Worships</h1>
