@@ -26,11 +26,11 @@
                     </span>
                 </div>
                 <div class="flex justify-between items-center gap-4">
-                    <p class="w-28 text-xl">{{ worship.tag }}</p>
+                    <p class="w-28 text-lg 4xl:text-xl">{{ worship.tag }}</p>
                     <div class="w-1 rounded-xl h-10 bg-[#70367c]" :class="`${worship.color}`"></div>
                     <div class="flex-1">
-                        <p class="font-bold text-gray-800 text-xl">{{ worship.title }}</p>
-                        <p class="text-gray-500">{{ worship.verse }} | {{ worship.speaker }}</p>
+                        <p class="font-bold text-gray-800 text-sm 4xl:text-md 8xl:text-lg">{{ worship.title }}</p>
+                        <p class="text-gray-500 text-xs 4xl:text-sm">{{ worship.verse }} | {{ worship.speaker }}</p>
                     </div>
                 </div>
             </div>
