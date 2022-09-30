@@ -192,7 +192,7 @@ export default {
                     const id = link.substr(link.indexOf("=") + 1);
 
                     
-                    iframe.setAttribute("src", `https://youtube.com/embed/${id}?controls=0&autoplay=1`);
+                    /* iframe.setAttribute("src", `https://youtube.com/embed/${id}?controls=1&autoplay=1`); */
 
                     let worshipArray = [];
 

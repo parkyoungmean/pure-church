@@ -48,6 +48,8 @@
                             <div class="my-3 mx-auto">
                                 <input type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="예배 동영상(유튜브)의 주소 제목을 입력하세요.">
                             </div>
+                            <!-- Youtube -->
+                           <!-- End Of Youtube -->
                             <!-- SUBMIT BUTTON -->
                             <button type="submit" class="w-full p-3 mt-2 bg-red-500 text-lg text-white rounded-md outline-none border-none font-bold tracking-wide transition-all hover:bg-red-500/50">전송</button>
                             <!-- END OF SUBMIT BUTTON -->
@@ -61,12 +63,23 @@
 </template>
 
 <script>
+import { computed, onMounted, ref } from 'vue'
+
 export default {
     setup () {
-        
 
         
-        return {}
+
+        onMounted(() => {
+           
+            
+        })
+
+        
+                
+        return {
+            
+        }
     }
 }
 </script>

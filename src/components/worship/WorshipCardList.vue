@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="m-auto sm:w-full md:max-w-5xl xl:max-w-6xl 2xl:min-w-[1100px] 3xl:max-w-[1250px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1500px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
-            <WorshipIntroduction />
-        </div>
         <!-- Add Gallery Button -->
         <div class="right flex justify-end items-center text-xs md:text-lg">
             <div
@@ -56,7 +53,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import axios from "axios";
-import WorshipIntroduction from './WorshipIntroduction.vue';
+
 
 const instance = axios.create({
     baseURL: process.env.VUE_APP_API_URL,
@@ -64,24 +61,24 @@ const instance = axios.create({
 
 export default {
     components: {
-        WorshipIntroduction
+        
     },
     setup () {
         
         const router = useRouter();
 
-        const worships = ref([]);
+        /* const worships = ref([]);
         const primaryId = ref('');
-        const latestWorship = ref(null);
+        const latestWorship = ref(null); */
         /* var reqURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=");
  */
         onMounted(() => {
             
         
-            var iframes = document.getElementsByClassName('latestVideoEmbed');
+            /* var iframes = document.getElementsByClassName('latestVideoEmbed');
             for (var i = 0, len = iframes.length; i < len; i++) {
                 loadVideo(iframes[i]);
-            }
+            } */
         })
 
         /* function loadVideo(iframe) {
@@ -114,21 +111,22 @@ export default {
             router.push("/worshipregistration");
         };
 
-        const requestOptions = {
+        /* const requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
-        let videoList = [];
+        let videoList = []; 
+
         const loadVideo = (iframe) => {
-            /*
+            
             const cid = iframe.getAttribute('cid');
             const channelURL = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${cid}`)
             const reqURL = `https://api.rss2json.com/v1/api.json?rss_url=${channelURL}`;
 
             const pid = iframe.getAttribute('pid'); 
-            */
             
-            /* 주일 예배 플레이리스트 id */
+            
+            // 주일 예배 플레이리스트 id
             const pid = 'PL13DkA-MmUMtDgdl9Gz_lU5iJ5lWPBEM-';
             const playlistURL = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?playlist_id=${pid}`)
             const reqURL = `https://api.rss2json.com/v1/api.json?rss_url=${playlistURL}`;
@@ -139,12 +137,12 @@ export default {
                     const videoNumber = (iframe.getAttribute('vnum') ? Number(iframe.getAttribute('vnum')) : 0);
                     console.log(videoNumber);
                     
-                    /* latestWorship.value.push({ 
+                    latestWorship.value.push({ 
                         link: result.items[videoNumber].link, 
                         title: result.items[videoNumber].title 
-                    }); */
-
-                    /* console.log(latestWorship.value.title); */
+                    }); 
+                    
+                    console.log(latestWorship.value.title);
 
                     const link = result.items[videoNumber].link;
                     const id = link.substr(link.indexOf("=") + 1);
@@ -172,8 +170,8 @@ export default {
                             width: '640',
                             height: '480',
                             createdAt: worship.pubDate,
-                            /* convertedAt: dayjs(worship.pubDate).format("YYYY년 MM월 DD일"), */
-                            /* updatedAt: worship.UpdatedAt, */
+                            convertedAt: dayjs(worship.pubDate).format("YYYY년 MM월 DD일"),
+                            updatedAt: worship.UpdatedAt,
                             status: worship.Status,
                         });
                     });
@@ -182,14 +180,14 @@ export default {
                 })
                 .catch(error => console.log('error', error));
         }
-        
+        */
 
         return {
             worshipFormOpen,
-            videoList,
+            /* videoList,
             latestWorship,
             worships,
-            primaryId,
+            primaryId, */
         }
     }
 }

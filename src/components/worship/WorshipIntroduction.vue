@@ -15,7 +15,7 @@
                 <img @click="isPlay()" v-show="!play" class="imageStyle" :src="`https://img.youtube.com/vi/${primaryWorship.videoId}/maxresdefault.jpg`" style="width:100%; height:100%;">
 
                 <!-- 주일 예배 영상 -->
-                <iframe v-show="play" class="latestVideoEmbed" vnum='0' pid="PL13DkA-MmUMtDgdl9Gz_lU5iJ5lWPBEM-" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                <iframe v-show="play" class="latestVideoEmbed" vnum='0' pid="PL13DkA-MmUMtDgdl9Gz_lU5iJ5lWPBEM-" width="100%" height="100%" frameborder="0" allowfullscreen autoplay></iframe>
             </div>
         </div>
         <!-- End Of Primary Worship -->
@@ -49,7 +49,7 @@
                         <span class="absolute px-1.5 py-0.5 md:px-2 md:py-2 left-5 top-5 rounded-lg bg-gray-900/80 text-lg text-white font-bold">2022.09.25</span>
                     </div> -->
                     <span class="px-1.5 py-0.5 left-2.5 top-1 rounded-lg bg-gray-900/80 text-[.9rem] text-white font-bold">2022.09.25</span>
-                    <h1 class="mt-[0.5rem] mb-[2.5rem] py-0.5 text-[#FF2E63] text-center w-1/3 md:w-1/2 rounded-lg bg-[#F8F3D4] text-[1.2rem] md:text-[.6rem] 2xl:text-[.7rem] 3xl:text-[1.3rem] font-semibold">오늘의 주보</h1>
+                    <h1 class="mt-[0.5rem] mb-[2.5rem] py-0.5 text-[#FF2E63] text-center w-1/3 md:w-1/2 rounded-lg bg-[#F8F3D4] text-[.6rem] md:text-[.6rem] 2xl:text-[.7rem] 3xl:text-[1.3rem] font-semibold">오늘의 주보</h1>
                     <p class="text-[.8rem] text-transparent">_</p>
                     <p class="text-[.8rem] text-transparent">_</p>
                     <a href="" class="items-center text-[.7rem] underline">자세히 보기<i class="fas fa-arrow-right"></i></a>
@@ -122,7 +122,7 @@ export default {
                     const id = link.substr(link.indexOf("=") + 1);
 
                     
-                    iframe.setAttribute("src", `https://youtube.com/embed/${id}?controls=0&autoplay=1`);
+                    iframe.setAttribute("src", `https://youtube.com/embed/${id}?controls=1&autoplay=1`);
 
                     let worshipArray = [];
 
