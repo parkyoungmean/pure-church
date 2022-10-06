@@ -151,9 +151,10 @@ export default {
         /* Pinia */
         const store = useWorshipStore();
 
-        const ytUrl = ref("https://youtu.be/A2uRsHQ1StM");                                      // youtube 예배 url
+        const ytUrl = ref("");                                      // youtube 예배 url
 
-        const originTitle = ref("임재가운데 드리는 예배 / 2022.05.12 목요예배 / 레위기 16:29 - 31 / 이영태목사");                                // youtube 예배 url
+        const originTitle = ref("");                                // youtube 예배 url
+        
         const title = ref("");                                      // youtube 예배 제목
         const verse = ref("");                                      // youtube 예배 구절
         const speaker = ref("");                                    // youtube 예배 강사
@@ -217,6 +218,7 @@ export default {
             }
             
             const worship = {
+                originTitle: originTitle.value,
                 title: title.value,
                 verse: verse.value,
                 speaker: speaker.value,

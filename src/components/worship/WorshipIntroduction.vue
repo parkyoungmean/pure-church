@@ -21,11 +21,16 @@
         </div>
         <!-- End Of Primary Worship -->
         <div class="flex">
-            <span class="hidden md:block">md </span>
-            <span class="hidden lg:block">lg </span>
-            <span class="hidden xl:block">xl </span>
-            <span class="hidden 2xl:block">2xl </span>
-            <span class="hidden 3xl:block">3xl </span>
+            <span class="hidden md:block">md |</span>
+            <span class="hidden lg:block">| lg |</span>
+            <span class="hidden xl:block">| xl |</span>
+            <span class="hidden 2xl:block">| 2xl |</span>
+            <span class="hidden 3xl:block">| 3xl |</span>
+            <span class="hidden 4xl:block">| 4xl |</span>
+            <span class="hidden 5xl:block">| 5xl |</span>
+            <span class="hidden 6xl:block">| 6xl |</span>
+            <span class="hidden 7xl:block">| 7xl |</span>
+            <span class="hidden 8xl:block">| 8xl</span>
         </div>
         
        <!-- Secondary Worships -->
@@ -83,7 +88,7 @@ const instance = axios.create({
 
 export default {
     setup () {
-        
+        /* Router */
         const router = useRouter();
 
         /* Pinia */

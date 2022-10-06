@@ -44,6 +44,7 @@ export const useWorshipStore = defineStore("worship", {
 
                     let worship = {
                         id: res.data.id,
+                        originTitle: payload.originTitle,
                         title: payload.title,
                         verse: payload.verse,
                         speaker: payload.speaker,
