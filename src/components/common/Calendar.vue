@@ -2,7 +2,7 @@
     <div class="space-y-5 pt-15">
         <!-- Service Time Header -->
         <div class="flex justify-between items-center">
-            <h2 class="text-xl font-bold"> {{`${new Date().getFullYear()}년 순전한 교회 예배`}}</h2>
+            <h2 class="text-lg 2xl:text-xl font-bold"> {{`${new Date().getFullYear()}년 순전한 교회 예배`}}</h2>
             <!-- <button class="relative p-2 bg-white rounded-xl">
                 <span class="material-icons-outlined">
                     notifications
@@ -20,16 +20,16 @@
         <div class="space-y-10">
             <div v-for="(worship, index) in latestWorships" :key="index">
                 <div class="flex justify-between">
-                    <h5 class="font-bold text-gray-600">{{ worship.time }}</h5>
+                    <h5 class="xl:text-sm 2xl:text-md font-bold text-gray-600">{{ worship.time }}</h5>
                     <span class="material-icons-outlined">
                         more_vert
                     </span>
                 </div>
-                <div class="flex justify-between items-center gap-4">
-                    <p class="w-28 text-lg 4xl:text-xl">{{ worship.tag }}</p>
+                <div class="flex justify-between items-center xl:gap-2 2xl:gap-4">
+                    <p class="2xl:w-28 xl:text-md 2xl:text-lg 4xl:text-xl">{{ worship.tag }}</p>
                     <div class="w-1 rounded-xl h-10 bg-[#70367c]" :class="`${worship.color}`"></div>
                     <div class="flex-1">
-                        <p class="font-bold text-gray-800 text-sm 4xl:text-md 8xl:text-lg">{{ worship.title }}</p>
+                        <p class="font-bold text-gray-800 text-sm xl:text-xs 4xl:text-md 8xl:text-lg">{{ worship.title }}</p>
                         <p class="text-gray-500 text-xs 4xl:text-sm">{{ worship.verse }} | {{ worship.speaker }}</p>
                     </div>
                 </div>

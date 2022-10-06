@@ -7,7 +7,7 @@
   </section>
 
   <section id="worship" class="min-h-screen bg-red-100">
-    <div class="grid grid-cols-12 gap-2 md:h-screen">
+    <div class="grid grid-cols-12 gap-2 3xl:h-screen">
       <div class="col-span-12 xl:col-span-9 bg-[#70367c] rounded-r-[37px] flex gap-2 flex-col lg:flex-row xl:divide-x-2">  
         <div class="flex-1 pt-10 md:pt-20 bg-white md:p-5">
           <div>
@@ -17,7 +17,7 @@
               </h1>
             </div>
           </div>
-          <div class="m-auto sm:w-full md:max-w-5xl xl:max-w-5xl 2xl:max-w-[1000px] 3xl:max-w-[1000px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1400px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
+          <div class="m-auto sm:w-full md:max-w-4xl xl:max-w-4xl 2xl:max-w-[1000px] 3xl:max-w-[1000px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1400px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
           <WorshipIntroduction />
         </div>
           <!-- Main Content -->
@@ -72,7 +72,7 @@
       </div>
       <!-- Service Time -->
       <div class="hidden xl:col-span-3 xl:block">
-        <Calendar class="p-10" />
+        <Calendar class="p-5 2xl:p-10" />
       </div>
       <!-- End Of Service Time -->
     </div>

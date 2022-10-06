@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import WorshipCardList from "@/components/worship/WorshipCardList.vue"
 import WorshipIntroduction from '@/components/worship/WorshipIntroduction.vue';
+import WorshipCardList from "@/components/worship/WorshipCardList.vue"
 
 export default {
     components: {
