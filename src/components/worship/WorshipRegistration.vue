@@ -212,8 +212,15 @@ export default {
         /* 예배 데이터 전송하기(create) */
         const onSubmit = () => {
             /* 필수 입력: 유효성 검사 */
-            if (title.value==="" || verse.value==="" || speaker.value==="" || ytUrl.value==="" || videoId.value==="" || belong.value==="" || author.value==="" || color.value==="" || pbDate.value==="") {
+            if (title.value==="" || verse.value==="" || speaker.value==="" || ytUrl.value==="" || videoId.value==="" || belong.value==="" || pbDate.value==="") {
                 alert("모두 입력해주세요.!")
+                console.log('제목:',title.value);
+                console.log('성경구절:',verse.value);
+                console.log('강사:',speaker.value);
+                console.log('YT주소:',ytUrl.value);
+                console.log('videoId:',videoId.value);
+                console.log('belong:',belong.value);
+                console.log('pbDate:', pbDate.value)
                 return;
             }
             

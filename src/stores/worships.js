@@ -67,5 +67,73 @@ export const useWorshipStore = defineStore("worship", {
                 console.error("New Worship's Create 에러:", error);
             }
         },
+        /* read Worship */
+        async fetchWorship() {
+            try {
+                const data = await instance("worship")
+
+                let worshipArray = [];
+
+                data.data.forEach((v) => {
+                    let worship = v;
+
+                    worship.Img01 = JSON.parse(worship.Img01);
+                    worship.Img02 = JSON.parse(worship.Img02);
+
+                    worshipArray.push({
+                        id: worship.id,
+                        imgs: [...worship.Img01, ...worship.Img02],
+                        imgs01: worship.Img01,
+                        imgs02: worship.Img02,
+                        title: worship.Title,
+                        category: worship.Category,
+                        belong: worship.Belong,
+                        author: worship.Author,
+                        createdAt: worship.CreatedAt,
+                        convertedAt: dayjs(worship.CreatedAt).format("YYYY년 MM월 DD일"),
+                        updatedAt: worship.UpdatedAt,
+                        status: worship.Status,
+                    });
+                });
+                this.worshipImages = worshipArray;
+
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        /* update Worship */
+        async updateWorship(payload) {
+            try {
+                payload.updatedAt = dayjs();
+
+                await instance.post("worship/updateWorship", payload)
+                .then((res) => {
+                    console.log("Worship:", res.data);
+
+                    alert("예배 데이터 수정 성공!");
+                })
+            } catch (error) {
+                alert("새 예배 데이터 수정이 실패하였습니다.ㅜㅜ");
+                console.error("Worship's Update 에러:", error);
+            }
+        },
+        /* Delete Worship */
+        async deleteWorship(payload) {
+            try {
+                await instance
+                    .post("worship/deleteWorship", {
+                        id: payload,
+                    })
+                    .then((res) => {
+                    console.log("data:", res.data);
+                    
+                    console.log("예배 데이터가 삭제되었습니다.");
+                    alert("예배 데이터 삭제 성공!");
+                    });
+            } catch (error) {
+                alert("예배 데이터 삭제가 실패하였습니다ㅜㅜ");
+                console.error("Worship's Delete 에러:", error);
+            }
+        },
     }
 })

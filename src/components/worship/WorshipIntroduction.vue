@@ -35,7 +35,7 @@
         
        <!-- Secondary Worships -->
         <section class="secondary mx-auto w-full justify-center items-center md:mt-32">
-            <h1 class="text-[2rem] xl:text-[2rem] 2xl:text-[2.5rem] text-center">※ Pure Worships</h1>
+            <h1 class="text-[2rem] xl:text-[2rem] 2xl:text-[2.5rem] text-center">Pure Worships</h1>
             <p class="text-[.8rem] text-center">주일 예배 / 주중 예배 / 주보 안내</p>
             <div class="worships m-[1em] md:m-[2em] p-[1em] md:flex space-y-5 justify-between items-center gap-[2em] border-l-4 border-[#94B3FD] border-r-4 border-[#94B3FD]">
                 <div class="friend md:mt-5 mx-auto w-[300px] md:w-[340px] p-[1em] bg-[#FCE38A]">
@@ -129,7 +129,6 @@ export default {
                 .then(result => {
                     console.log(result.items);
                     const videoNumber = (iframe.getAttribute('vnum') ? Number(iframe.getAttribute('vnum')) : 0);
-                    console.log(videoNumber);
                     
                     const link = result.items[videoNumber].link;
                     const id = link.substr(link.indexOf("=") + 1);
@@ -144,8 +143,8 @@ export default {
 
                         worshipArray.push({
                             id: worship.guid,
-                            link: worship.link,
-                            videoId: worship.link.substr(worship.link.indexOf("=") + 1),
+                            link: worship.link,                                                         // original url
+                            videoId: worship.link.substr(worship.link.indexOf("=") + 1),                // video id
                             title: worship.title,
                             belong: worship.belong || '주일예배',
                             author: worship.author || '관리자',
