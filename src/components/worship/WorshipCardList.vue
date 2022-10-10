@@ -39,15 +39,7 @@
             }"
             >
                 <swiper-slide v-for="item in worships" :key="item.guid">
-                    <!-- maxresdefault.jpg or hqdefault.jpg  -->
-                    <img class="imageStyle" :src="`https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`" style="width:100%; height:100%;">
-
-                    <div class="card-body">
-                        <h5 class="card-text text-xs font-semibold xs:text-sm">{{ item.title }}</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">{{ item.pubDate }}</small>
-                        </div>
-                    </div>
+                    <WorshipCard :item="item" />
                 </swiper-slide>
             </Swiper>
         </div>
@@ -57,12 +49,14 @@
 <script>
 import { onMounted, ref } from 'vue'
 import axios from "axios";
+import WorshipCard from './WorshipCard.vue';
 
 import { Swiper,SwiperSlide } from "swiper/vue";
 import { Thumbs } from "swiper";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+
 
 dayjs.locale("ko"); // global로 한국어 locale 사용
 
@@ -77,7 +71,8 @@ export default {
     },
     components: {
         Swiper,
-        SwiperSlide
+        SwiperSlide,
+        WorshipCard,
     },
     setup (props, context) {
 
@@ -141,5 +136,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
