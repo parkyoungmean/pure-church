@@ -13,6 +13,7 @@ const instance = axios.create({
 
 export const useWorshipStore = defineStore("worship", {
     state: () => ({
+        open_modal: false,
         worships: [],
         primaryWorship: [],                 // 최신 주일 예배 동영상
         currentWorship: null,              // 선택된 현재 예배 동영상
@@ -27,6 +28,15 @@ export const useWorshipStore = defineStore("worship", {
         },
     },
     actions: {
+        toggleModal(dir = null) {
+            if (dir === "open") {
+                this.open_modal = true;
+            } else if (dir === "close") {
+                this.open_modal = false;
+            } else {
+                this.open_modal = !this.open_modal;
+            }
+        },
         /* select Current Worship */
         async selectedWorship(payload) {
             const index = this.worships.findIndex((element) => element.id === payload);

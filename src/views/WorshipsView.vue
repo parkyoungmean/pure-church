@@ -108,6 +108,7 @@
 
 <script>
 import { useRouter } from "vue-router";
+
 import WorshipIntroduction from '@/components/worship/WorshipIntroduction.vue';
 import WorshipCardList from "@/components/worship/WorshipCardList.vue"
 
@@ -117,7 +118,7 @@ export default {
         WorshipCardList,
     },
     setup () {
-        
+        /* Router */
         const router = useRouter();
 
         /* 주일 예배 플레이리스트 id */

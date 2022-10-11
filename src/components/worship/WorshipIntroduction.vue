@@ -12,7 +12,7 @@
                 <button class="mt-4 text-xs md:text-sm"><a href=""> 더 보기<i class="fas fa-arrow-right ml-1.5 "></i></a></button>
             </div>
             <!-- Macbook 13inch = xl -->
-            <div class="worship-card relative image m-auto md:m-0 p-[.7em] md:p-[1em] w-[340px] h-[210px] md:w-[420px] md:h-[250px] xl:w-[420px] xl:h-[250px] 2xl:w-[500px] 2xl:h-[270px] 3xl:w-[500px] 3xl:h-[270px] 4xl:w-[550px] 4xl:h-[300px] 5xl:w-[600px] 5xl:h-[330px] 6xl:w-[650px] 6xl:h-[350px] 7xl:w-[700px] 7xl:h-[400px] 8xl:w-[750px] 8xl:h-[450px]  border-b-6 border-carnation-pink-400 border-r-6 border-[#F38181]">
+            <div class="worship-card z-10 relative image m-auto md:m-0 p-[.7em] md:p-[1em] w-[340px] h-[210px] md:w-[420px] md:h-[250px] xl:w-[420px] xl:h-[250px] 2xl:w-[500px] 2xl:h-[270px] 3xl:w-[500px] 3xl:h-[270px] 4xl:w-[550px] 4xl:h-[300px] 5xl:w-[600px] 5xl:h-[330px] 6xl:w-[650px] 6xl:h-[350px] 7xl:w-[700px] 7xl:h-[400px] 8xl:w-[750px] 8xl:h-[450px]  border-b-6 border-carnation-pink-400 border-r-6 border-[#F38181]">
                 <img @click="isPlay()" v-show="!play" class="imageStyle" :src="`https://img.youtube.com/vi/${primaryWorship.videoId}/maxresdefault.jpg`" style="width:100%; height:100%;">
                 <button v-show="!play" @click="isPlay()" class="btn">
                     <i class="fab fa-youtube text-3xl xl:text-4xl 4xl:text-5xl" style="color:red"></i>

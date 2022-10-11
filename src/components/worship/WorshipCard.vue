@@ -1,8 +1,8 @@
 <template>
     <!-- maxresdefault.jpg or hqdefault.jpg  -->
     <div class="worship-card relative">
-        <img class="imageStyle" :src="`https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`" style="width:100%; height:100%;">
-        <button class="btn">
+        <img @click="toggleModal" class="imageStyle" :src="`https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`" style="width:100%; height:100%;">
+        <button @click="toggleModal" class="btn">
             <i class="fab fa-youtube text-2xl xl:text-3xl" style="color:red"></i>
         </button>
     </div>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { useWorshipStore } from "../../stores/worships";
+
 export default {
     props: {
         item: {
@@ -22,10 +24,19 @@ export default {
             required: true,
         },
     },
-    setup () {
-        
+    setup (props) {
 
-        return {}
+        /* Pinia */
+        const store = useWorshipStore();
+
+        const toggleModal = () => {
+            store.currentWorship = props.item;
+            store.toggleModal();
+        };
+
+        return {
+            toggleModal,
+        }
     }
 }
 </script>

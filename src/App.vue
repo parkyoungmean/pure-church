@@ -2,6 +2,7 @@
   <!-- LOADING -->
   <Loading v-if="isLoading" />
   <!-- END OF LOADING -->
+
   <!-- MODAL -->
   <div
     v-if="open_modal"
@@ -45,6 +46,10 @@
     </div>
   </div>
   <!-- END OF MODAL -->
+  <!-- WORSHIP_MODAL -->
+  <Modal v-if="open_worship_modal" />
+  <!-- END OF WORSHIP_MODAL -->
+
   <div class="app h-screen">
     <!-- Navbar for Guest -->
     <SimpleNavbar v-show="is_login || hide_nav ? false : true" class="z-20" />
@@ -59,11 +64,13 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
+import { useWorshipStore } from "./stores/worships";
 import { useImageStore } from "./stores/images";
 import SimpleNavbar from "./components/SimpleNavbar.vue";
 import SimpleHome from "./components/SimpleHome.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Loading from "./components/common/Loading.vue";
+import Modal from "./components/common/Modal.vue";
 
 export default {
   components: {
@@ -71,6 +78,7 @@ export default {
     SimpleHome,
     Sidebar,
     Loading,
+    Modal,
   },
   setup() {
     /* Vuex */
@@ -79,6 +87,7 @@ export default {
     /* Pinia */
     const store = useUserStore();
     const imgStore = useImageStore();
+    const worshipStore = useWorshipStore();
 
     const toggleModal = () => {
       store.toggleModal();
@@ -89,6 +98,7 @@ export default {
       isLoading: computed(() => imgStore.isLoading),
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
+      open_worship_modal: computed(() => worshipStore.open_modal),
       show_sidebar: computed(() => store.show_sidebar),
       hide_nav: computed(() => store.hide_nav),
       toggleModal,

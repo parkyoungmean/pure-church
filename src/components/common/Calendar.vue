@@ -21,9 +21,13 @@
             <div v-for="(worship, index) in latestWorships" :key="index">
                 <div class="flex justify-between">
                     <h5 class="xl:text-sm 2xl:text-md font-bold text-gray-600">{{ worship.time }}</h5>
-                    <span class="material-icons-outlined">
+                    <!-- <span class="material-icons-outlined">
                         more_vert
-                    </span>
+                    </span> -->
+                    <!-- 예배 재생 버튼 -->
+                    <button @click="toggleModal(worship)" class="text-lg 2xl:text-xl 4xl:text-2xl">
+                        <i class="far fa-play-circle"></i>
+                    </button>
                 </div>
                 <div class="flex justify-between items-center xl:gap-2 2xl:gap-4">
                     <p class="2xl:w-28 xl:text-md 2xl:text-lg 4xl:text-xl">{{ worship.tag }}</p>
@@ -60,97 +64,6 @@ const instance = axios.create({
 
 export default {
     setup () { 
-        let worships = [
-        {
-            id: 0,
-            time: "08월 28일",
-            title: "아도니베섹을 이길 전략",
-            img: "https://i.imgur.com/dPErD5s.jpg",
-            speacker: "",
-            tag: "주일 예배",
-            content: "요한계시록 13:1-10",
-            color: "bg-rose-600",
-            link: "#home",
-        },
-        {
-            id: 1,
-            time: "09월 01일",
-            title: "하늘의 기쁨",
-            img: "https://i.imgur.com/dPErD5s.jpg",
-            speacker: "",
-            tag: "목요 예배",
-            content: "누가복음 15:8-10",
-            color: "bg-fuchsia-600",
-            link: "#home",
-        },
-        {
-            id: 2,
-            time: "09월 04일",
-            title: "이마에 새겨진 사랑",
-            img: "https://i.imgur.com/dPErD5s.jpg",
-            speacker: "",
-            tag: "주일 예배",
-            content: "요한계시록 13:11-18",
-            color: "bg-rose-600",
-            link: "#home",
-        },
-        {
-            id: 3,
-            time: "09월 08일",
-            title: "어느 작은 가지의 고백",
-            img: "https://i.imgur.com/UyimOMY.jpg",
-            speacker: "",
-            tag: "목요 예배",
-            content: "요한복음 15:5-7",
-            color: "bg-fuchsia-600",
-            link: "#prayer",
-        },
-        {
-            id: 4,
-            time: "09월 11일",
-            title: "마침내 승리의 봉인이 열리다",
-            img: "https://i.imgur.com/XTEusLc.jpg",
-            speacker: "",
-            tag: "주일 예배",
-            content: "요한계시록 1:1-6",
-            color: "bg-rose-600",
-            link: "#kar",
-        },
-        {
-            id: 5,
-            time: "09월 15일",
-            title: "아름다운 동역, 빛과 동역하다",
-            img: "https://i.imgur.com/LRbjgMF.jpg",
-            speacker: "",
-            tag: "목요 예배",
-            content: "요한복음 1:19-28",
-            color: "bg-fuchsia-600",
-            link: "#kar",
-        },
-        {
-            id: 6,
-            time: "09월 18일",
-            title: "빛과 빛의 다리",
-            img: "https://i.imgur.com/xUc8v0t.jpg",
-            speacker: "",
-            tag: "주일 예배",
-            content: "요한계시록 1:9-20",
-            color: "bg-rose-600",
-            link: "#kar",
-        },
-        {
-            id: 7,
-            time: "09월 22일",
-            title: "하나님 아버지 마음",
-            img: "https://i.imgur.com/C52zbsi.jpg",
-            speacker: "",
-            tag: "목요 예배",
-            content: "고린도후서 7:6-10",
-            color: "bg-fuchsia-600",
-            link: "#kar",
-        },
-        
-        ];
 
         const router = useRouter();
 
@@ -233,9 +146,15 @@ export default {
                 })
                 .catch(error => console.log('error', error));
         }
+
+        const toggleModal = (worship) => {
+            store.currentWorship = worship;
+            store.toggleModal();
+        };
+
         return {
-            worships,
             latestWorships,
+            toggleModal,
         }
     }
 }
