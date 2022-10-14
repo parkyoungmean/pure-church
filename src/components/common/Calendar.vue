@@ -3,27 +3,12 @@
         <!-- Service Time Header -->
         <div class="flex justify-between items-center">
             <h2 class="text-lg 2xl:text-xl font-bold"> {{`${new Date().getFullYear()}년 순전한 교회 예배`}}</h2>
-            <!-- <button class="relative p-2 bg-white rounded-xl">
-                <span class="material-icons-outlined">
-                    notifications
-                </span>
-                <span class="absolute bg-red-400 h-2 w-2 rounded-full top-2.5 right-2.5"></span>
-            </button> -->
-            <!-- <button class="relative p-2 bg-white rounded-xl">
-                전체 보기
-                <span class="material-icons-outlined">
-                    keyboard_double_arrow_right
-                </span>
-            </button> -->
         </div>
         <!-- Service Time Body -->
         <div class="space-y-10">
             <div v-for="(worship, index) in latestWorships" :key="index">
                 <div class="flex justify-between">
                     <h5 class="xl:text-sm 2xl:text-md font-bold text-gray-600">{{ worship.time }}</h5>
-                    <!-- <span class="material-icons-outlined">
-                        more_vert
-                    </span> -->
                     <!-- 예배 재생 버튼 -->
                     <button @click="toggleModal(worship)" class="text-lg 2xl:text-xl 4xl:text-2xl">
                         <i class="far fa-play-circle"></i>
@@ -51,7 +36,6 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useWorshipStore } from "../../stores/worships";
-
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";

@@ -103,6 +103,7 @@ export default {
         const primaryWorship = computed(() => {
             return store.primaryWorship;
         });
+        
         onMounted(() => {
             var iframes = document.getElementsByClassName('latestVideoEmbed');
             

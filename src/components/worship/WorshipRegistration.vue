@@ -38,7 +38,8 @@
                                         <option value="주일예배">주일예배</option>
                                         <option value="목요예배">목요예배</option>
                                         <option value="어린이예배">프렌드 어린이 예배</option>
-                                        <option value="청소년예배">청소년부 예배</option>
+                                        <option value="청소년예배">청소년예배</option>
+                                        <option value="송구영신예배">송구영신예배</option>
                                         <option value="특별행사">특별행사</option>
                                     </select>
                                 </div>
@@ -105,20 +106,24 @@
                             <!-- End Of YOUTUBE Origin Title Input -->
 
                              <!-- Title Input -->
-                             <div class="my-3 mx-auto">
-                                <input v-model="title" type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="예배 동영상의 가공된 제목">
+                             <div class="flex my-3 mx-auto items-center justify-center mt-2">
+                                <label for="" class="w-15 text-lg font-blod">제목:</label>
+                                <input v-model="title" type="text" class="w-full p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="예배 동영상의 가공된 제목">
                             </div>
                              <!-- Speaker Input -->
-                             <div class="my-3 mx-auto">
-                                <input v-model="speaker" type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="강사 이름">
+                             <div class="flex my-3 mx-auto items-center justify-center mt-2">
+                                <label for="" class="w-15 text-lg font-blod">강사:</label>
+                                <input v-model="speaker" type="text" class="w-full p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="강사 이름">
                             </div>
                              <!-- Verse Input -->
-                             <div class="my-3 mx-auto">
+                             <div class="flex my-3 mx-auto items-center justify-center mt-2">
+                                <label for="" class="w-15 text-lg font-blod">구절:</label>
                                 <input v-model="verse" type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="성경구절">
                             </div>
                              <!-- CreatedAt Input -->
-                             <div class="my-3 mx-auto">
-                                <input v-model="pbDate" type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="날짜">
+                             <div class="flex my-3 mx-auto items-center justify-center mt-2">
+                                <label for="" class="w-15 text-lg font-blod">날짜:</label>
+                                <input v-model="pbDate" type="text" class="w-full mt-2 p-4 outline-none border-none rounded-xl focus:border-epic-blue focus:ring-1 focus:ring-epic-blue" placeholder="ex) YYYY.MM.DD">
                             </div>
                             <!-- SUBMIT BUTTON -->
                             <button type="submit" class="w-full p-3 mt-2 bg-red-500 text-lg text-white rounded-md outline-none border-none font-bold tracking-wide transition-all hover:bg-red-500/50">전송</button>
@@ -164,7 +169,6 @@ export default {
         const belong = ref('');                                     // youtube 소속 ex.)주일예배 목요예배 etc
         const tag = ref('');
         const author = ref('');                                     // 예배글 작성자
-        const convertedAt = ref('');
         const color = ref('');                                      // 예배 색상
 
         onMounted(() => {
@@ -173,19 +177,38 @@ export default {
             console.log('iframe:', iframes[0].getAttribute('html'));
         })
 
+        /* ytUrl을 가공하여 videoID를 추출하고 getWorshipDesc()에 전달한다 */
         const extractVideoID = (url) => {
             var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
             var match = url.match(regExp);
             if (match && match[7].length == 11) {
-                console.log(match[7])
-                /* return match[7]; */
+
                 videoId.value = match[7];
+
+                const payload = {
+                    videoId: videoId.value,
+                }
+                /* 백엔드의 getWorshipDesc 라우터와 통신하는 메서드 */
+                store.getWorshipDesc(payload);
+               
+                if ( processedWorship.value.desc!=="설명") {
+                    processingDesc();
+                } else {
+                    console.log(processedWorship.value.desc);
+                }
+                
+
             } else {
-                alert("Could not extract video ID.");
+                alert("유튜브 주소에서 video ID를 추출할 수 없습니다..");
             }
         }
 
+        const processedWorship = computed(() => {
+            return store.processedWorship;
+        });
+
         const processingOriginTitle = () => {
+            
             let titleArr = originTitle.value.split(/[/]/);
 
             title.value = titleArr[0].replace("[Live]","").trim(),
@@ -196,8 +219,36 @@ export default {
             color.value = originTitle.value.indexOf('목요') !== -1 ? 'bg-[#95E1D3]': 'bg-carnation-pink-400'
             pbDate.value = originTitle.value.indexOf('목요') !== -1 ? dayjs(titleArr[1].replace("목요예배","").trim()).format("YYYY.MM.DD"): dayjs(titleArr[3].replace("주일예배","").trim()).format("YYYY.MM.DD")
             belong.value = originTitle.value.indexOf('목요') !== -1 ? '목요예배': '주일예배'
-            author.value = '관리자'
-            
+            author.value = '관리자' 
+           
+        }
+
+        const processingDesc = () => {
+
+            /* 제목 가공 */
+            if (processedWorship.value.title==='') {
+                
+            } else if (processedWorship.value.verse.includes('제목:')) {
+                title.value = processedWorship.value.title.replace("- 제목:","").trim();
+            }
+
+           
+            /* 성경구절 가공*/
+            if (processedWorship.value.verse==='') {
+
+            } else if (processedWorship.value.verse.includes('본문:')) {
+                verse.value = processedWorship.value.verse.replace("- 본문:","").trim();
+            } else if (processedWorship.value.verse.includes('메시지:')) {
+                verse.value = processedWorship.value.verse.replace("메시지:","").trim();
+            }
+
+            /* 강사이름 가공 */
+            if (processedWorship.value.speaker==='') {
+
+            } else {
+                speaker.value = processedWorship.value.speaker.trim();
+            } 
+                        
         }
 
         const requestOptions = {
@@ -221,9 +272,33 @@ export default {
                 console.log('videoId:',videoId.value);
                 console.log('belong:',belong.value);
                 console.log('pbDate:', pbDate.value)
+                console.log('color:', color.value)
+                console.log('author:', author.value)
                 return;
             }
-            
+        
+            switch (belong.value) {
+                case '주일예배':
+                    // 변수가 값1이면 실행할 로직
+                    color.value = 'bg-carnation-pink-400'
+                    break;
+                case '목요예배':
+                    // 변수가 값2이면 실행할 로직
+                    color.value = 'bg-[#95E1D3]'
+                    break;
+                case '어린이예배':
+                    // 변수가 값2이면 실행할 로직
+                    color.value = 'bg-[#FCE38A]'
+                    break;
+                case '청소년예배':
+                    // 변수가 값2이면 실행할 로직
+                    color.value = 'bg-[#EAFFD0]'
+                    break;
+                default:
+                    color.value = 'bg-[#8896AD]'
+                    // 변수가 위 어떤 케이스에도 해당하지 않는 경우 실행할 로직
+            }
+ 
             const worship = {
                 originTitle: originTitle.value,
                 title: title.value,
@@ -232,12 +307,15 @@ export default {
                 ytUrl: ytUrl.value,
                 videoId: videoId.value,
                 belong: belong.value,
-                author: author.value,
+                author: author.value || '관리자',
                 color: color.value,
-                pbDate: dayjs(pbDate.value),
+                pbDate: dayjs(pbDate.value).add(9,"hour"),                // 직접 작성한 예배 날짜
+                desc: processedWorship.value.desc,
             }
 
-            store.createWorship(worship).then(() => {
+            console.log(worship);
+
+            store.createWorship(worship).then(() => {  
                 router.go(-1);
                 router.go(-1);
             })
@@ -255,6 +333,7 @@ export default {
             tag,
             isPlay,
             extractVideoID,
+            processingDesc,
             processingOriginTitle,
             onSubmit,
             play,

@@ -16,8 +16,9 @@ export const useWorshipStore = defineStore("worship", {
         open_modal: false,
         worships: [],
         primaryWorship: [],                 // 최신 주일 예배 동영상
-        currentWorship: null,              // 선택된 현재 예배 동영상
+        currentWorship: null,               // 선택된 현재 예배 동영상
         latestWorships: null,               // 최근 예배 동영상 10개
+        processedWorship: [],               // desc에서 추출된 예배 데이터
     }),
     getters: {
         getWorships(state) {
@@ -28,6 +29,7 @@ export const useWorshipStore = defineStore("worship", {
         },
     },
     actions: {
+        /* Toggle Youtube Player Modal */
         toggleModal(dir = null) {
             if (dir === "open") {
                 this.open_modal = true;
@@ -37,11 +39,27 @@ export const useWorshipStore = defineStore("worship", {
                 this.open_modal = !this.open_modal;
             }
         },
+
+        /* get Youtube Video Description by VideoId */
+        async getWorshipDesc(payload) {
+
+            try {
+                await instance.post("worship/getWorshipDesc", payload)
+                .then((res) => {
+                    this.processedWorship = res.data;
+                    console.log("worship description:", res.data);
+                })
+            } catch (error) {
+                
+            }
+            
+        },
         /* select Current Worship */
         async selectedWorship(payload) {
             const index = this.worships.findIndex((element) => element.id === payload);
             this.currentWorship = this.worships[index];
         },
+
         /* create Worship */
         async createWorship(payload) {
             try {
