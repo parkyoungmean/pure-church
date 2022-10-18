@@ -12,7 +12,7 @@
                 <button class="mt-4 text-xs md:text-sm"><a href=""> 더 보기<i class="fas fa-arrow-right ml-1.5 "></i></a></button>
             </div>
             <!-- Macbook 13inch = xl -->
-            <div class="worship-card z-10 relative image m-auto md:m-0 p-[.7em] md:p-[1em] w-[340px] h-[210px] md:w-[420px] md:h-[250px] xl:w-[420px] xl:h-[250px] 2xl:w-[500px] 2xl:h-[270px] 3xl:w-[500px] 3xl:h-[270px] 4xl:w-[550px] 4xl:h-[300px] 5xl:w-[600px] 5xl:h-[330px] 6xl:w-[650px] 6xl:h-[350px] 7xl:w-[700px] 7xl:h-[400px] 8xl:w-[750px] 8xl:h-[450px]  border-b-6 border-carnation-pink-400 border-r-6 border-[#F38181]">
+            <div class="worship-card z-10 relative image m-auto md:m-0 p-[.7em] md:p-[1em] w-[340px] h-[210px] md:w-[400px] md:h-[250px] xl:w-[400px] xl:h-[250px] 2xl:w-[500px] 2xl:h-[270px] 3xl:w-[500px] 3xl:h-[270px] 4xl:w-[550px] 4xl:h-[300px] 5xl:w-[600px] 5xl:h-[330px] 6xl:w-[650px] 6xl:h-[350px] 7xl:w-[700px] 7xl:h-[400px] 8xl:w-[750px] 8xl:h-[450px]  border-b-6 border-carnation-pink-400 border-r-6 border-[#F38181]">
                 <img @click="isPlay()" v-show="!play" class="imageStyle" :src="`https://img.youtube.com/vi/${primaryWorship.videoId}/maxresdefault.jpg`" style="width:100%; height:100%;">
                 <button v-show="!play" @click="isPlay()" class="btn">
                     <i class="fab fa-youtube text-3xl xl:text-4xl 4xl:text-5xl" style="color:red"></i>
@@ -39,24 +39,24 @@
         <section class="secondary mx-auto w-full justify-center items-center md:mt-32">
             <h1 class="text-[2rem] xl:text-[2rem] 2xl:text-[2.5rem] text-center">Pure Worships</h1>
             <p class="text-[.8rem] text-center">주일 예배 / 주중 예배 / 주보 안내</p>
-            <div class="worships m-[1em] md:m-[2em] p-[1em] md:flex space-y-5 justify-between items-center gap-[2em] border-l-4 border-[#94B3FD] border-r-4 border-[#94B3FD]">
-                <div class="friend md:mt-5 mx-auto w-[300px] md:w-[340px] p-[1em] bg-[#FCE38A]">
-                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.9rem] 3xl:text-[1.3rem] font-semibold">프렌드 어린이 예배</h1>
+            <div class="worships m-[1em] md:m-[2em] p-[1em] md:flex space-y-5 md:space-y-0  justify-between items-center gap-[2em] border-l-4 border-[#94B3FD] border-r-4 border-[#94B3FD]">
+                <div class="friend mx-auto w-[300px] md:w-[340px] xl:w-[400px] p-[1em] bg-[#FCE38A]">
+                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.8rem] 3xl:text-[1.3rem] font-semibold">프렌드 어린이 예배</h1>
                     <p class="text-[.8rem] text-gray-500">시간: 주일 오전 9:50</p>
-                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회 본당</p>
-                    <a href="" class="items-center text-[.7rem] underline">자세히 보기<i class="fas fa-arrow-right ml-1.5"></i></a>
+                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회</p>
+                    <router-link :to="{name: 'allworships'}" class="items-center text-[.7rem] underline">전체예배 보기<i class="fas fa-arrow-right ml-1.5"></i></router-link>
                 </div>
-                <div class="teenager m-auto w-[300px] md:w-[340px] p-[1em] bg-[#EAFFD0]">
-                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.9rem] 3xl:text-[1.3rem] font-semibold">청소년부 예배</h1>
+                <div class="teenager m-auto w-[300px] md:w-[340px] xl:w-[400x] p-[1em] bg-[#EAFFD0]">
+                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.8rem] 3xl:text-[1.3rem] font-semibold">청소년부 예배</h1>
                     <p class="text-[.8rem] text-gray-500">시간: 주일 오전 10:00</p>
-                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회 본당</p>
-                    <a href="" class="items-center text-[.7rem] underline">자세히 보기<i class="fas fa-arrow-right ml-1.5"></i></a>
+                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회</p>
+                    <router-link :to="{name: 'allworships'}" class="items-center text-[.7rem] underline">전체예배 보기<i class="fas fa-arrow-right ml-1.5"></i></router-link>
                 </div>
-                <div class="thursday m-auto w-[300px] md:w-[340px] p-[1em] bg-[#95E1D3]">
-                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.9rem] 3xl:text-[1.3rem] font-semibold">목요 예배</h1>
+                <div class="thursday m-auto w-[300px] md:w-[340px] xl:w-[400px] p-[1em] bg-[#95E1D3]">
+                    <h1 class="m-[1.5rem] 2xl:m-[2rem] p-1 text-[#FF2E63] text-[1.2rem] md:text-[.6rem] xl:text-[.8rem] 3xl:text-[1.3rem] font-semibold">목요 예배</h1>
                     <p class="text-[.8rem] text-gray-500">시간: 목요일 저녁 8:00</p>
-                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회 본당</p>
-                    <a href="" class="items-center text-[.7rem] underline">자세히 보기<i class="fas fa-arrow-right ml-1.5"></i></a>
+                    <p class="text-[.8rem] text-gray-500">장소: 도봉 순전한 교회</p>
+                    <router-link :to="{name: 'allworships'}" class="items-center text-[.7rem] underline">전체예배 보기<i class="fas fa-arrow-right ml-1.5"></i></router-link>
                 </div>
                 <!-- Bulletin Image -->
                 <div class="Bulletin m-auto w-[300px] md:w-[340px] p-[1em] bg-[#95E1D3] bg-cover bg-no-repeat" :style="`background-image: url('https://imgur.com/yCl9ldL.jpg')`">

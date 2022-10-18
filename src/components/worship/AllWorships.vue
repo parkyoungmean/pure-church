@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen items-center justify-center">
-        <div class="mx-auto w-full xl:max-w-7xl 2xl:max-w-[1640px] px-3 sm:px-8 md:px-12">
+        <div class="mx-auto w-full xl:max-w-7xl 2xl:max-w-[1640px] px-3 sm:px-6 md:px-8 md:px-12">
             <!-- Close Button -->
             <div class="flex justify-end p-3 md:p-6">
                 <button
@@ -21,11 +21,11 @@
                 <i class="fas fa-arrow-left"></i>
                 </button>
             </div>
-            <section class="header py-10 md:py-15">
-                <div class="mx-auto px-6 sm:px-8 md:px-12 sm:w-full md:max-w-5xl xl:max-w-6xl 2xl:min-w-[1100px] 3xl:max-w-[1250px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1500px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
+            <section class="header md:py-5">
+                <div class="mx-auto sm:px-8 md:px-12 sm:w-full md:max-w-5xl xl:max-w-6xl 2xl:min-w-[1100px] 3xl:max-w-[1250px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1500px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
                     <h2 class="text-2xl font-semibold md:text-3xl text-center">전체 예배</h2>
                     <!-- Add Worship Button -->
-                    <div class="right flex justify-end items-center text-xs md:text-lg my-10">
+                    <div class="right flex justify-end items-center text-xs md:text-lg my-3 md:my-5">
                         <div
                         @click="worshipFormOpen()"
                         class="

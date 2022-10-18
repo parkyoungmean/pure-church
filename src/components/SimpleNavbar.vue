@@ -59,7 +59,7 @@
         <a
           @click="open = !open"
           :href="link.link"
-          class="text-xl text-gray-700 hover:text-green-500"
+          class="text-md 3xl:text-xl text-gray-700 hover:text-green-500"
           >{{ link.name }}</a
         >
       </li>
@@ -69,14 +69,17 @@
           bg-green-400
           hover:bg-green-500
           duration-300
-          font-sm
+          text-sm
+          3xl:text-md
           text-white
           rounded
-          px-3
-          py-2
+          px-2
+          3xl:px-3
+          py-1.5
+          3xl:py-2
         "
       >
-        <i class="material-icons mr-2 text-muted">login</i>
+        <i class="material-icons text-sm mr-1 text-muted">login</i>
         로그인하기
       </router-link>
     </ul>

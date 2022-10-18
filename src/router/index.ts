@@ -92,6 +92,7 @@ const routes: Array<RouteRecordRaw> = [
       // ...
       const store = useUserStore();
       store.show_sidebar = false;
+      store.hide_nav = true;
       next();
     }
   },
