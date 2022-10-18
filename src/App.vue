@@ -1,6 +1,6 @@
 <template>
   <!-- LOADING -->
-  <Loading v-if="isLoading" />
+  <Loading v-if="isLoading" :content="loadingContent"/>
   <!-- END OF LOADING -->
 
   <!-- MODAL -->
@@ -96,6 +96,9 @@ export default {
     return {
       is_login: computed(() => vuexStore.state.is_login),
       isLoading: computed(() => imgStore.isLoading),
+      loadingContent: computed(() => imgStore.loadingContent),
+      isLoading: computed(() => worshipStore.isLoading),
+      loadingContent: computed(() => worshipStore.loadingContent),
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
       open_worship_modal: computed(() => worshipStore.open_modal),

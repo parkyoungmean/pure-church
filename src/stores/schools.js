@@ -120,7 +120,7 @@ export const useSchoolStore = defineStore("school", {
             graduate: "0",
             img: payload.img || "https://imgur.com/KddmMij",
             createdAt: dayjs(),
-            updatedAt: "1000-01-01T00:00:00.000Z",
+            updatedAt: "1000-01-01T00:00:00.000",
             bookmark: "",
           })
           .then((res) => {
@@ -145,7 +145,7 @@ export const useSchoolStore = defineStore("school", {
               img: JSON.parse(payload.img) || "https://imgur.com/KddmMij",
               createdAt: res.data.created_time,
               convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
-              updatedAt: "1000-01-01T00:00:00.000Z",
+              updatedAt: "1000-01-01T00:00:00.000",
               bookmark: res.data.properties.Bookmark.rich_text[0].text.content,
             };
             console.log("payload:", school);

@@ -10,6 +10,7 @@ dayjs.locale("ko"); // global로 한국어 locale 사용
 export const useImageStore = defineStore("image", {
     state: () => ({
         isLoading: false,
+        loadingContent: '',
         images: null,
         currentImage: [],
         currentMobileImage: [],
@@ -26,20 +27,24 @@ export const useImageStore = defineStore("image", {
     },
     actions: {
         /* Toggle Loader */
-        toggleLoading(dir = null) {
+        toggleLoading(dir = null, content) {
             if (dir === true) {
-              state.isLoading = true
+              this.isLoading = true
+              this.loadingContent = content;
             } else if (dir === false) {
-              state.isLoading = false
+              this.isLoading = false
             } else {
               this.isLoading = !this.isLoading;
+              if (this.isLoading) {
+                  this.loadingContent = content;
+              }
             }
         },
         /* upload Image */
         async uploadImage(image) {
 
             /* 로딩 start */
-            this.toggleLoading();
+            this.toggleLoading(true, '업로드중입니다.');
 
             try {
                 console.log('image:', image);
@@ -58,11 +63,11 @@ export const useImageStore = defineStore("image", {
                     this.currentImage = data.data.data;
 
                     /* 로딩 end */
-                    this.toggleLoading();
+                    this.toggleLoading(false);
                 })
             } catch (error) {
                 /* 로딩 end */
-                this.toggleLoading();
+                this.toggleLoading(false);
                 
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  
@@ -72,7 +77,7 @@ export const useImageStore = defineStore("image", {
         async uploadMobileImage(image) {
             
             /* 로딩 start */
-            this.toggleLoading();
+            this.toggleLoading(true, '업로드중입니다.');
 
             try {
                 console.log('mobile_image:', image);
@@ -91,11 +96,11 @@ export const useImageStore = defineStore("image", {
                     this.currentMobileImage = data.data.data;
 
                     /* 로딩 end */
-                    this.toggleLoading();
+                    this.toggleLoading(false);
                 })
             } catch (error) {
                 /* 로딩 end */
-                this.toggleLoading();
+                this.toggleLoading(false);
                 
                 alert("모바일 이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Mobile Image Upload 에러:", error);  
@@ -105,7 +110,7 @@ export const useImageStore = defineStore("image", {
         async uploadMultipleImages(image) {
             
             /* 로딩 start */
-            this.toggleLoading();
+            this.toggleLoading(true, '업로드 중입니다..');
             
             try {
                 console.log('image:', image);
@@ -130,11 +135,11 @@ export const useImageStore = defineStore("image", {
                     }
                     
                     /* 로딩 end */
-                    this.toggleLoading();
+                    this.toggleLoading(false);
                 })
             } catch (error) {
                 /* 로딩 end */
-                this.toggleLoading();
+                this.toggleLoading(false);
                 
                 alert("이미지 업로드가 실패하였습니다.ㅜㅜ");
                 console.error("New Image Upload 에러:", error);  

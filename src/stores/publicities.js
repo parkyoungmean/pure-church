@@ -36,7 +36,7 @@ export const usePublicityStore = defineStore("publicity", {
     async createPublicity(payload) {
       try {
         payload.createdAt = dayjs();
-        payload.updatedAt = "1000-01-01T00:00:00.000Z";
+        payload.updatedAt = "1000-01-01T00:00:00.000";
 
         await instance
           .post("publicity/createPublicity", payload)

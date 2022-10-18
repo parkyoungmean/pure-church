@@ -110,7 +110,7 @@ export default {
                             id: worship.guid,
                             link: worship.link,                                                         // original url
                             videoId: worship.link.substr(worship.link.indexOf("=") + 1),                // video id
-                            title: worship.title,
+                            originTitle: worship.title,
                             belong: worship.belong || '주일예배',
                             author: worship.author || '관리자',
                             width: '640',

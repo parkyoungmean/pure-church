@@ -67,7 +67,7 @@ export const useUserStore = defineStore("user", {
             greetings: payload.greetings || "",
             extraInfo: payload.extraInfo || "",
             createdAt: dayjs(),
-            updatedAt: "1000-01-01T00:00:00.000Z",
+            updatedAt: "1000-01-01T00:00:00.000",
             bookmark: "",
           })
           .then((res) => {

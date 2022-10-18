@@ -85,6 +85,17 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/allworships',
+    name: 'allworships',
+    component: () => import(/* webpackChunkName: "allWorships" */ '../components/worship/AllWorships.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
+  {
     path: '/worshipregistration',
     name: 'worshipregistration',
     component: () => import(/* webpackChunkName: "worshipRegistration" */ '../components/worship/WorshipRegistration.vue'),

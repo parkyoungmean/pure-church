@@ -228,7 +228,7 @@ export default {
             /* 제목 가공 */
             if (processedWorship.value.title==='') {
                 
-            } else if (processedWorship.value.verse.includes('제목:')) {
+            } else if (processedWorship.value.title.includes('제목:')) {
                 title.value = processedWorship.value.title.replace("- 제목:","").trim();
             }
 

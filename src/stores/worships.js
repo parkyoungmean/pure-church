@@ -13,6 +13,8 @@ const instance = axios.create({
 
 export const useWorshipStore = defineStore("worship", {
     state: () => ({
+        isLoading: false,
+        loadingContent: '',
         open_modal: false,
         worships: [],
         primaryWorship: [],                 // 최신 주일 예배 동영상
@@ -29,6 +31,20 @@ export const useWorshipStore = defineStore("worship", {
         },
     },
     actions: {
+        /* Toggle Loader */
+        toggleLoading(dir = null, content) {
+            if (dir === true) {
+              this.isLoading = true
+              this.loadingContent = content;
+            } else if (dir === false) {
+              this.isLoading = false
+            } else {
+              this.isLoading = !this.isLoading;
+              if (this.isLoading) {
+                  this.loadingContent = content;
+              }
+            }
+        },
         /* Toggle Youtube Player Modal */
         toggleModal(dir = null) {
             if (dir === "open") {
@@ -95,8 +111,38 @@ export const useWorshipStore = defineStore("worship", {
                 console.error("New Worship's Create 에러:", error);
             }
         },
+        
+        async createAllWorships(payload) {
+            
+            /* 로딩 start */
+            this.toggleLoading(true, '업로드 중입니다..');
+
+            try {
+                
+                await instance.post("worship/createAllWorships", payload)
+                .then((res) => {
+                    console.log("All worship:", res.data);
+
+                    /* 로딩 end */
+                    this.toggleLoading(fasle);
+
+                    alert("전체 예배 데이터 등록 성공!");
+
+                })
+            } catch (error) {
+                /* 로딩 end */
+                this.toggleLoading(false);
+
+                alert("새 예배 데이터 등록이 실패하였습니다.ㅜㅜ");
+                console.error("New Worship's Create 에러:", error);
+            }
+        },
         /* read Worship */
         async fetchWorship() {
+
+            /* 로딩 start */
+            this.toggleLoading(true, '로딩중입니다.');
+
             try {
                 const data = await instance("worship")
 
@@ -105,27 +151,37 @@ export const useWorshipStore = defineStore("worship", {
                 data.data.forEach((v) => {
                     let worship = v;
 
-                    worship.Img01 = JSON.parse(worship.Img01);
-                    worship.Img02 = JSON.parse(worship.Img02);
-
                     worshipArray.push({
                         id: worship.id,
-                        imgs: [...worship.Img01, ...worship.Img02],
-                        imgs01: worship.Img01,
-                        imgs02: worship.Img02,
-                        title: worship.Title,
-                        category: worship.Category,
+                        title: worship.Title.includes('제목:') ? worship.Title.replace('제목:', '') : worship.Title,
+                        originTitle: worship.OriginTitle,
+                        ytUrl: worship.YtUrl,
+                        videoId: worship.VideoId,
+                        speaker: worship.Speaker,
+                        desc: worship.Desc,
+                        verse: worship.Verse,
                         belong: worship.Belong,
                         author: worship.Author,
+                        color: worship.Color,
+                        pbDate: worship.PbDate,
+                        convertedAt: dayjs(worship.PbDate).format("YYYY년 MM월 DD일"),
                         createdAt: worship.CreatedAt,
-                        convertedAt: dayjs(worship.CreatedAt).format("YYYY년 MM월 DD일"),
                         updatedAt: worship.UpdatedAt,
                         status: worship.Status,
                     });
                 });
-                this.worshipImages = worshipArray;
 
+                this.worships = worshipArray;
+                console.log('예배데이터',this.worships);
+
+                /* 로딩 end */
+                this.toggleLoading(false);
+                
             } catch (error) {
+
+                /* 로딩 end */
+                this.toggleLoading(false);
+
                 console.error(error);
             }
         },
