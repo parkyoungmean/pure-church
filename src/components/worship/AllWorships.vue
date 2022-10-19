@@ -50,7 +50,7 @@
                             </div>
                             <div class="text-white">추가하기</div>
                         </div>
-                        <button @click="createAllWorships()" class="flex items-center justify-center text-lg">
+                        <button @click="createLatestWorships()" class="flex items-center justify-center text-lg">
                             <span class="material-icons-outlined text-2xl">
                                 refresh
                             </span>
@@ -72,6 +72,11 @@ import { useRouter } from "vue-router";
 import { useWorshipStore } from "../../stores/worships";
 import WorshipGrid from './WorshipGrid.vue';
 
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+
+dayjs.locale("ko"); // global로 한국어 locale 사용
+
 export default {
     components: {
         WorshipGrid,
@@ -88,9 +93,7 @@ export default {
         })
 
         onMounted(() => {
-
             store.fetchWorship();
-            
         })
 
         /* Create Worship Infomation */
@@ -98,24 +101,95 @@ export default {
             router.push("/worshipregistration");
         };
         
-        const createAllWorships = () => {
-            const cid = 'UC9LuMbo8JtxglIrjRI_wU4A';
+        const createLatestWorships = () => {
+            loadVideo();
+        };
+        
+        const requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-            console.log(cid);
+        const loadVideo = async () => {
+            /* 최근 예배 플레이리스트 id */
+            const pid = 'UU9LuMbo8JtxglIrjRI_wU4A';
 
-            let payload = {
-                cid: cid
-            }
+            const playlistURL = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?playlist_id=${pid}`)
+            const reqURL = `https://api.rss2json.com/v1/api.json?rss_url=${playlistURL}`;
 
-            store.createAllWorships(payload).then(() => {  
+            let latestWorshipArray =[];
 
-            })
+
+            if(worships.value.length === 0) {
+                alert("신규 예배동영상을 업데이트하기 위해 먼저 기존의 예배 동영상이 있어야 합니다. 이에 대하여 관리자에게 문의하세요.");
+            } else {
+                        
+                await fetch(reqURL, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result.items);
+                    /* console.log(worships.value[0]); */
+
+                    let i = 1;
+                    /* 노션의 예배데이터 배열과 비교 */
+                    result.items.some((l) => {
+                        let worship = l;
+                        
+                        /* 최신의 예배 영상의 videoId를 추출 */
+                        let videoId = getYoutubeVideoIdFromUrl(worship.link);
+                        
+                        /* 최신 : notion */
+                        if(videoId === worships.value[0]['videoId']) {
+                            if(i===1) {
+                                console.log(`현재 ${i}번째 예배동영상과 일치합니다. 그러므로 최신으로 업데이트된 상태입니다.`);
+                                return true;
+                            } else {
+                                console.log(` 일치합니다. 현재 ${i}번째 예배동영상까지 업로드해야 합니다.`);
+                                return true;
+                            }
+
+                        } else {
+                            console.log(`일치하지 않습니다. 이 ${i-1}번째 동영상을 업데이트해야 합니다.`);
+
+                            latestWorshipArray.push({
+                                originTitle: worship.title,
+                                ytUrl: `https://youtu.be/${videoId}`,
+                                videoId: videoId,
+                                author: '관리자',
+                                pbDate: worship.pubDate,
+                                
+                            })
+
+                            i++;
+                        }
+                    })
+                    /* 최신으로 업데이트 된 상태(i===1)이면 업데이트 하지 않고 알림창만 화면에 표시합니다. */
+                    if(i===1) {
+                        alert('최신으로 업데이트 된 상태입니다.');
+                    } else {
+                        store.createLatestWorships(latestWorshipArray).then(() => {
+                            store.fetchWorship();
+                        })
+                    }
+
+                })
+                
+            };
+        }
+        
+        const getYoutubeVideoIdFromUrl = (url) => {
+            // Our regex pattern to look for a youTube ID
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            //Match the url with the regex
+            const match = url.match(regExp);
+            //Return the result
+            return match && match[2].length === 11 ? match[2] : undefined;
         };
 
         return {
             worships,
             worshipFormOpen,
-            createAllWorships,
+            createLatestWorships,
         }
     }
 }

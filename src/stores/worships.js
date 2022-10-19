@@ -112,29 +112,29 @@ export const useWorshipStore = defineStore("worship", {
             }
         },
         
-        async createAllWorships(payload) {
+        async createLatestWorships(payload) {
             
             /* 로딩 start */
-            this.toggleLoading(true, '업로드 중입니다..');
+            this.toggleLoading(true, '새로고침 중입니다..');
 
             try {
                 
-                await instance.post("worship/createAllWorships", payload)
+                await instance.post("worship/createLatestWorships", payload)
                 .then((res) => {
-                    console.log("All worship:", res.data);
+                    console.log("latest worships:", res.data);
 
                     /* 로딩 end */
-                    this.toggleLoading(fasle);
+                    this.toggleLoading(false);
 
-                    alert("전체 예배 데이터 등록 성공!");
+                    alert("신규 예배 데이터 등록 성공!");
 
                 })
             } catch (error) {
                 /* 로딩 end */
                 this.toggleLoading(false);
 
-                alert("새 예배 데이터 등록이 실패하였습니다.ㅜㅜ");
-                console.error("New Worship's Create 에러:", error);
+                alert("신규 예배 데이터 등록이 실패하였습니다.ㅜㅜ");
+                console.error("Latest Worship's Create 에러:", error);
             }
         },
         /* read Worship */

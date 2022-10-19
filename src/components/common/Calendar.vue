@@ -5,7 +5,7 @@
             <h2 class="text-lg 2xl:text-xl font-bold"> {{`${new Date().getFullYear()}년 순전한 교회 예배`}}</h2>
         </div>
         <!-- Service Time Body -->
-        <div class="space-y-10">
+        <div class="xl:space-y-7 3xl:space-y-10">
             <div v-for="(worship, index) in latestWorships" :key="index">
                 <div class="flex justify-between">
                     <h5 class="xl:text-sm 2xl:text-md font-bold text-gray-600">{{ worship.time }}</h5>
@@ -24,27 +24,18 @@
                 </div>
             </div>
         </div>
-        <!-- 최근 예배 영상 -->
-        <div>
-            <iframe v-show="false" class="latestVideoEmbed" vnum='0' pid="UU9LuMbo8JtxglIrjRI_wU4A" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-        </div>
     </div>
 </template>
 
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
-import axios from "axios";
 import { useWorshipStore } from "../../stores/worships";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 
 dayjs.locale("ko"); // global로 한국어 locale 사용
-
-const instance = axios.create({
-    baseURL: process.env.VUE_APP_API_URL,
-});
 
 export default {
     setup () { 
@@ -59,11 +50,7 @@ export default {
         });
 
         onMounted(() => {
-            var iframes = document.getElementsByClassName('latestVideoEmbed');
-            
-            for (var i = 0, len = iframes.length; i < len; i++) {
-                loadVideo(iframes[i]);
-            }
+            loadVideo();
         })
 
         const requestOptions = {
@@ -71,7 +58,7 @@ export default {
             redirect: 'follow'
         };
         
-        const loadVideo = async (iframe) => {
+        const loadVideo = async () => {
             
             /* 최근 예배 플레이리스트 id */
             const pid = 'UU9LuMbo8JtxglIrjRI_wU4A';
@@ -82,15 +69,7 @@ export default {
             await fetch(reqURL, requestOptions)
                 .then(response => response.json())
                 .then(result => {
-                    const videoNumber = (iframe.getAttribute('vnum') ? Number(iframe.getAttribute('vnum')) : 0);
-                    console.log(videoNumber);
                     
-                    const link = result.items[videoNumber].link;
-                    const id = link.substr(link.indexOf("=") + 1);
-
-                    
-                    /* iframe.setAttribute("src", `https://youtube.com/embed/${id}?controls=1&autoplay=1`); */
-
                     let worshipArray = [];
 
                     result.items.forEach((v) => {
@@ -115,7 +94,7 @@ export default {
                             createdAt: worship.pubDate,
                             convertedAt: dayjs(worship.pubDate).format("YYYY년 MM월 DD일"),
                             belong: worship.title.indexOf('목요') !== -1 ? '목요예배': '주일예배',
-                            author: worship.author || '관리자',
+                            author: '관리자',
                             width: '640',
                             height: '480',
                             /* updatedAt: worship.UpdatedAt, */

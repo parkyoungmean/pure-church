@@ -167,7 +167,6 @@ export default {
         const play = ref(false);                                    // youtube thumbnail 이미지 클릭 여부
         const videoId = ref('');                                    // youtube 예배 URL에서 추출한 videoId
         const belong = ref('');                                     // youtube 소속 ex.)주일예배 목요예배 etc
-        const tag = ref('');
         const author = ref('');                                     // 예배글 작성자
         const color = ref('');                                      // 예배 색상
 
@@ -210,21 +209,44 @@ export default {
         const processingOriginTitle = () => {
             
             let titleArr = originTitle.value.split(/[/]/);
+            console.log(titleArr);
+            if (titleArr[0].includes("[Live]")) {
+                title.value = titleArr[0].replace("[Live]","").trim();
+            } else {
+                title.value = titleArr[0];
+            }
+            
+            /* 어린이예배:[0]:제목 */
+            if(originTitle.value.indexOf('목요') !== -1 || originTitle.value.indexOf('주일') !== -1)
+            {
+                verse.value = originTitle.value.indexOf('목요') !== -1 ? titleArr[2]: titleArr[1]
+                speaker.value = originTitle.value.indexOf('목요') !== -1 ? titleArr[3]: titleArr[2]
+                color.value = originTitle.value.indexOf('목요') !== -1 ? 'bg-[#95E1D3]': 'bg-carnation-pink-400'
+                pbDate.value = originTitle.value.indexOf('목요') !== -1 ? dayjs(titleArr[1].replace("목요예배","").trim()).format("YYYY.MM.DD"): dayjs(titleArr[3].replace("주일예배","").trim()).format("YYYY.MM.DD")
+            } else if (originTitle.value.indexOf('어린이예배') !== -1) {
+                pbDate.value = originTitle.value.substr(0,10);
+            }
 
-            title.value = titleArr[0].replace("[Live]","").trim(),
-
-            tag.value = originTitle.value.indexOf('목요') !== -1 ? titleArr[1].substr(-5): titleArr[3].substr(-4)
-            verse.value = originTitle.value.indexOf('목요') !== -1 ? titleArr[2]: titleArr[1]
-            speaker.value = originTitle.value.indexOf('목요') !== -1 ? titleArr[3]: titleArr[2]
-            color.value = originTitle.value.indexOf('목요') !== -1 ? 'bg-[#95E1D3]': 'bg-carnation-pink-400'
-            pbDate.value = originTitle.value.indexOf('목요') !== -1 ? dayjs(titleArr[1].replace("목요예배","").trim()).format("YYYY.MM.DD"): dayjs(titleArr[3].replace("주일예배","").trim()).format("YYYY.MM.DD")
-            belong.value = originTitle.value.indexOf('목요') !== -1 ? '목요예배': '주일예배'
+            belong.value = extractBelong(originTitle.value);
+            console.log('227번줄:', belong.value)
             author.value = '관리자' 
            
         }
 
+        const extractBelong = (originTitle) => {
+            let belong= '';
+            console.log(processedWorship.value);
+
+            let desc = processedWorship.value.desc;
+
+            originTitle.includes('주일') ? belong='주일예배' : originTitle.includes('주일예배') ? belong='주일예배' : desc.includes('주일설교') ? belong='주일예배' : originTitle.includes('Sunday') ? belong='주일예배' :  originTitle.includes('English') ? belong='주일예배' : originTitle.includes('연합예배') ? belong='주일예배' : originTitle.includes('목요예배') ? belong='목요예배' : originTitle.includes('목요특별') ? belong='목요예배' : originTitle.includes('어린이예배') ? belong='어린이예배' : originTitle.includes('프랜드') ? belong='어린이예배': originTitle.includes('청소년주일예배') ? belong='청소년예배' : originTitle.includes('청소년부 예배') ? belong='청소년예배' : originTitle.includes('청소년부예배') ? belong='청소년예배' : originTitle.includes('청소년 예배') ? belong='청소년예배' :originTitle.includes('청년부') ? belong='청년부예배' :  originTitle.includes('청년부예배') ? belong='청년부예배' : originTitle.includes('송구영신') ? belong='송구영신예배' : originTitle.includes('성탄예배') ? belong='성탄예배' : originTitle.includes('러브레터') ? belong='특별행사' : originTitle.includes('부활절') ? belong='주일예배' : originTitle.includes('큐티묵상') ? belong='큐티묵상' : originTitle.includes('큐티 묵상') ? belong='큐티묵상' : originTitle.includes('찬양묵상') ? belong='찬양묵상' : desc.includes('간증') ? belong='간증' : originTitle.includes('복음학교') ? belong='복음학교' : originTitle.includes('Gospel') ? belong='복음학교' : originTitle.includes('치유학교') ? belong='치유학교' : belong=''; 
+
+            return belong;
+        }
+
         const processingDesc = () => {
 
+            console.log('228번줄:',processedWorship.value);
             /* 제목 가공 */
             if (processedWorship.value.title==='') {
                 
@@ -263,7 +285,7 @@ export default {
         /* 예배 데이터 전송하기(create) */
         const onSubmit = () => {
             /* 필수 입력: 유효성 검사 */
-            if (title.value==="" || verse.value==="" || speaker.value==="" || ytUrl.value==="" || videoId.value==="" || belong.value==="" || pbDate.value==="") {
+            if (title.value==="" || speaker.value==="" || ytUrl.value==="" || videoId.value==="" || belong.value==="" || pbDate.value==="") {
                 alert("모두 입력해주세요.!")
                 console.log('제목:',title.value);
                 console.log('성경구절:',verse.value);
@@ -288,11 +310,55 @@ export default {
                     break;
                 case '어린이예배':
                     // 변수가 값2이면 실행할 로직
-                    color.value = 'bg-[#FCE38A]'
+                    color.value = 'bg-[#F9D423]'
                     break;
                 case '청소년예배':
                     // 변수가 값2이면 실행할 로직
-                    color.value = 'bg-[#EAFFD0]'
+                    color.value = 'bg-[#09A6FF]'
+                    break;
+                case '성탄예배':
+                    // 변수가 값6이면 실행할 로직
+                    color = 'bg-[#8522E1]'
+                    break;
+                case '송구영신예배':
+                    // 변수가 값7이면 실행할 로직
+                    color = 'bg-[#CA4DC2]'
+                    break;
+                case '특별행사':
+                    // 변수가 값8이면 실행할 로직
+                    color = 'bg-[#8522E1]'
+                    break;
+                case '간증':
+                    // 변수가 값9이면 실행할 로직
+                    color = 'bg-purple-200'
+                    break;
+                case '큐티묵상':
+                    // 변수가 값10이면 실행할 로직
+                    color = 'bg-purple-200'
+                    break;
+                case '찬양묵상':
+                    // 변수가 값11이면 실행할 로직
+                    color = 'bg-purple-200'
+                    break;
+                case '중보기도학교':
+                    // 변수가 값12이면 실행할 로직
+                    color = 'bg-fuchsia-200'
+                    break;
+                case '치유학교':
+                    // 변수가 값13이면 실행할 로직
+                    color = 'bg-orange-200'
+                    break;
+                case '복음학교':
+                    // 변수가 값14이면 실행할 로직
+                    color = 'bg-amber-200'
+                    break;
+                case '사역자학교':
+                    // 변수가 값15이면 실행할 로직
+                    color = 'bg-blue-200'
+                    break;
+                case '친밀감학교':
+                    // 변수가 값16이면 실행할 로직
+                    color = 'bg-rose-200'
                     break;
                 default:
                     color.value = 'bg-[#8896AD]'
@@ -330,7 +396,6 @@ export default {
             speaker,
             pbDate,
             belong,
-            tag,
             isPlay,
             extractVideoID,
             processingDesc,
