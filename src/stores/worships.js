@@ -21,6 +21,9 @@ export const useWorshipStore = defineStore("worship", {
         currentWorship: null,               // 선택된 현재 예배 동영상
         latestWorships: null,               // 최근 예배 동영상 10개
         processedWorship: [],               // desc에서 추출된 예배 데이터
+        /* infinite Loading */
+        hasMore: null,
+        startCursor: null,
     }),
     getters: {
         getWorships(state) {
@@ -45,6 +48,7 @@ export const useWorshipStore = defineStore("worship", {
               }
             }
         },
+
         /* Toggle Youtube Player Modal */
         toggleModal(dir = null) {
             if (dir === "open") {
@@ -70,6 +74,7 @@ export const useWorshipStore = defineStore("worship", {
             }
             
         },
+
         /* select Current Worship */
         async selectedWorship(payload) {
             const index = this.worships.findIndex((element) => element.id === payload);
@@ -137,6 +142,7 @@ export const useWorshipStore = defineStore("worship", {
                 console.error("Latest Worship's Create 에러:", error);
             }
         },
+
         /* read Worship */
         async fetchWorship() {
 
@@ -185,6 +191,123 @@ export const useWorshipStore = defineStore("worship", {
                 console.error(error);
             }
         },
+
+        /* read Worship for infinite loading */
+        async fetchWorship_ins() {
+
+            /* 로딩 start */
+            this.toggleLoading(true, '로딩중입니다.');
+
+            try {
+                const { data } = await instance("worship/getWorships-ins")
+                
+                console.log('hasMore', data[1]);
+                console.log('worships', data[2]);
+                console.log('next_cursor', data[0]);
+
+                
+                let worshipArray = [];
+
+                data[2].forEach((v) => {
+                    let worship = v;
+
+                    worshipArray.push({
+                        id: worship.id,
+                        title: worship.Title.includes('제목:') ? worship.Title.replace('제목:', '') : worship.Title,
+                        originTitle: worship.OriginTitle,
+                        ytUrl: worship.YtUrl,
+                        videoId: worship.VideoId,
+                        speaker: worship.Speaker,
+                        desc: worship.Desc,
+                        verse: worship.Verse,
+                        belong: worship.Belong,
+                        author: worship.Author,
+                        color: worship.Color,
+                        pbDate: worship.PbDate,
+                        convertedAt: dayjs(worship.PbDate).format("YYYY년 MM월 DD일"),
+                        createdAt: worship.CreatedAt,
+                        updatedAt: worship.UpdatedAt,
+                        status: worship.Status,
+                    });
+                });
+
+                this.startCursor = data[0];
+                this.hasMore = data[1];
+
+                
+                this.worships.push(...worshipArray);
+                console.log('예배데이터',this.worships);
+
+                /* 로딩 end */
+                this.toggleLoading(false);
+                
+            } catch (error) {
+
+                /* 로딩 end */
+                this.toggleLoading(false);
+
+                console.error(error);
+            }
+        },
+
+        /* read Worship for infinite loading */
+        async infiniteHandler(payload) {
+
+            /* 로딩 start */
+            /* this.toggleLoading(true, '로딩중입니다.'); */
+            
+            try {
+                const { data } = await instance.post("worship/getWorships-ins", {startCursor: payload})
+                
+                console.log('hasMore', data[1]);
+                console.log('worships', data[2]);
+                console.log('next_cursor', data[0]);
+
+                let worshipArray = [];
+
+                data[2].forEach((v) => {
+                    let worship = v;
+
+                    worshipArray.push({
+                        id: worship.id,
+                        title: worship.Title.includes('제목:') ? worship.Title.replace('제목:', '') : worship.Title,
+                        originTitle: worship.OriginTitle,
+                        ytUrl: worship.YtUrl,
+                        videoId: worship.VideoId,
+                        speaker: worship.Speaker,
+                        desc: worship.Desc,
+                        verse: worship.Verse,
+                        belong: worship.Belong,
+                        author: worship.Author,
+                        color: worship.Color,
+                        pbDate: worship.PbDate,
+                        convertedAt: dayjs(worship.PbDate).format("YYYY년 MM월 DD일"),
+                        createdAt: worship.CreatedAt,
+                        updatedAt: worship.UpdatedAt,
+                        status: worship.Status,
+                    });
+                });
+
+                this.startCursor = data[0];
+                this.hasMore = data[1];
+                this.worships.push(...worshipArray);
+
+                console.log('hasMore',this.hasMore);
+                console.log('next_cursor',this.startCursor);
+                console.log('예배데이터',this.worships);
+
+                /* 로딩 end */
+                /* this.toggleLoading(false); */
+                
+            } catch (error) {
+
+                /* 로딩 end */
+                /* this.toggleLoading(false); */
+
+                console.error(error);
+            }
+        },
+
         /* update Worship */
         async updateWorship(payload) {
             try {

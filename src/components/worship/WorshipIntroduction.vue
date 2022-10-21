@@ -9,7 +9,7 @@
                 <h1 class="mt-5 p-1 text-[1rem] md:text-[1.5rem] text-[#FF2E63]">주일 예배(1부, 2부)</h1>
                 <p class="text-[.7rem] md:text-[.9rem] text-gray-500">1부 예배 | 시간: 주일 오전 09:30 | 장소: 강남 순전한교회</p>
                 <p class="text-[.7rem] md:text-[.9rem] text-gray-500">2부 예배 | 시간: 주일 정오 12:00 | 장소: 도봉 순전한 교회 본당</p>
-                <button class="mt-4 text-xs md:text-sm"><a href=""> 더 보기<i class="fas fa-arrow-right ml-1.5 "></i></a></button>
+                <button class="mt-4 text-xs md:text-sm"><router-link :to="{name: 'allworships'}" class="items-center text-[.7rem] underline">전체예배 보기<i class="fas fa-arrow-right ml-1.5"></i></router-link></button>
             </div>
             <!-- Macbook 13inch = xl -->
             <div class="worship-card z-10 relative image m-auto md:m-0 p-[.7em] md:p-[1em] w-[340px] h-[210px] md:w-[400px] md:h-[250px] xl:w-[400px] xl:h-[250px] 2xl:w-[500px] 2xl:h-[270px] 3xl:w-[500px] 3xl:h-[270px] 4xl:w-[550px] 4xl:h-[300px] 5xl:w-[600px] 5xl:h-[330px] 6xl:w-[650px] 6xl:h-[350px] 7xl:w-[700px] 7xl:h-[400px] 8xl:w-[750px] 8xl:h-[450px]  border-b-6 border-carnation-pink-400 border-r-6 border-[#F38181]">
