@@ -34,6 +34,12 @@
                                             </router-link>
                                         </li>
                                         <li>
+                                            <router-link to="/bulletins" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
+                                                <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">chrome_reader_mode</span>
+                                                <span class="relative group-hover:text-blue-800">주보</span>
+                                            </router-link>
+                                        </li>
+                                        <li>
                                             <router-link to="/schools" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">school</span>
                                                 <span class="relative group-hover:text-blue-800">순전한 학교</span>

@@ -107,6 +107,19 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 주보 */
+  {
+    path: '/bulletins',
+    name: 'bulletins',
+    component: () => import(/* webpackChunkName: "bulletins" */ '../views/BulletinsView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      store.hide_nav = true;
+      next();
+    }
+  },
   /* 학교관리 */
   {
     path: '/schools',

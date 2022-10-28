@@ -25,7 +25,7 @@
                 <div class="mx-auto sm:px-8 md:px-12 sm:w-full md:max-w-5xl xl:max-w-6xl 2xl:min-w-[1100px] 3xl:max-w-[1250px] 4xl:max-w-[1200px] 5xl:max-w-[1300px] 6xl:max-w-[1500px] 7xl:max-w-[1500px] 8xl:max-w-[1600px]">
                     <h2 class="text-2xl font-semibold md:text-3xl text-center">전체 예배</h2>
                     <!-- Add Worship Button -->
-                    <div  v-show="is_login ? true : false" class="right flex justify-end items-center text-xs md:text-lg my-3 md:my-5">
+                    <div v-show="is_login ? true : false" class="right flex justify-end items-center text-xs md:text-lg my-3 md:my-5">
                         <div
                         @click="worshipFormOpen()"
                         class="
@@ -61,7 +61,7 @@
             </section>
             <WorshipGrid :worships="worships" />
             <div class="flex flex-col justfy-center my-10 gap-15">
-                <button v-show="hasMore" @click="infiniteHandler" class="relative m-auto inline-flex items-center justify-center p-4 px-6 py-1.5 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group">
+                <!-- <button v-show="hasMore" @click="infiniteHandler" class="relative m-auto inline-flex items-center justify-center p-4 px-6 py-1.5 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group">
                     <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-purple-500 group-hover:translate-y-0 ease">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
@@ -69,11 +69,9 @@
                     </span>
                     <span class="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease">더 보기</span>
                     <span class="relative invisible">더 보기</span>
-                </button>
+                </button> -->
                 <InfiniteLoading v-show="hasMore" class="h-20 my-50 m-auto" @infinite="infiniteHandler" />
             </div>
-            
-            
         </div>
     </div>
 </template>
@@ -86,7 +84,6 @@ import { useWorshipStore } from "../../stores/worships";
 import WorshipGrid from './WorshipGrid.vue';
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
-
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -200,9 +197,7 @@ export default {
                             store.fetchWorship();
                         })
                     }
-
                 })
-                
             };
         }
         
@@ -214,7 +209,6 @@ export default {
             //Return the result
             return match && match[2].length === 11 ? match[2] : undefined;
         };
-
 
         const infiniteHandler = async ($state) => {
             console.log(startCursor.value);

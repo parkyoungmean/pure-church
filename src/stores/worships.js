@@ -123,7 +123,6 @@ export const useWorshipStore = defineStore("worship", {
             this.toggleLoading(true, '새로고침 중입니다..');
 
             try {
-                
                 await instance.post("worship/createLatestWorships", payload)
                 .then((res) => {
                     console.log("latest worships:", res.data);
@@ -132,7 +131,6 @@ export const useWorshipStore = defineStore("worship", {
                     this.toggleLoading(false);
 
                     alert("신규 예배 데이터 등록 성공!");
-
                 })
             } catch (error) {
                 /* 로딩 end */

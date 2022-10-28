@@ -66,7 +66,7 @@
                     <span class="px-1.5 py-0.5 left-2.5 top-1 rounded-lg bg-gray-900/80 text-[.7rem] 2xl:text-[.9rem] text-white font-bold">2022.09.25</span>
                     <h1 class="mt-[0.5rem] mb-[2.5rem] py-0.5 text-[#FF2E63] text-center w-1/3 md:w-1/2 rounded-lg bg-[#F8F3D4] text-[.6rem] md:text-[.6rem] 2xl:text-[.7rem] 3xl:text-[1.3rem] font-semibold">오늘의 주보</h1>
                     <p class="text-[.7rme] 2xl:text-[.8rem] text-transparent">_</p>
-                    <a href="" class="items-center text-[.7rem] underline">자세히 보기<i class="fas fa-arrow-right"></i></a>
+                    <router-link :to="{name: 'bulletins'}" class="items-center text-[.7rem] underline">전체 주보 보기<i class="fas fa-arrow-right ml-1.5"></i></router-link>
                 </div>
                 <!-- End Of Bulletin Image -->
             </div>
