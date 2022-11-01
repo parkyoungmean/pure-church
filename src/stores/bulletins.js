@@ -18,6 +18,36 @@ export const useBulletinStore = defineStore("bulletin", {
     getters: {
     },
     actions: {
+        /* create Bulletins */
+        async cretaeBulletin(payload) {
+            try {
+                payload.createdAt = dayjs().add(9, "hour");
+                payload.updatedAt = "1000-01-01T00:00:00.000";
+
+                await instance.post("bulletin/createBulletin", payload)
+                .then((res) => {
+                    console.log("new bulletin:", res.data);
+
+                    let bulletin = {
+                        id: res.data.id,
+                        imgs01: JSON.parse(payload.imgs01),
+                        imgs02: JSON.parse(payload.imgs02),
+                        title: payload.title,
+                        category: payload.category,
+                        belong: payload.belong,
+                        createdAt: res.data.created_time,
+                        convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
+                        updatedAt: payload.updatedAt,
+                    }
+
+                    this.bulletins.unshift(bulletin);
+                    alert("주보 등록 성공!");
+                })
+            } catch (error) {
+                alert("새 주보 등록이 실패하였습니다.ㅜㅜ");
+                console.error("New Bulletin's Create 에러", error);
+            }
+        },
         /* read Bulletins */
         async fetchBulletins() {
             try {

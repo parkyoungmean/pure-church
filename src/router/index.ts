@@ -120,6 +120,17 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {
+    path: '/bulletinregistration',
+    name: 'bulletinregistration',
+    component: () => import(/* webpackChunkName: "bulletinRegistration" */ '../components/Bulletin/BulletinRegistration.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
   /* 학교관리 */
   {
     path: '/schools',

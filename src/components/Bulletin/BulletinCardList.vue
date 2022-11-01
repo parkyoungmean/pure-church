@@ -4,6 +4,7 @@
         <div class="right flex justify-end items-center text-xs md:text-lg">
             <div
             v-show="is_login ? true : false"
+            @click="bulletinFormOpen()"
             class="
                 button
                 flex
@@ -64,10 +65,14 @@ export default {
             store.fetchBulletins();
         })
 
+        const bulletinFormOpen = () => {
+            router.push("bulletinregistration");
+        }
 
         return {
             bulletins,
             is_login: computed(() => vuexStore.state.is_login),
+            bulletinFormOpen,
         }
     }
 }
