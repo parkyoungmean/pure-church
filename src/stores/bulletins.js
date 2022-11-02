@@ -14,10 +14,16 @@ const instance = axios.create({
 export const useBulletinStore = defineStore("bulletin", {
     state: () => ({
         bulletins: null,
+        currentBulletin: null,
     }),
     getters: {
     },
     actions: {
+        /* select Current Bulletin */
+        async selectedBulletin(payload) {
+            const index = this.bulletins.findIndex((element) => element.id === payload);
+            this.currentBulletin = this.bulletins[index];
+        },
         /* create Bulletins */
         async cretaeBulletin(payload) {
             try {
@@ -39,7 +45,7 @@ export const useBulletinStore = defineStore("bulletin", {
                         convertedAt: dayjs(payload.createdAt).format("YYYY년 MM월 DD일"),
                         updatedAt: payload.updatedAt,
                     }
-
+                    
                     this.bulletins.unshift(bulletin);
                     alert("주보 등록 성공!");
                 })

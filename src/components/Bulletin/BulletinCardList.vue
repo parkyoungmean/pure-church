@@ -31,7 +31,7 @@
         <!-- Image List -->
         <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 py-6">
             <div v-for="b in bulletins" :key="b.id" class="group">
-                <div  class="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
+                <div @click="bulletinDetailOpen(b.id)" class="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
                     <img v-if="b.imgs.length!==0" :src="`${b.imgs[0].link}`" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
                     <img v-else src="https://bit.ly/placeholder-img" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
                 </div>
@@ -69,10 +69,17 @@ export default {
             router.push("bulletinregistration");
         }
 
+        const bulletinDetailOpen = (id) => {
+            console.log(id);
+            store.selectedBulletin(id);
+            router.push("/bulletindetail");
+        }
+
         return {
             bulletins,
-            is_login: computed(() => vuexStore.state.is_login),
             bulletinFormOpen,
+            bulletinDetailOpen,
+            is_login: computed(() => vuexStore.state.is_login),
         }
     }
 }
