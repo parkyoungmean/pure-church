@@ -69,6 +69,7 @@
                             수정
                         </button>
                         <button
+                            @click="deleteBulletin"
                             class="
                             inline-flex
                             justify-center
@@ -130,9 +131,24 @@ export default {
             router.push("/bulletinedit");
         };
 
+        /* Delete Bulletin */
+        const deleteBulletin = () => {
+            const id = store.currentBulletin.id;
+
+            if (confirm("정말 삭제합니까?")) {
+
+                store.deleteBulletin(id).then(() => {
+                    router.go(-1);
+                });
+            } else {
+                alert("취소되었습니다.");
+            }
+        };
+
         return {
             bulletin,
             editBulletinForm,
+            deleteBulletin,
             is_login: computed(() => vuexStore.state.is_login),
         }
     }

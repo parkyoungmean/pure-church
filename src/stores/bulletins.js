@@ -105,5 +105,23 @@ export const useBulletinStore = defineStore("bulletin", {
                 console.error("bulletin's Update 에러:", error);
             }
         },
+        /* Delete Bulletin */
+        async deleteBulletin(payload) {
+            try {
+                await instance
+                    .post("bulletin/deleteBulletin", {
+                        id: payload,
+                    })
+                    .then((res) => {
+                    console.log("data:", res.data);
+                    
+                    console.log("주보가 삭제되었습니다.");
+                    alert("주보 삭제 성공!");
+                    });
+            } catch (error) {
+                alert("주보 삭제가 실패하였습니다ㅜㅜ");
+                console.error("Bulletin's Delete 에러:", error);
+            }
+        },
     }
 })
