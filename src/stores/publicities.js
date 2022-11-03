@@ -35,7 +35,7 @@ export const usePublicityStore = defineStore("publicity", {
     /* create Slide Publicity */
     async createPublicity(payload) {
       try {
-        payload.createdAt = dayjs();
+        payload.createdAt = dayjs().add(9, "hour");
         payload.updatedAt = "1000-01-01T00:00:00.000";
 
         await instance
@@ -110,7 +110,7 @@ export const usePublicityStore = defineStore("publicity", {
     /* udpate Slide Publicity */
     async updatePublicity(payload) {
       try {
-        payload.updatedAt = dayjs();
+        payload.updatedAt = dayjs().add(9, "hour");
 
         await instance
           .post("publicity/updatePublicity", payload)

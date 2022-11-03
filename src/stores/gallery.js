@@ -34,7 +34,7 @@ export const useGalleryStore = defineStore("gallery", {
         /* create Gallery */
         async createGallery(payload) {
             try {
-                payload.createdAt = dayjs();
+                payload.createdAt = dayjs().add(9, "hour");
                 payload.updatedAt = "1000-01-01T00:00:00.000";
 
                 await instance.post("gallery/createGallery", payload)
@@ -99,7 +99,7 @@ export const useGalleryStore = defineStore("gallery", {
         /* update Gallery */
         async updateGallery(payload) {
             try {
-                payload.updatedAt = dayjs();
+                payload.updatedAt = dayjs().add(9, "hour");
 
                 await instance.post("gallery/updateGallery", payload)
                 .then((res) => {
@@ -108,7 +108,7 @@ export const useGalleryStore = defineStore("gallery", {
                     alert("갤러리 수정 성공!");
                 })
             } catch (error) {
-                alert("새 갤러리 수정이 실패하였습니다.ㅜㅜ");
+                alert("갤러리 수정이 실패하였습니다.ㅜㅜ");
                 console.error("Gallery's Update 에러:", error);
             }
         },

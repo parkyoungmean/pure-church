@@ -89,5 +89,21 @@ export const useBulletinStore = defineStore("bulletin", {
                 console.error(error);
             }
         },
+        /* update Bulletin */
+        async updateBulletin(payload) {
+            try {
+                payload.updatedAt = dayjs().add(9, "hour");
+
+                await instance.post("bulletin/updateBulletin", payload)
+                .then((res) => {
+                    console.log("bulletin:", res.data);
+
+                    alert("주보 수정 성공!");
+                })
+            } catch (error) {
+                alert("주보 수정이 실패하였습니다.ㅜㅜ");
+                console.error("bulletin's Update 에러:", error);
+            }
+        },
     }
 })

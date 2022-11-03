@@ -144,6 +144,18 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 주보 수정 */
+  {
+    path: '/bulletinedit',
+    name: 'bulletinedit',
+    component: () => import(/* webpackChunkName: "bulletinEdit" */ '../components/Bulletin/BulletinEdit.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = false;
+      next();
+    }
+  },
   /* 학교관리 */
   {
     path: '/schools',

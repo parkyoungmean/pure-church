@@ -309,7 +309,7 @@ export const useWorshipStore = defineStore("worship", {
         /* update Worship */
         async updateWorship(payload) {
             try {
-                payload.updatedAt = dayjs();
+                payload.updatedAt = dayjs().add(9, "hour");
 
                 await instance.post("worship/updateWorship", payload)
                 .then((res) => {
