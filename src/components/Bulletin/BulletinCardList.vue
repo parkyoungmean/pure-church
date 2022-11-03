@@ -34,9 +34,13 @@
                 <div @click="bulletinDetailOpen(b.id)" class="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
                     <img v-if="b.imgs.length!==0" :src="`${b.imgs[0].link}`" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
                     <img v-else src="https://bit.ly/placeholder-img" layout="fill" objcetFit="cover" alt="" class="group-hover:opacity-75">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center px-5 xl:px-3 text-center translate-y-[40%]">
+                        <h1 class="text-xl font-bold text-white">{{b.title}}</h1>
+                        <!-- <p class="text-lg italic text-white mb-3">{{b.convertedAt}}</p> -->
+                    </div>
                 </div>
-                <!-- <h3 class="mt-2 text-lg font-medium text-gray-700">{{ g.title }}</h3> -->
-                <!-- <p class="mt-1 text-sm text-gray-700">{{ g.author }} | {{ g.convertedAt }} </p> -->
             </div>
         </div>
     </div>
