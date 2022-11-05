@@ -103,7 +103,7 @@ export default {
       { id: 2, name: "사역 소개", link: "#introduce" },
       { id: 3, name: "순전한 학교", link: "#school" },
       { id: 4, name: "공지 및 후원", link: "#notices" },
-      { id: 5, name: "기타", link: "#etc" },
+      { id: 5, name: "찾아오시는 길", link: "#directions" },
     ];
 
     function menuOpen() {

@@ -174,7 +174,85 @@
     </div>
   </section>
 
-  <section id="etc" class="min-h-screen bg-red-100"></section>
+  <section id="directions" class="min-h-screen">
+    <div class="w-full min-h-screen font-sans bg-gradient-to-br from-red-100 bg-red-400/80 text-gray-900">
+      <main class="md:py-16 mx-auto">
+        <div>
+          <div>
+            <h1 class="text-center text-5xl font-bold text-gray-500 pt-20 pb-10">
+              찾아오시는 길
+            </h1>
+          </div>
+        </div>
+        <div
+          x-data="{
+              openTab: 1,
+              activeClasses: 'border-l border-t border-r rounded-t bg-epic-blue text-white',
+              inactiveClasses: 'text-blue-500 hover:text-blue-800'
+            }"
+          class="mx-auto p-2 md:p-6 xl:max-w-3xl 3xl:max-w-[1200px]"
+        >
+          <ul class="flex border-b">
+            <li x-on:click.prevent="openTab = 1" x-bind:class="{ '-mb-px' : openTab === 1 }" class="mr-1">
+              <a x-bind:class="openTab===1 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold">도봉 순전한 교회</a>
+            </li>
+            <li x-on:click.prevent="openTab = 2" x-bind:class="{ '-mb-px' : openTab === 2 }" class="mr-1">
+              <a x-bind:class="openTab===2 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold">강남 순전한 교회</a>
+            </li>
+          </ul>
+          <div class="w-full bg-white md:p-2">
+            <div x-show="openTab === 1" class="flex bg-white p-2 xl:max-w-7xl 3xl:max-w-[1200px]">
+              <!-- mobile -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1219.3528879896444!2d127.04852348942906!3d37.68372299385271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cb969d04257ff%3A0x920ba337bbb75130!2z7Iic7KCE7ZWc6rWQ7ZqM!5e0!3m2!1sko!2skr!4v1667637251548!5m2!1sko!2skr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="block md:hidden m-auto"></iframe>
+              <!-- md -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d789.3817419820364!2d127.04900592930565!3d37.6838214600812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cb969d04257ff%3A0x920ba337bbb75130!2z7Iic7KCE7ZWc6rWQ7ZqM!5e0!3m2!1sko!2skr!4v1667522478237!5m2!1sko!2skr" width="700" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="hidden md:block m-auto xl:max-w-7xl 3xl:w-[1200px]"></iframe>
+            </div>
+            <div x-show="openTab === 2" class="flex bg-white p-2 xl:max-w-7xl 3xl:max-w-[1200px]">
+              <!-- mobile -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.5771403422095!2d127.03882361492438!3d37.470704837369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca6cd473658ed%3A0x3d26a3df7f0c3c2d!2z7J207JWI!5e0!3m2!1sko!2skr!4v1667636990082!5m2!1sko!2skr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="block md:hidden m-auto"></iframe>
+              <!-- md -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1583.288657709213!2d127.03966098954783!3d37.470700704619354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca6cd473658ed%3A0x3d26a3df7f0c3c2d!2z7J207JWI!5e0!3m2!1sko!2skr!4v1667632535554!5m2!1sko!2skr" width="700" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="hidden md:block m-auto xl:max-w-7xl 3xl:w-[1200px]"></iframe>
+            </div>
+          </div>
+          <div x-show="openTab === 1" class="traffic-info">
+            <div class="p-3 space-y-4 text-xs md:text-sm">
+              <p class="text-[1rem] md:text-[1.5rem] font-bold">지하철역</p>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">도봉산역</p><span class="rounded-full bg-[#0052A4] text-white md:px-1.5 w-4 md:w-5 h-4 md:h-5 text-center">1</span><span class="rounded-full bg-[#747F00] text-white md:px-1.5 w-4 h-4 md:w-5 md:h-5 text-center">7</span> | 3번 출구 <p class="text-red-600">도보 12분</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">도봉역</p><span class="rounded-full bg-[#0052A4] text-white md:px-1.5 w-4 md:w-5 h-4 md:h-5 text-center">1</span> | 1번 출구 <p class="text-red-600">도보 12분</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">수락산역</p><span class="rounded-full bg-[#747F00] text-white md:px-1.5 w-4 md:w-5 h-4 md:h-5 text-center">7</span> | 5번 출구 <p class="text-red-600">도보 18분</p></div>
+            </div>
+            <div class="p-3 space-y-4 text-xs md:text-sm mt-1 md:mt-3">
+              <p class="text-[1rem] md:text-[1.5rem] font-bold">버스정류장</p>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">한신아파트후문</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">유원극동아파트</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">도봉파크빌2단지앞</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">도봉파크빌2단지</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">극동유원아파트후문</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">도봉스카이돔,삼성서...</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">누원고등학교,한신아...</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">도봉 09</p></div>
+            </div>
+          </div>
+          <div x-show="openTab === 2" class="traffic-info">
+            <div class="p-3 space-y-4 text-xs md:text-sm">
+              <p class="text-[1rem] md:text-[1.5rem] font-bold">지하철역</p>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">양재시민의숲역</p><span class="rounded-full bg-[#D4003B] text-white w-10 h-4 md:w-15 md:h-5 text-center">신분당</span> | 2번 출구 <p class="text-red-600">도보 4분</p></div>
+            </div>
+            <div class="p-3 space-y-4 text-xs md:text-sm mt-1 md:mt-3">
+              <p class="text-[1rem] md:text-[1.5rem] font-bold">버스정류장</p>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">매헌초교</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">서초 18</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">소방서앞</p><span class="rounded-md bg-blue-600 text-white px-1 text-center">간선</span><p class="">400 | 405 | 421</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">서초 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">양재119안전센터앞</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">서초 09</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">양재2동주민센터.양재꽃시장</p><span class="rounded-md bg-blue-600 text-white px-1 text-center">간선</span><p class="">140 | 400 | 405 | 421 | 440 | 441 | 452 | 470 </p><span class="rounded-md bg-green-500 text-white px-1 text-center">지선</span><p class="">0411 | 4432</p><span class="rounded-md bg-cyan-500 text-white px-1 text-center">일반</span><p class="">11-3 | 6 | 917</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">시민의숲.양재꽃시장</p><span class="rounded-md bg-red-400 text-white px-1 text-center">광역</span><p class="">9404 | 9408 | 9409 | 9500 | 9501 | 9711 | 9802</p><span class="rounded-md bg-red-400 text-white px-1 text-center">직행</span><p class="">1550 | 1570 | 3002 |3002(예약) | 3007 | 3007(예약) | 3030 | 3800 | 9202 | 9400 | 9800</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">양재근린공원</p><span class="rounded-md bg-green-500 text-white px-1 text-center">마을</span><p class="">서초 18</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">시민의숲.양재꽃시장</p><span class="rounded-md bg-red-400 text-white px-1 text-center">광역</span><p class="">9100 | 9200 | 9201 | 9300 | 9404 | 9408 | 9409</p><span class="rounded-md bg-red-400 text-white px-1 text-center">직행</span><p class="">1005 | 1006 | 1101 | 1101N | 1151 | 1311</p><span class="rounded-md bg-purple-500 text-white px-1 text-center">시외</span><p class="">700 | 700-1</p></div>
+              <div class="flex gap-1 items-center"><p class="text-blue-500">AT센터.양재꽃시장(22298)</p><span class="rounded-md bg-blue-600 text-white px-1 text-center">간선</span><p class="">140 | 400 | 405 | 421 | 440 | 441 | 452 | 470 </p><span class="rounded-md bg-green-500 text-white px-1 text-center">지선</span><p class="">0411 | 4432</p><span class="rounded-md bg-cyan-500 text-white px-1 text-center">일반</span><p class="">11-3 | 6 | 917</p></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
 </template>
 
 <script>
