@@ -63,7 +63,8 @@
           >{{ link.name }}</a
         >
       </li>
-      <router-link @click="ToggleLogin()" to="/userhome"
+      <!-- <router-link @click="ToggleLogin()" to="/userhome" -->
+      <router-link to="/login"
         class="
           flex
           bg-green-400
