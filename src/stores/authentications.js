@@ -22,7 +22,7 @@ export const useAuthStore = defineStore("bulletin", {
                 await instance.post("auth/login", {
                     email: payload.email,
                     password: payload.password,
-                }, {withCredentials: true})
+                })
                 .then((res) => {
                     console.log("token:", res.data.token);
                     console.log("eamil:", res.data.email);
