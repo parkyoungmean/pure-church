@@ -62,9 +62,11 @@
 <script>
 /* eslint-disable */
 import { computed } from "vue";
+import router from '@/router';
 import { useStore } from "vuex";
 import { useUserStore } from "./stores/users";
 import { useWorshipStore } from "./stores/worships";
+import { useAuthStore } from "./stores/authentications";
 import { useImageStore } from "./stores/images";
 import SimpleNavbar from "./components/SimpleNavbar.vue";
 import SimpleHome from "./components/SimpleHome.vue";
@@ -88,10 +90,32 @@ export default {
     const store = useUserStore();
     const imgStore = useImageStore();
     const worshipStore = useWorshipStore();
+    const authStore = useAuthStore();
 
     const toggleModal = () => {
       store.toggleModal();
     };
+
+    /* 인증(Account) */
+    const account = computed(() => {
+
+      authStore.account().then(() => {
+        console.log('authStore.me:', authStore.me)
+        if (authStore.me) {
+            router.push("/userhome");
+            vuexStore.state.is_login = true;
+        }
+      });
+
+      return authStore.me;
+    })
+
+    if (account.value) {
+      console.log('account:', account.value)
+      vuexStore.state.is_login = true;
+    } else {
+      vuexStore.state.is_login = false;
+    }
 
     return {
       is_login: computed(() => vuexStore.state.is_login),

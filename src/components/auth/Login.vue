@@ -101,12 +101,15 @@
 </template>
 
 <script>
+import router from '@/router';
 import { computed, ref } from 'vue'
+import { useStore } from "vuex";
 import { useAuthStore } from "../../stores/authentications";
 
 export default {
     setup () {
-        const store = useAuthStore();
+        const store = useStore();
+        const authStore = useAuthStore();
 
         const valid = ref(false);
         const error = ref(false);
@@ -143,8 +146,11 @@ export default {
                 password: password.value,
             }
 
-            store.login(admin).then(() => {
-
+            authStore.login(admin).then(() => {
+                if (authStore.me) {
+                    router.push("/userhome");
+                    store.state.is_login = true;
+                }
             });
         }
         

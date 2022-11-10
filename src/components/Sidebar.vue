@@ -89,7 +89,7 @@
                                         </li>
                                     </ul>
                                     <!-- 비로그인 메뉴 버튼 만들기 -->
-                                    <div @click="ToggleLogin()" class="border-t px-6 py-8 md:px-12 md:py-16 lg:border-t-0 lg:border-l lg:py-0 lg:pr-6 lg:pl-6">
+                                    <div @click="logout()" class="border-t px-6 py-8 md:px-12 md:py-16 lg:border-t-0 lg:border-l lg:py-0 lg:pr-6 lg:pl-6">
                                         <router-link to="/" class="block px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 md:text-sm text-center text-white"><span style="vertical-align: middle;" class="relative material-icons mr-1">logout</span>로그아웃</router-link>
                                     </div>
                                 </div>
@@ -106,21 +106,26 @@
 <script>
 /* eslint-disable */
 import { computed } from "vue";
+import router from '@/router';
 import { useStore } from "vuex";
+import { useAuthStore } from "../stores/authentications";
 
 export default {
   components: {
   },
   setup() {
     const store = useStore();
+    const authStore = useAuthStore();
 
-    const ToggleLogin = () => {
+    const logout = () => {
+        authStore.logout();
+        router.push("/");
         store.dispatch('ToggleLogin')
     }
 
     return {
       is_login: computed(() => store.state.is_login),
-      ToggleLogin
+      logout,
     };
   },
 };

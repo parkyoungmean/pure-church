@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useUserStore } from "../stores/users";
+import { useAuthStore } from "../stores/authentications";
+import { useStore } from "vuex";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +37,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
+      store.hide_nav = true;
       store.show_sidebar = true;
       next();
     }
