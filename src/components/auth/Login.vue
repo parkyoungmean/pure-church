@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto w-full xl:max-w-7xl 2xl:max-w-[1640px] px-3 sm:px-6 md:px-8 md:px-12 bg-gray-200">
+    <div class="mx-auto w-full xl:max-w-7xl 2xl:max-w-[1640px] 5xl:max-w-[1920px] px-3 sm:px-6 md:px-8 md:px-12 bg-gray-200">
         <div class="flex justify-end pt-3">
             <button
                 @click="$router.go(-1)"
@@ -20,10 +20,10 @@
             </button>
         </div>
         <div class="flex min-h-screen items-center justify-center py-6 sm:py-12">
-            <div class="max-w-3xl mx-auto overflow-hidden rounded-md bg-white shadow">
+            <div class="max-w-3xl xl:max-w-6xl 5xl:max-w-[1640px] mx-auto overflow-hidden rounded-md bg-white shadow">
                 <div class="grid grid-cols-2">
                     <div class="relative col-span-1 hidden md:block">
-                        <div class="absolute inset-0 bg-gray-800/30"></div>
+                        <div class="absolute inset-0 bg-gray-800/10"></div>
                         <img src="https://i.imgur.com/X9C48XN.jpg" alt="" class="h-full w-full object-cover">
                     </div>
                     <div class="col-span-2 md:col-span-1 p-8">
@@ -89,6 +89,11 @@
                                 </div>
                                 <div>
                                     <a class="text-sm fot-medium text-blue-600 hover:text-blue-500">비밀번호를 잊어버리셨습니까?</a>
+                                </div>
+                                <div class="text-center underline">
+                                    <router-link to="/signup" class="text-sm fot-medium text-blue-600 hover:text-blue-500">
+                                    회원가입
+                                    </router-link>
                                 </div>
                             </form>
                             <!-- END OF LOGIN FORM -->

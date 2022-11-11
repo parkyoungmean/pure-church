@@ -28,6 +28,17 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/signup',
+    name: 'signup',
+    component: () => import(/* webpackChunkName: "signup" */ '../components/auth/Signup.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.hide_nav = true;
+      next();
+    }
+  },
+  {
     path: '/userhome',
     name: 'userhome',
     // route level code-splitting
