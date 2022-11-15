@@ -14,6 +14,7 @@ const instance = axios.create({
 export const useAuthStore = defineStore("bulletin", {
     state: () => ({
         me: null,
+        signupSuccess: false,
     }),
     actions: {
         /* Login */
@@ -37,6 +38,30 @@ export const useAuthStore = defineStore("bulletin", {
                 alert("로그인이 실패하였습니다ㅜㅜ");
                 console.error("Login 에러:", error);
             }
+        },
+        /* Signup */
+        async signup(payload) {
+            try {
+                await instance.post("auth/signup", {
+                    email: payload.email,
+                    password: payload.password,
+                    name: payload.name,
+                    phoneNumber: "",
+                    avatar: "user.png",
+                    role: "준회원",
+                    bookmark: "",
+                    createdAt: dayjs().add(9, "hour"),
+                    updatedAt: "1000-01-01T00:00:00.000",
+                  })
+                  .then((res) => {
+                    console.log("New Member:", res.data);
+                    this.signupSuccess = res.data.signupSuccess;
+                    alert(res.data.message);
+                  });
+              } catch (error) {
+                alert("회원가입이 실패하였습니다ㅜㅜ");
+                console.error("Signup 에러:", error);
+              }
         },
         /* Logout */
         async logout() {

@@ -278,7 +278,6 @@ export default {
         const formData = reactive({
             email: '',
             name: '',
-            gender: '',
             password: '',
             passwordCheck: '',
         })
@@ -320,31 +319,15 @@ export default {
         
         const onSubmit = async () => {
             const result = await v$.value.$validate();
-            
-            /* 필수 입력 검사 */
-            /* if (email.value === '') {
-                alert("이메일을 입력해주세요!")
-                error.value = true;
-                return;
-            }
 
-            if (name.value === '') {
-                alert("이름을 입력해주세요!")
-                error.value = true;
-                return;
+            if (result) {
+                authStore.signup(formData)
+                .then(() => {
+                    if (authStore.signupSuccess) {
+                        router.replace("/");
+                    }
+                })
             }
-
-            if (password.value === '') {
-                alert("비밀번호를 입력해주세요!")
-                error.value = true;
-                return;
-            }
-
-            if (passwordCheck.value === '') {
-                alert("비밀번호 확인을 입력해주세요!")
-                error.value = true;
-                return;
-            } */
         }
 
         return {
