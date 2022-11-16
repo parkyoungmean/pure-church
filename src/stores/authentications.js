@@ -11,10 +11,11 @@ const instance = axios.create({
     baseURL: process.env.VUE_APP_API_URL,
 });
 
-export const useAuthStore = defineStore("bulletin", {
+export const useAuthStore = defineStore("authentication", {
     state: () => ({
         me: null,
         signupSuccess: false,
+        loginSuccess: false,
     }),
     actions: {
         /* Login */
@@ -26,13 +27,19 @@ export const useAuthStore = defineStore("bulletin", {
                 })
                 .then((res) => {
                     console.log("token:", res.data.token);
-                    console.log("eamil:", res.data.email);
-                    console.log("name:", res.data.name);
+                    console.log("me:", res.data.data);
 
-                    this.me = res.data;
-                    localStorage.setItem("token", JSON.stringify(res.data.token));
+                    this.loginSuccess = res.data.loginSuccess;
+
+                    if (this.loginSuccess) {
+                        this.me = res.data.data;
+                        localStorage.setItem("token", JSON.stringify(res.data.token));
                     
-                    alert("로그인 성공!");
+                        alert(res.data.message);
+                    } else {
+                        alert(res.data.message);
+                    }
+                    
                 });
             } catch (error) {
                 alert("로그인이 실패하였습니다ㅜㅜ");

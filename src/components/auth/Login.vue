@@ -87,14 +87,14 @@
                                 <div>
                                     <button class="w-full rounded-md bg-blue-500 py-2 px-4 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">로그인하기</button>
                                 </div>
-                                <div>
-                                    <a class="text-sm fot-medium text-blue-600 hover:text-blue-500">비밀번호를 잊어버리셨습니까?</a>
-                                </div>
                                 <div class="text-center underline">
                                     <router-link to="/signup" class="text-sm fot-medium text-blue-600 hover:text-blue-500">
                                     회원가입
                                     </router-link>
                                 </div>
+                                <!-- <div>
+                                    <a class="text-sm fot-medium text-blue-600 hover:text-blue-500">비밀번호를 잊어버리셨습니까?</a>
+                                </div> -->
                             </form>
                             <!-- END OF LOGIN FORM -->
                         </div>
