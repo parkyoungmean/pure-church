@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
-      store.show_sidebar = true;
+      store.show_sidebar = false;
       next();
     }
   },
@@ -181,7 +181,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
-  /* 학교관리 */
+  /* 학교 관리 */
   {
     path: '/schools',
     name: 'schools',
@@ -206,6 +206,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 학교 등록 */
   {
     path: '/schoolregistration',
     name: 'schoolregistration',
@@ -217,6 +218,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 학교 수정 */
   {
     path: '/schooledit',
     name: 'schooledit',
@@ -265,6 +267,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 공지사항 등록 */
   {
     path: '/noticeregistration',
     name: 'noticeregistration',
@@ -276,6 +279,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 공지사항 수정 */
   {
     path: '/noticeedit',
     name: 'noticeedit',
@@ -295,10 +299,11 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: (to, from, next) => {
       // ...
       const store = useUserStore();
-      store.show_sidebar = true;
+      store.show_sidebar = false;
       next();
     }
   },
+  /* 광고 등록 */
   {
     path: '/publicityregistration',
     name: 'publicityregistration',
@@ -310,6 +315,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 광고 수정 */
   {
     path: '/publicityedit',
     name: 'publicityedit',
@@ -333,6 +339,7 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  /* 갤러리 등록 */
   {
     path: '/galleryregistration',
     name: 'galleryregistration',
@@ -366,6 +373,18 @@ const routes: Array<RouteRecordRaw> = [
       // ...
       const store = useUserStore();
       store.show_sidebar = false;
+      next();
+    }
+  },
+  /* 설정 */
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "publicities" */ '../views/SettingsView.vue'),
+    beforeEnter: (to, from, next) => {
+      // ...
+      const store = useUserStore();
+      store.show_sidebar = true;
       next();
     }
   },

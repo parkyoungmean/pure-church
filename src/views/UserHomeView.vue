@@ -6,7 +6,7 @@
       :space-between="0"
       :loop="false"
       :autoplay="{
-        delay: 800,
+        delay: 8000,
         disableOnInteraction: false,
       }"
       :speed="2000"
@@ -640,7 +640,7 @@ p {
 .bg_mycard {
   /* height: 17.5rem;
   width: 12.5rem; */
-  background-image: url(https://i.imgur.com/tJghX0Z.jpg);
+  /* background-image: url(https://i.imgur.com/tJghX0Z.jpg); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

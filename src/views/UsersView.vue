@@ -1,7 +1,27 @@
 <template>
   <div class="bg-gray-100 dark:bg-gray-800">
     <div class="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
-      <div class="p-4 sm:p-12 lg:p-10 mt-20 md:mt-10 w-full">
+      <div class="p-4 sm:p-12 lg:p-10 w-full">
+        <!-- Close Button -->
+        <div class="flex justify-end p-3 md:p-6">
+            <button
+            @click="$router.go(-1)"
+            class="
+                text-blue-400
+                top-5
+                right-0
+                h-7
+                w-7
+                text-2xl
+                font-semibold
+                justify-center
+                items-center
+                focus:outline-none
+            "
+            >
+            <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
         <div class="max-h-full h-full flex flex-row">
           <!-- LEFT USERS LIST -->
           <aside

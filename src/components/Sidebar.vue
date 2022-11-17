@@ -45,12 +45,12 @@
                                                 <span class="relative group-hover:text-blue-800">순전한 학교</span>
                                             </router-link>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <router-link  to="/groups" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">groups</span>
                                                 <span class="relative group-hover:text-blue-800">사역팀</span>
                                             </router-link>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <router-link to="/gallery" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">photo_library</span>
@@ -63,13 +63,13 @@
                                                 <span class="relative group-hover:text-blue-800">공지사항</span>
                                             </router-link>
                                         </li>
-                                        <!-- <li>
+                                        <li>
                                             <router-link to="/settings" class="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2">settings</span>
                                                 <span class="relative group-hover:text-blue-800">설정</span>
                                             </router-link>
-                                        </li> -->
-                                        <li>
+                                        </li>
+                                        <!-- <li>
                                             <router-link to="/users" class="group border-t pt-3 lg:border-t-0 lg:border-l lg:pl-8 relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-blue-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">manage_accounts</span>
                                                 <span class="relative group-hover:text-blue-800">학생관리</span>
@@ -86,7 +86,7 @@
                                                 <span style="vertical-align: middle;" class="relative material-icons mr-2 text-2xl">settings_applications</span>
                                                 <span class="relative group-hover:text-blue-800">광고관리</span>
                                             </router-link>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <!-- 비로그인 메뉴 버튼 만들기 -->
                                     <div @click="logout()" class="border-t px-6 py-8 md:px-12 md:py-16 lg:border-t-0 lg:border-l lg:py-0 lg:pr-6 lg:pl-6">
