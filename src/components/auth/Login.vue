@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center">
-                                    <input type="checkbox" id="remember-me" name="remember-me" class="rounded">
+                                    <input v-model="autoLogin" type="checkbox" id="remember-me" name="remember-me" class="rounded">
                                     <label for="remember-me" class="ml-2 block text-sm text-gray-700">로그인 유지</label>
                                 </div>
                                 <div>
@@ -122,6 +122,7 @@ export default {
         const email = ref('');
         const password = ref('');
         const showPassword = ref(false);
+        const autoLogin = ref(false);
         
         const invalidEmail = computed(() => {
             return email.value === ''
@@ -149,6 +150,7 @@ export default {
             const admin = {
                 email: email.value,
                 password: password.value,
+                autoLogin: autoLogin.value,
             }
 
             authStore.login(admin).then(() => {
@@ -165,6 +167,7 @@ export default {
             success,
             email,
             password,
+            autoLogin,
             showPassword,
             invalidEmail,
             invalidPassword,

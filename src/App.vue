@@ -123,6 +123,8 @@ export default {
       loadingContent: computed(() => imgStore.loadingContent),
       isLoading: computed(() => worshipStore.isLoading),
       loadingContent: computed(() => worshipStore.loadingContent),
+      isLoading: computed(() => authStore.isLoading),
+      loadingContent: computed(() => authStore.loadingContent),
       user_mode: computed(() => store.user_mode),
       open_modal: computed(() => store.open_modal),
       open_worship_modal: computed(() => worshipStore.open_modal),

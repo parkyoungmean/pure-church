@@ -282,7 +282,6 @@ export default {
             passwordCheck: '',
         })
 
-
         const rules = computed(() => {
             return {
                 email: { required, email },
@@ -316,7 +315,6 @@ export default {
             return formData.passwordCheck === ''
         })
 
-        
         const onSubmit = async () => {
             const result = await v$.value.$validate();
 
